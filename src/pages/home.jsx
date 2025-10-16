@@ -11,7 +11,7 @@ export default function Home(props) {
   } = props;
   const [activeTab, setActiveTab] = useState('home');
 
-  // 考试类别数据（紧凑版）
+  // 考试类别数据（大卡片版）
   const examCategories = [{
     id: 'first-grade-constructor',
     name: '一级建造师',
@@ -64,36 +64,39 @@ export default function Home(props) {
     }
   };
   return <div style={style} className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 pb-20">
-      {/* 品牌区域 - 减小高度 */}
+      {/* 品牌区域 */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 opacity-90"></div>
-        <div className="relative max-w-4xl mx-auto px-4 py-8">
+        <div className="relative max-w-4xl mx-auto px-4 py-10">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-white mb-1">广昊建工</h1>
-            <p className="text-blue-100 text-sm">专业建工考试题库</p>
+            <h1 className="text-3xl font-bold text-white mb-2">广昊建工</h1>
+            <p className="text-blue-100 text-base">专业建工考试题库</p>
           </div>
         </div>
-        {/* 简化波浪 */}
+        {/* 波浪装饰 */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-6 text-white" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <svg className="w-full h-8 text-white" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="currentColor"></path>
           </svg>
         </div>
       </div>
 
-      {/* 考试类别 - 减小间距和尺寸 */}
-      <div className="max-w-4xl mx-auto px-3 py-4">
-        <div className="grid grid-cols-2 gap-3">
+      {/* 考试类别 - 单列大卡片布局 */}
+      <div className="max-w-2xl mx-auto px-4 py-6">
+        <div className="space-y-4">
           {examCategories.map((category, index) => {
           const Icon = category.icon;
-          return <div key={category.id} onClick={() => handleCategoryClick(category)} className={`relative overflow-hidden rounded-xl border ${category.borderColor} ${category.gradient} p-3 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 group`} style={{
-            animationDelay: `${index * 50}ms`
+          return <div key={category.id} onClick={() => handleCategoryClick(category)} className={`relative overflow-hidden rounded-2xl border-2 ${category.borderColor} ${category.gradient} p-6 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 group`} style={{
+            animationDelay: `${index * 100}ms`
           }}>
-                <div className="flex flex-col items-center text-center">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-2 shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon size={20} className="text-white" />
+                <div className="flex items-center">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mr-5 shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                    <Icon size={32} className="text-white" />
                   </div>
-                  <h3 className="text-sm font-bold text-gray-800 leading-tight">{category.name}</h3>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-gray-800 mb-1">{category.name}</h3>
+                    <p className="text-sm text-gray-600">点击开始学习</p>
+                  </div>
                 </div>
               </div>;
         })}
