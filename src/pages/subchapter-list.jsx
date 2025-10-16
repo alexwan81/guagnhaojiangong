@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, BookOpen, PlayCircle, CheckCircle, Clock, Target, FileText, Building, Ruler, Zap, Layers, Puzzle, Home, Shield, Anchor } from 'lucide-react';
+import { ArrowLeft, BookOpen, PlayCircle, CheckCircle, Clock, FileText } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubchapterList(props) {
@@ -30,11 +30,8 @@ export default function SubchapterList(props) {
       importance: 'high',
       knowledgePoints: 16,
       studyHours: 3.5,
-      progress: 75,
       totalQuestions: 70,
-      completedQuestions: 53,
-      description: '建筑物分类（民用建筑、工业建筑、农业建筑）、建筑物构成体系（结构体系、围护体系、设备体系）、建筑设计要求（功能、技术、经济、美观、环保）',
-      icon: Building
+      description: '建筑物分类（民用建筑、工业建筑、农业建筑）、建筑物构成体系（结构体系、围护体系、设备体系）、建筑设计要求（功能、技术、经济、美观、环保）'
     }, {
       id: 'architecture-1-2',
       title: '1.2 建筑构造设计的基本要求',
@@ -43,11 +40,8 @@ export default function SubchapterList(props) {
       importance: 'high',
       knowledgePoints: 15,
       studyHours: 3,
-      progress: 68,
       totalQuestions: 65,
-      completedQuestions: 44,
-      description: '建筑构造设计原则、建筑构件连接构造、建筑防水构造、建筑保温隔热构造、建筑隔声构造、建筑防火构造要求',
-      icon: Layers
+      description: '建筑构造设计原则、建筑构件连接构造、建筑防水构造、建筑保温隔热构造、建筑隔声构造、建筑防火构造要求'
     }, {
       id: 'architecture-1-3',
       title: '1.3 建筑结构体系和设计作用(荷载)',
@@ -56,11 +50,8 @@ export default function SubchapterList(props) {
       importance: 'high',
       knowledgePoints: 18,
       studyHours: 4,
-      progress: 60,
       totalQuestions: 80,
-      completedQuestions: 48,
-      description: '建筑结构体系类型（框架结构、剪力墙结构、框架-剪力墙结构、筒体结构等）、设计作用（荷载）分类、荷载组合与计算、结构体系选择原则',
-      icon: Ruler
+      description: '建筑结构体系类型（框架结构、剪力墙结构、框架-剪力墙结构、筒体结构等）、设计作用（荷载）分类、荷载组合与计算、结构体系选择原则'
     }, {
       id: 'architecture-1-4',
       title: '1.4 建筑结构设计构造基本要求',
@@ -69,11 +60,8 @@ export default function SubchapterList(props) {
       importance: 'high',
       knowledgePoints: 14,
       studyHours: 3,
-      progress: 55,
       totalQuestions: 60,
-      completedQuestions: 33,
-      description: '混凝土结构构造要求、钢结构构造要求、砌体结构构造要求、结构构件连接构造、结构抗震构造措施、结构耐久性构造要求',
-      icon: Shield
+      description: '混凝土结构构造要求、钢结构构造要求、砌体结构构造要求、结构构件连接构造、结构抗震构造措施、结构耐久性构造要求'
     }, {
       id: 'architecture-1-5',
       title: '1.5 装配式建筑设计基本要求',
@@ -82,11 +70,8 @@ export default function SubchapterList(props) {
       importance: 'medium',
       knowledgePoints: 12,
       studyHours: 2.5,
-      progress: 45,
       totalQuestions: 50,
-      completedQuestions: 23,
-      description: '装配式建筑概念与分类、装配式建筑设计原则、预制构件设计、连接节点设计、装配式建筑评价标准、装配式建筑质量控制要求',
-      icon: Puzzle
+      description: '装配式建筑概念与分类、装配式建筑设计原则、预制构件设计、连接节点设计、装配式建筑评价标准、装配式建筑质量控制要求'
     }]
   };
   const getSubchapters = chapterId => {
@@ -121,23 +106,8 @@ export default function SubchapterList(props) {
     };
     return labels[importance] || '普通';
   };
-  useEffect(() => {
-    const chapterId = $w.page.dataset.params?.chapter;
-    const chapterTitle = $w.page.dataset.params?.chapterTitle;
-    if (chapterId) {
-      setChapterId(chapterId);
-      setChapterTitle(chapterTitle);
-      getSubchapters(chapterId);
-    } else {
-      toast({
-        title: '参数错误',
-        description: '未找到章节参数',
-        variant: 'destructive'
-      });
-      $w.utils.navigateBack();
-    }
-  }, [$w.page.dataset.params]);
-  const handleSubchapterClick = subchapter => {
+  const handlePracticeClick = (subchapter, event) => {
+    event.stopPropagation();
     $w.utils.navigateTo({
       pageId: 'question-practice',
       params: {
@@ -161,6 +131,22 @@ export default function SubchapterList(props) {
       });
     }
   };
+  useEffect(() => {
+    const chapterId = $w.page.dataset.params?.chapter;
+    const chapterTitle = $w.page.dataset.params?.chapterTitle;
+    if (chapterId) {
+      setChapterId(chapterId);
+      setChapterTitle(chapterTitle);
+      getSubchapters(chapterId);
+    } else {
+      toast({
+        title: '参数错误',
+        description: '未找到章节参数',
+        variant: 'destructive'
+      });
+      $w.utils.navigateBack();
+    }
+  }, [$w.page.dataset.params]);
   if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -186,89 +172,62 @@ export default function SubchapterList(props) {
         </div>
       </div>
 
-      {/* 学习统计卡片 */}
-      <div className="max-w-4xl mx-auto px-3 py-4">
-        <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800">章节学习进度</h3>
-              <p className="text-sm text-gray-600">第1章 建筑工程设计技术</p>
-            </div>
-            <div className="text-right">
-              <div className="text-2xl font-bold text-blue-600">
-                {Math.round(subchapters.reduce((sum, ch) => sum + ch.progress, 0) / subchapters.length || 0)}%
-              </div>
-              <p className="text-sm text-gray-600">
-                {subchapters.reduce((sum, ch) => sum + ch.completedQuestions, 0)} / {subchapters.reduce((sum, ch) => sum + ch.totalQuestions, 0)}题
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* 小节列表 */}
-        <div className="space-y-4">
-          {subchapters.map(subchapter => {
-          const IconComponent = subchapter.icon;
-          return <div key={subchapter.id} onClick={() => handleSubchapterClick(subchapter)} className="bg-white rounded-lg shadow-md p-4 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <IconComponent size={24} className="text-blue-600" />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-sm font-medium text-blue-600">{subchapter.section}</span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getImportanceColor(subchapter.importance)}`}>
-                        {getImportanceLabel(subchapter.importance)}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-1">
+      {/* 小节列表 */}
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="space-y-3">
+          {subchapters.map(subchapter => <div key={subchapter.id} className="bg-white rounded-lg shadow-md p-4 transition-all duration-300 hover:shadow-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-800">
                       {subchapter.title}
                     </h3>
-                    <h4 className="text-base font-medium text-gray-700 mb-2">
-                      {subchapter.subtitle}
-                    </h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      {subchapter.description}
-                    </p>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      <span className="flex items-center">
-                        <BookOpen size={14} className="mr-1" />
-                        {subchapter.knowledgePoints}个知识点
-                      </span>
-                      <span className="flex items-center">
-                        <Clock size={14} className="mr-1" />
-                        {subchapter.studyHours}小时
-                      </span>
-                      <span className="flex items-center">
-                        <FileText size={14} className="mr-1" />
-                        {subchapter.totalQuestions}题
-                      </span>
-                      <span className="flex items-center">
-                        <CheckCircle size={14} className="mr-1" />
-                        {subchapter.completedQuestions}已做
-                      </span>
-                    </div>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getImportanceColor(subchapter.importance)}`}>
+                      {getImportanceLabel(subchapter.importance)}
+                    </span>
                   </div>
-                  <div className="ml-4 text-right flex flex-col items-end">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">
-                      {subchapter.progress}%
-                    </div>
-                    <div className="w-20 h-2 bg-gray-200 rounded-full mb-2">
-                      <div className="h-2 bg-blue-600 rounded-full transition-all duration-300" style={{
-                    width: `${subchapter.progress}%`
-                  }}></div>
-                    </div>
-                    <button className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700 transition-colors flex items-center">
-                      <PlayCircle size={14} className="mr-1" />
-                      练习
-                    </button>
+                  
+                  <h4 className="text-sm font-medium text-gray-600 mb-2">
+                    {subchapter.subtitle}
+                  </h4>
+                  
+                  <p className="text-xs text-gray-500 mb-2">
+                    {subchapter.description}
+                  </p>
+                  
+                  <div className="flex items-center space-x-3 text-xs text-gray-500">
+                    <span className="flex items-center">
+                      <BookOpen size={12} className="mr-1" />
+                      {subchapter.knowledgePoints}个知识点
+                    </span>
+                    <span className="flex items-center">
+                      <Clock size={12} className="mr-1" />
+                      {subchapter.studyHours}小时
+                    </span>
+                    <span className="flex items-center">
+                      <FileText size={12} className="mr-1" />
+                      {subchapter.totalQuestions}题
+                    </span>
                   </div>
                 </div>
-              </div>;
-        })}
+                
+                {/* 练习按钮 */}
+                <button onClick={e => handlePracticeClick(subchapter, e)} className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap ml-4">
+                  <PlayCircle size={16} className="mr-1" />
+                  练习
+                </button>
+              </div>
+            </div>)}
         </div>
+
+        {/* 提示信息 */}
+        {subchapters.length === 0 && <div className="text-center py-12">
+            <div className="text-gray-400 mb-4">
+              <BookOpen size={48} className="mx-auto mb-2" />
+            </div>
+            <p className="text-gray-500 text-lg">暂无小节数据</p>
+            <p className="text-gray-400 text-sm mt-2">请检查章节选择是否正确</p>
+          </div>}
       </div>
 
       {/* 底部导航栏 */}
