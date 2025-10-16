@@ -4,6 +4,7 @@ import PRACTICE_MODE from '../pages/practice-mode.jsx';
 import CHAPTER_LIST from '../pages/chapter-list.jsx';
 import QUESTION_PRACTICE from '../pages/question-practice.jsx';
 import PROFILE from '../pages/profile.jsx';
+import FEEDBACK from '../pages/feedback.jsx';
 export const routers = [{
   id: "home",
   component: HOME
@@ -22,4 +23,7 @@ export const routers = [{
 }, {
   id: "profile",
   component: PROFILE
+}, {
+  id: "feedback",
+  component: FEEDBACK
 }]
