@@ -446,9 +446,9 @@ export default function ChapterList(props) {
               {/* 小节列表 */}
               <div className="space-y-2">
                 {chapter.subchapters.map(subchapter => <div key={subchapter.id} className="flex items-center justify-between py-1">
-                    <div className="flex-1 flex items-center">
+                    <div className="flex-1 flex items-center space-x-4">
                       {/* 小节序号和标题 */}
-                      <div className="flex items-center space-x-2 min-w-[180px]">
+                      <div className="flex items-center space-x-2 min-w-[200px]">
                         <span className="text-sm font-medium text-blue-600">
                           {subchapter.title.split(' ')[0]}
                         </span>
@@ -457,8 +457,8 @@ export default function ChapterList(props) {
                         </span>
                       </div>
                       
-                      {/* 知识点数量 - 右移对齐 */}
-                      <div className="flex items-center space-x-2 ml-auto mr-4">
+                      {/* 知识点数量 - 在同一行显示 */}
+                      <div className="flex items-center space-x-1">
                         <BookOpen size={12} className="text-gray-400" />
                         <span className="text-xs text-gray-500">
                           {subchapter.knowledgePoints}个知识点
@@ -466,7 +466,7 @@ export default function ChapterList(props) {
                       </div>
                       
                       {/* 题目数量 */}
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-1">
                         <FileText size={12} className="text-gray-400" />
                         <span className="text-xs text-gray-500">
                           {subchapter.totalQuestions}题
