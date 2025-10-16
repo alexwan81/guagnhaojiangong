@@ -19,195 +19,126 @@ export default function SubjectSelection(props) {
   const [loading, setLoading] = useState(true);
   const [examCategory, setExamCategory] = useState('');
 
-  // 课程数据（包含公共课程和专业课程）
+  // 课程数据（简化版）
   const courseData = {
     'first-grade-constructor': [{
       id: 'public-economy',
       name: '建设工程经济',
       icon: DollarSign,
-      color: 'bg-blue-600',
-      description: '公共课程 · 120题',
-      type: 'public',
-      subtitle: '工程经济、工程财务、建设工程估价'
+      color: 'bg-blue-600'
     }, {
       id: 'public-law',
       name: '建设工程法规',
       icon: Gavel,
-      color: 'bg-purple-600',
-      description: '公共课程 · 110题',
-      type: 'public',
-      subtitle: '法律法规、合同管理、施工许可'
+      color: 'bg-purple-600'
     }, {
       id: 'public-management',
       name: '建设工程项目管理',
       icon: Settings,
-      color: 'bg-green-600',
-      description: '公共课程 · 115题',
-      type: 'public',
-      subtitle: '组织管理、成本管理、进度管理'
+      color: 'bg-green-600'
     }, {
       id: 'architecture',
       name: '建筑工程',
       icon: Building,
-      color: 'bg-blue-500',
-      description: '专业课程 · 160题',
-      type: 'professional',
-      subtitle: '建筑结构、施工技术、项目管理'
+      color: 'bg-blue-500'
     }, {
       id: 'municipal',
       name: '市政公用工程',
       icon: Road,
-      color: 'bg-green-500',
-      description: '专业课程 · 150题',
-      type: 'professional',
-      subtitle: '道路、桥梁、给排水、燃气工程'
+      color: 'bg-green-500'
     }, {
       id: 'mechanical-electrical',
       name: '机电工程',
       icon: Wrench,
-      color: 'bg-purple-500',
-      description: '专业课程 · 145题',
-      type: 'professional',
-      subtitle: '机械设备、电气工程、自动化控制'
+      color: 'bg-purple-500'
     }, {
       id: 'highway',
       name: '公路工程',
       icon: Road,
-      color: 'bg-orange-500',
-      description: '专业课程 · 140题',
-      type: 'professional',
-      subtitle: '路基、路面、桥梁、隧道工程'
+      color: 'bg-orange-500'
     }, {
       id: 'water-conservancy',
       name: '水利水电工程',
       icon: Droplets,
-      color: 'bg-teal-500',
-      description: '专业课程 · 135题',
-      type: 'professional',
-      subtitle: '水工建筑物、水利工程施工'
+      color: 'bg-teal-500'
     }],
     'second-grade-constructor': [{
       id: 'public-management-2',
       name: '建设工程施工管理',
       icon: Settings,
-      color: 'bg-green-600',
-      description: '公共课程 · 95题',
-      type: 'public',
-      subtitle: '施工管理、成本管理、进度管理'
+      color: 'bg-green-600'
     }, {
       id: 'public-law-2',
       name: '建设工程法规',
       icon: Gavel,
-      color: 'bg-purple-600',
-      description: '公共课程 · 90题',
-      type: 'public',
-      subtitle: '法律法规、合同管理、施工许可'
+      color: 'bg-purple-600'
     }, {
       id: 'architecture-2',
       name: '建筑工程',
       icon: Building,
-      color: 'bg-blue-500',
-      description: '专业课程 · 120题',
-      type: 'professional',
-      subtitle: '建筑结构、施工技术、项目管理'
+      color: 'bg-blue-500'
     }, {
       id: 'municipal-2',
       name: '市政公用工程',
       icon: Road,
-      color: 'bg-green-500',
-      description: '专业课程 · 115题',
-      type: 'professional',
-      subtitle: '道路、桥梁、给排水、燃气工程'
+      color: 'bg-green-500'
     }, {
       id: 'mechanical-electrical-2',
       name: '机电工程',
       icon: Wrench,
-      color: 'bg-purple-500',
-      description: '专业课程 · 110题',
-      type: 'professional',
-      subtitle: '机械设备、电气工程、自动化控制'
+      color: 'bg-purple-500'
     }, {
       id: 'highway-2',
       name: '公路工程',
       icon: Road,
-      color: 'bg-orange-500',
-      description: '专业课程 · 105题',
-      type: 'professional',
-      subtitle: '路基、路面、桥梁、隧道工程'
+      color: 'bg-orange-500'
     }, {
       id: 'water-conservancy-2',
       name: '水利水电工程',
       icon: Droplets,
-      color: 'bg-teal-500',
-      description: '专业课程 · 100题',
-      type: 'professional',
-      subtitle: '水工建筑物、水利工程施工'
+      color: 'bg-teal-500'
     }],
     'cost-engineer': [{
       id: 'cost-management',
       name: '建设工程造价管理',
       icon: Settings,
-      color: 'bg-blue-600',
-      description: '公共课程 · 100题',
-      type: 'public',
-      subtitle: '造价管理、法律法规、项目管理'
+      color: 'bg-blue-600'
     }, {
       id: 'cost-pricing',
       name: '建设工程计价',
       icon: Calculator,
-      color: 'bg-orange-600',
-      description: '公共课程 · 110题',
-      type: 'public',
-      subtitle: '造价构成、计价依据、计价方法'
+      color: 'bg-orange-600'
     }, {
       id: 'cost-technology',
       name: '建设工程技术与计量',
       icon: Wrench,
-      color: 'bg-orange-500',
-      description: '专业课程 · 100题',
-      type: 'professional',
-      subtitle: '土木建筑工程技术、工程计量'
+      color: 'bg-orange-500'
     }, {
       id: 'cost-case',
       name: '建设工程造价案例分析',
       icon: FileText,
-      color: 'bg-red-500',
-      description: '专业课程 · 80题',
-      type: 'professional',
-      subtitle: '投资估算、财务分析、工程结算'
+      color: 'bg-red-500'
     }],
     'supervising-engineer': [{
       id: 'supervising-theory',
       name: '建设工程监理基本理论与相关法规',
       icon: Book,
-      color: 'bg-indigo-600',
-      description: '公共课程 · 95题',
-      type: 'public',
-      subtitle: '监理制度、法律法规、标准规范'
+      color: 'bg-indigo-600'
     }, {
       id: 'supervising-contract',
       name: '建设工程合同管理',
       icon: FileText,
-      color: 'bg-teal-600',
-      description: '公共课程 · 90题',
-      type: 'public',
-      subtitle: '合同管理、法律制度、示范文本'
+      color: 'bg-teal-600'
     }, {
       id: 'supervising-control',
       name: '建设工程目标控制',
       icon: Target,
-      color: 'bg-purple-500',
-      description: '专业课程 · 110题',
-      type: 'professional',
-      subtitle: '质量控制、投资控制、进度控制'
+      color: 'bg-purple-500'
     }, {
       id: 'supervising-case',
       name: '建设工程监理案例分析',
       icon: FileText,
-      color: 'bg-indigo-500',
-      description: '专业课程 · 70题',
-      type: 'professional',
-      subtitle: '监理实务、案例分析、问题解决'
+      color: 'bg-indigo-500'
     }]
   };
 
@@ -320,21 +251,14 @@ export default function SubjectSelection(props) {
           {courses.map(course => {
           const Icon = course.icon;
           return <div key={course.id} onClick={() => handleCourseClick(course)} className="bg-white rounded-xl shadow-lg p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105">
-                <div className="flex items-start">
+                <div className="flex items-center">
                   <div className={`w-14 h-14 rounded-full ${course.color} flex items-center justify-center mr-4 flex-shrink-0`}>
                     <Icon size={24} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-gray-800">
-                        {course.name}
-                      </h3>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${course.type === 'public' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}>
-                        {course.type === 'public' ? '公共课' : '专业课'}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600 mb-2">{course.subtitle}</p>
-                    <p className="text-sm text-gray-500">{course.description}</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {course.name}
+                    </h3>
                   </div>
                 </div>
               </div>;
