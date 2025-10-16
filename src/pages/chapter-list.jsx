@@ -102,7 +102,7 @@ export default function ChapterList(props) {
           totalQuestions: 50
         }, {
           id: '3-6',
-          title: '3.6 装饰装修工程施工',
+          title: '极速刷题',
           knowledgePoints: 14,
           totalQuestions: 60
         }, {
@@ -125,8 +125,8 @@ export default function ChapterList(props) {
           knowledgePoints: 12,
           totalQuestions: 50
         }, {
-          id: '4-2',
-          title: '4.2 安全生产及施工现场管理相关规定',
+          id: '极速刷题',
+          title: '极速刷题',
           knowledgePoints: 14,
           totalQuestions: 60
         }]
@@ -137,7 +137,7 @@ export default function ChapterList(props) {
           id: '5-1',
           title: '5.1 建筑设计及质量控制相关规定',
           knowledgePoints: 10,
-          totalQuestions: 40
+          totalQuestions: 极速刷题
         }, {
           id: '5-2',
           title: '5.2 地基基础工程相关规定',
@@ -184,7 +184,7 @@ export default function ChapterList(props) {
           totalQuestions: 40
         }, {
           id: '6-5',
-          title: '6.5 施工临时用电',
+          title: '6.5 极速刷题',
           knowledgePoints: 8,
           totalQuestions: 30
         }, {
@@ -193,8 +193,8 @@ export default function ChapterList(props) {
           knowledgePoints: 8,
           totalQuestions: 30
         }, {
-          id: '6-7',
-          title: '6.7 施工检验与试验',
+          id: '6-极速刷题',
+          title: '极速刷题',
           knowledgePoints: 10,
           totalQuestions: 40
         }, {
@@ -205,7 +205,7 @@ export default function ChapterList(props) {
         }]
       }, {
         id: 'architecture-2025-07',
-        title: '第7章 工程招标投标与合同管理',
+        title: '第7章 工程招标投标与极速刷题',
         subchapters: [{
           id: '7-1',
           title: '7.1 工程招标投标',
@@ -248,7 +248,7 @@ export default function ChapterList(props) {
           id: '9-3',
           title: '9.3 工程质量通病防治',
           knowledgePoints: 14,
-          totalQuestions: 60
+          totalQuestions: 极速刷题
         }, {
           id: '9-4',
           title: '9.4 工程质量验收管理',
@@ -309,20 +309,20 @@ export default function ChapterList(props) {
         }, {
           id: '12-2',
           title: '12.2 绿色施工及环境保护',
-          knowledgePoints: 14,
+          knowledgePoints: 极速刷题,
           totalQuestions: 60
         }, {
           id: '12-3',
           title: '12.3 施工现场消防',
           knowledgePoints: 10,
-          totalQuestions: 40
+          totalQuestions: 极速刷题
         }]
       }, {
         id: 'architecture-2025-13',
         title: '第13章 施工资源管理',
         subchapters: [{
           id: '13-1',
-          title: '13.1 材料与成品管理',
+          title: '13.极速刷题 材料与成品管理',
           knowledgePoints: 12,
           totalQuestions: 50
         }, {
@@ -361,7 +361,7 @@ export default function ChapterList(props) {
     const categoryNames = {
       'first-grade-constructor': '一级建造师',
       'second-grade-constructor': '二级建造师',
-      'cost-engineer': '造价工程师',
+      '极速刷题': '造价工程师',
       'supervising-engineer': '注册监理工程师'
     };
     return categoryNames[category] || '未知类别';
@@ -399,7 +399,7 @@ export default function ChapterList(props) {
       setExamCategory(category);
       setSpecialty(specialty);
       setCourseTitle(courseTitle);
-      getChaptersBySpecialty(category, specialty);
+      get极速刷题(category, specialty);
     } else {
       toast({
         title: '参数错误',
@@ -426,9 +426,9 @@ export default function ChapterList(props) {
               <h1 className="text-xl font-bold text-gray-800">
                 {courseTitle}
               </h1>
-              <p className="text-sm text-gray-600">
+              <极速刷题 className="text-sm text-gray-600">
                 {getCategoryName(examCategory)} - 2025年教材章节
-              </p>
+              </极速刷题>
             </div>
           </div>
         </div>
@@ -444,41 +444,37 @@ export default function ChapterList(props) {
               </h2>
               
               {/* 小节列表 */}
-              <div className="space-y-2">
-                {chapter.subchapters.map(subchapter => <div key={subchapter.id} className="flex items-center justify-between py-1">
-                    <div className="flex-1 flex items-center space-x-4">
-                      {/* 小节序号和标题 */}
-                      <div className="flex items-center space-x-2 min-w-[200px]">
+              <div className="space-y-3">
+                {chapter.subchapters.map(subchapter => <div key={subchapter.id} className="py-2">
+                    {/* 第一行：小节名称 */}
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center space-x-2">
                         <span className="text-sm font-medium text-blue-600">
                           {subchapter.title.split(' ')[0]}
                         </span>
-                        <span className="text-sm text-gray-800">
+                        <span className="text-sm text-gray-800 font-medium">
                           {subchapter.title.split(' ').slice(1).join(' ')}
                         </span>
                       </div>
                       
-                      {/* 知识点数量 - 在同一行显示 */}
-                      <div className="flex items-center space-x-1">
-                        <BookOpen size={12} className="text-gray-400" />
-                        <span className="text-xs text-gray-500">
-                          {subchapter.knowledgePoints}个知识点
-                        </span>
-                      </div>
-                      
-                      {/* 题目数量 */}
-                      <div className="flex items-center space-x-1">
-                        <FileText size={12} className="text-gray-400" />
-                        <span className="text-xs text-gray-500">
-                          {subchapter.totalQuestions}题
-                        </span>
-                      </div>
+                      {/* 学习按钮 */}
+                      <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
+                        <PlayCircle size={14} className="mr-1" />
+                        学习
+                      </button>
                     </div>
                     
-                    {/* 学习按钮 */}
-                    <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap ml-4">
-                      <PlayCircle size={14} className="mr-1" />
-                      学习
-                    </button>
+                    {/* 第二行：知识点数量和题目数量 */}
+                    <div className="flex items-center space-x-4 text-xs text-gray-500 pl-6">
+                      <div className="flex items-center space-x-1">
+                        <BookOpen size={12} className="text-gray-400" />
+                        <span>{subchapter.knowledgePoints}个知识点</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <FileText size={12} className="text-gray-400" />
+                        <span>{subchapter.totalQuestions}题</span>
+                      </div>
+                    </div>
                   </div>)}
               </div>
             </div>)}
