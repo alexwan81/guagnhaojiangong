@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, BookOpen, CheckCircle, Circle, Clock, Target, TrendingUp, Users, Award } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle, Circle, Clock, Target, TrendingUp, Users, Award, Building, ClipboardCheck, Scale, Package, Tool, Shield, DollarSign, FileText } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function ChapterList(props) {
@@ -35,7 +35,7 @@ export default function ChapterList(props) {
     id: 'chapter-2',
     title: '建筑工程项目施工管理',
     subtitle: '施工组织与进度管理',
-    icon: 'Clipboard',
+    icon: 'ClipboardCheck',
     color: 'bg-green-500',
     totalQuestions: 120,
     completedQuestions: 0,
@@ -177,13 +177,13 @@ export default function ChapterList(props) {
   const getIconComponent = iconName => {
     const icons = {
       Building: Building,
-      Clipboard: ClipboardCheck,
-      Scale: BookOpen,
-      Package: BookOpen,
-      Tool: BookOpen,
-      Shield: BookOpen,
-      DollarSign: BookOpen,
-      FileText: BookOpen,
+      ClipboardCheck: ClipboardCheck,
+      Scale: Scale,
+      Package: Package,
+      Tool: Tool,
+      Shield: Shield,
+      DollarSign: DollarSign,
+      FileText: FileText,
       BookOpen: BookOpen
     };
     return icons[iconName] || BookOpen;
