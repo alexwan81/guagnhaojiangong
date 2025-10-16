@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, BookOpen, PlayCircle, CheckCircle, Clock, Target, FileText, BarChart3, Calculator, Settings, Gavel, DollarSign, Building, Road, Truck, Waves, Cog, Star, TrendingUp, AlertCircle } from 'lucide-react';
+import { ArrowLeft, BookOpen, PlayCircle, CheckCircle, Clock, Target, FileText, BarChart3, Calculator, Settings, Gavel, DollarSign, Building, Road, Truck, Waves, Cog, Star, TrendingUp, AlertCircle, Users, Shield, Leaf, Package } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function ChapterList(props) {
@@ -21,169 +21,169 @@ export default function ChapterList(props) {
   const [specialty, setSpecialty] = useState('');
   const [courseTitle, setCourseTitle] = useState('');
 
-  // 2025年一级建造师《建筑工程管理与实务》最新教材章节
+  // 2025年一级建造师《建筑工程管理与实务》13章完整结构
   const chapterData2025 = {
     'first-grade-constructor': {
       'architecture': [{
-        id: 'architecture-tech-01',
-        title: '1A411000 建筑设计',
-        subtitle: '建筑设计与构造',
+        id: 'architecture-2025-01',
+        title: '第1章 建筑工程设计技术',
+        subtitle: '建筑设计原理与构造要求',
         chapter: '第1章',
-        importance: 'high',
-        knowledgePoints: 45,
-        studyHours: 8,
-        progress: 65,
-        totalQuestions: 180,
-        completedQuestions: 117,
-        description: '建筑物分类与构成体系、建筑设计要求、建筑构造'
-      }, {
-        id: 'architecture-tech-02',
-        title: '1A412000 建筑构造',
-        subtitle: '建筑结构构造与设计原理',
-        chapter: '第2章',
-        importance: 'high',
-        knowledgePoints: 52,
-        studyHours: 10,
-        progress: 45,
-        totalQuestions: 220,
-        completedQuestions: 99,
-        description: '结构可靠性要求、结构设计、结构构造'
-      }, {
-        id: 'architecture-tech-03',
-        title: '1A413000 建筑材料',
-        subtitle: '常用建筑结构材料',
-        chapter: '第3章',
-        importance: 'medium',
-        knowledgePoints: 38,
-        studyHours: 6,
-        progress: 78,
-        totalQuestions: 150,
-        completedQuestions: 117,
-        description: '水泥、钢材、混凝土、砌体材料性能与应用'
-      }, {
-        id: 'architecture-tech-04',
-        title: '1A414000 建筑工程施工技术',
-        subtitle: '施工测量与土方工程',
-        chapter: '第4章',
-        importance: 'high',
-        knowledgePoints: 55,
-        studyHours: 12,
-        progress: 30,
-        totalQuestions: 250,
-        completedQuestions: 75,
-        description: '施工测量、土石方工程施工、地基与基础工程施工'
-      }, {
-        id: 'architecture-tech-05',
-        title: '1A414000 建筑工程施工技术',
-        subtitle: '主体结构工程施工',
-        chapter: '第5章',
-        importance: 'high',
-        knowledgePoints: 60,
-        studyHours: 14,
-        progress: 55,
-        totalQuestions: 280,
-        completedQuestions: 154,
-        description: '混凝土结构、砌体结构、钢结构、装配式结构施工'
-      }, {
-        id: 'architecture-tech-06',
-        title: '1A414000 建筑工程施工技术',
-        subtitle: '防水与装饰装修工程',
-        chapter: '第6章',
-        importance: 'medium',
-        knowledgePoints: 42,
-        studyHours: 8,
-        progress: 40,
-        totalQuestions: 180,
-        completedQuestions: 72,
-        description: '防水工程施工、装饰装修工程施工、季节性施工技术'
-      }, {
-        id: 'architecture-manage-01',
-        title: '1A421000 项目组织管理',
-        subtitle: '项目管理规划与组织',
-        chapter: '第7章',
         importance: 'high',
         knowledgePoints: 48,
         studyHours: 10,
-        progress: 25,
-        totalQuestions: 200,
-        completedQuestions: 50,
-        description: '项目管理规划、项目管理组织、项目经理责任制'
-      }, {
-        id: 'architecture-manage-02',
-        title: '1A422000 项目施工进度管理',
-        subtitle: '施工进度计划与控制',
-        chapter: '第8章',
-        importance: 'high',
-        knowledgePoints: 45,
-        studyHours: 9,
-        progress: 35,
-        totalQuestions: 190,
-        completedQuestions: 67,
-        description: '施工进度计划编制、施工进度控制、施工进度调整'
-      }, {
-        id: 'architecture-manage-03',
-        title: '1A423000 项目施工质量管理',
-        subtitle: '施工质量控制与验收',
-        chapter: '第9章',
-        importance: 'high',
-        knowledgePoints: 52,
-        studyHours: 11,
-        progress: 30,
+        progress: 65,
         totalQuestions: 220,
-        completedQuestions: 66,
-        description: '项目质量计划、施工质量检查与检验、质量验收'
+        completedQuestions: 143,
+        description: '建筑物分类与构成体系、建筑设计要求、建筑构造、建筑结构体系与应用'
       }, {
-        id: 'architecture-manage-04',
-        title: '1A424000 项目施工安全管理',
-        subtitle: '施工安全管理与应急预案',
-        chapter: '第10章',
+        id: 'architecture-2025-02',
+        title: '第2章 主要建筑工程材料的性能',
+        subtitle: '建筑材料性能与应用',
+        chapter: '第2章',
         importance: 'high',
-        knowledgePoints: 50,
-        studyHours: 10,
-        progress: 20,
-        totalQuestions: 210,
-        completedQuestions: 42,
-        description: '工程安全生产管理计划、工程安全生产检查、应急预案'
-      }, {
-        id: 'architecture-manage-05',
-        title: '1A425000 项目合同与成本管理',
-        subtitle: '合同管理与成本控制',
-        chapter: '第11章',
-        importance: 'medium',
-        knowledgePoints: 46,
-        studyHours: 9,
-        progress: 15,
-        totalQuestions: 195,
-        completedQuestions: 29,
-        description: '施工合同管理、工程量清单计价规范应用、工程造价管理'
-      }, {
-        id: 'architecture-regulation-01',
-        title: '1A431000 建筑工程相关法规',
-        subtitle: '建筑法规与标准',
-        chapter: '第12章',
-        importance: 'medium',
         knowledgePoints: 42,
         studyHours: 8,
-        progress: 10,
-        totalQuestions: 170,
-        completedQuestions: 17,
-        description: '建筑工程建设相关法规、施工安全生产及施工现场管理相关法规'
+        progress: 78,
+        totalQuestions: 180,
+        completedQuestions: 140,
+        description: '结构工程材料、装饰装修材料、功能材料、建筑钢材、水泥、混凝土性能'
       }, {
-        id: 'architecture-regulation-02',
-        title: '1A432000 建筑工程相关技术标准',
-        subtitle: '技术标准与规范',
-        chapter: '第13章',
+        id: 'architecture-2025-03',
+        title: '第3章 建筑工程施工技术',
+        subtitle: '施工技术与工艺流程',
+        chapter: '第3章',
+        importance: 'high',
+        knowledgePoints: 65,
+        studyHours: 15,
+        progress: 55,
+        totalQuestions: 320,
+        completedQuestions: 176,
+        description: '施工测量、土石方工程、地基与基础工程、主体结构工程、防水工程、装饰装修工程'
+      }, {
+        id: 'architecture-2025-04',
+        title: '第4章 相关法规',
+        subtitle: '建筑工程法律法规',
+        chapter: '第4章',
         importance: 'medium',
         knowledgePoints: 38,
         studyHours: 7,
-        progress: 5,
+        progress: 45,
         totalQuestions: 150,
-        completedQuestions: 8,
-        description: '安全防火及室内环境污染控制、地基基础工程、主体结构工程相关标准'
+        completedQuestions: 68,
+        description: '建筑法、招标投标法、合同法、安全生产法、质量管理条例、安全生产管理条例'
+      }, {
+        id: 'architecture-2025-05',
+        title: '第5章 相关标准',
+        subtitle: '建筑工程技术标准',
+        chapter: '第5章',
+        importance: 'medium',
+        knowledgePoints: 35,
+        studyHours: 6,
+        progress: 40,
+        totalQuestions: 140,
+        completedQuestions: 56,
+        description: '建筑设计标准、施工质量标准、安全标准、防火标准、节能标准、环保标准'
+      }, {
+        id: 'architecture-2025-06',
+        title: '第6章 建筑工程企业资质与施工组织',
+        subtitle: '企业资质与施工组织设计',
+        chapter: '第6章',
+        importance: 'high',
+        knowledgePoints: 40,
+        studyHours: 8,
+        progress: 35,
+        totalQuestions: 170,
+        completedQuestions: 60,
+        description: '建筑业企业资质、施工组织设计、施工部署、施工方案、专项施工方案'
+      }, {
+        id: 'architecture-2025-07',
+        title: '第7章 工程招标投标与合同管理',
+        subtitle: '招投标与合同管理实务',
+        chapter: '第7章',
+        importance: 'high',
+        knowledgePoints: 45,
+        studyHours: 9,
+        progress: 30,
+        totalQuestions: 190,
+        completedQuestions: 57,
+        description: '工程招标投标、合同管理、工程索赔、工程变更、工程结算'
+      }, {
+        id: 'architecture-2025-08',
+        title: '第8章 施工进度管理',
+        subtitle: '进度计划与控制',
+        chapter: '第8章',
+        importance: 'high',
+        knowledgePoints: 42,
+        studyHours: 8,
+        progress: 25,
+        totalQuestions: 180,
+        completedQuestions: 45,
+        description: '施工进度计划编制、进度控制方法、进度调整、工期优化'
+      }, {
+        id: 'architecture-2025-09',
+        title: '第9章 施工质量管理',
+        subtitle: '质量控制与验收',
+        chapter: '第9章',
+        importance: 'high',
+        knowledgePoints: 48,
+        studyHours: 10,
+        progress: 20,
+        totalQuestions: 200,
+        completedQuestions: 40,
+        description: '质量管理体系、施工质量控制、质量验收、质量问题处理'
+      }, {
+        id: 'architecture-2025-10',
+        title: '第10章 施工成本管理',
+        subtitle: '成本控制与核算',
+        chapter: '第10章',
+        importance: 'medium',
+        knowledgePoints: 38,
+        studyHours: 7,
+        progress: 15,
+        totalQuestions: 160,
+        completedQuestions: 24,
+        description: '成本计划、成本控制、成本核算、成本分析、工程价款结算'
+      }, {
+        id: 'architecture-2025-11',
+        title: '第11章 施工安全管理',
+        subtitle: '安全生产与应急管理',
+        chapter: '第11章',
+        importance: 'high',
+        knowledgePoints: 44,
+        studyHours: 9,
+        progress: 10,
+        totalQuestions: 185,
+        completedQuestions: 19,
+        description: '安全生产管理、安全检查、安全隐患治理、应急预案、事故处理'
+      }, {
+        id: 'architecture-2025-12',
+        title: '第12章 绿色建造及施工现场环境管理',
+        subtitle: '绿色施工与环境保护',
+        chapter: '第12章',
+        importance: 'medium',
+        knowledgePoints: 35,
+        studyHours: 6,
+        progress: 5,
+        totalQuestions: 145,
+        completedQuestions: 7,
+        description: '绿色建造技术、施工现场环境保护、节能减排、文明施工'
+      }, {
+        id: 'architecture-2025-13',
+        title: '第13章 施工资源管理',
+        subtitle: '材料设备与劳动力管理',
+        chapter: '第13章',
+        importance: 'medium',
+        knowledgePoints: 40,
+        studyHours: 7,
+        progress: 0,
+        totalQuestions: 155,
+        completedQuestions: 0,
+        description: '材料管理、机械设备管理、劳动力管理、技术管理、资金管理'
       }],
       'highway': [{
         id: 'highway-tech-01',
-        title: '1B411000 路基工程',
+        title: '第1章 路基工程',
         subtitle: '路基施工技术',
         chapter: '第1章',
         importance: 'high',
@@ -192,10 +192,10 @@ export default function ChapterList(props) {
         progress: 60,
         totalQuestions: 200,
         completedQuestions: 120,
-        description: '路基施工技术准备、原地基处理要求、挖方路基施工、填方路基施工'
+        description: '路基施工技术准备、原地基处理、挖方路基、填方路基、路基排水'
       }, {
         id: 'highway-tech-02',
-        title: '1B412000 路面工程',
+        title: '第2章 路面工程',
         subtitle: '路面施工技术',
         chapter: '第2章',
         importance: 'high',
@@ -204,10 +204,10 @@ export default function ChapterList(props) {
         progress: 75,
         totalQuestions: 220,
         completedQuestions: 165,
-        description: '路面基层施工、沥青路面施工、水泥混凝土路面施工、中央分隔带施工'
+        description: '路面基层施工、沥青路面施工、水泥混凝土路面施工、路面排水'
       }, {
         id: 'highway-tech-03',
-        title: '1B413000 桥梁工程',
+        title: '第3章 桥梁工程',
         subtitle: '桥梁施工技术',
         chapter: '第3章',
         importance: 'high',
@@ -217,34 +217,10 @@ export default function ChapterList(props) {
         totalQuestions: 250,
         completedQuestions: 125,
         description: '桥梁基础、下部结构、上部结构、桥面系施工技术'
-      }, {
-        id: 'highway-manage-01',
-        title: '1B420000 公路工程项目施工管理',
-        subtitle: '公路工程施工管理',
-        chapter: '第4章',
-        importance: 'high',
-        knowledgePoints: 70,
-        studyHours: 15,
-        progress: 35,
-        totalQuestions: 280,
-        completedQuestions: 98,
-        description: '公路工程施工组织设计、进度管理、质量管理、安全管理、合同管理'
-      }, {
-        id: 'highway-regulation-01',
-        title: '1B430000 公路工程项目施工相关法规与标准',
-        subtitle: '公路工程法规与标准',
-        chapter: '第5章',
-        importance: 'medium',
-        knowledgePoints: 45,
-        studyHours: 9,
-        progress: 20,
-        totalQuestions: 180,
-        completedQuestions: 36,
-        description: '公路建设管理法规、公路施工安全生产相关规定、公路工程质量管理相关规定'
       }],
       'water-conservancy': [{
         id: 'water-tech-01',
-        title: '1F411000 水利水电工程勘测与设计',
+        title: '第1章 水利水电工程勘测与设计',
         subtitle: '工程勘测与设计',
         chapter: '第1章',
         importance: 'high',
@@ -253,10 +229,10 @@ export default function ChapterList(props) {
         progress: 55,
         totalQuestions: 210,
         completedQuestions: 116,
-        description: '水利水电工程勘测、水利水电工程设计'
+        description: '水利水电工程勘测、水利水电工程设计、水工建筑物设计'
       }, {
         id: 'water-tech-02',
-        title: '1F412000 水利水电工程施工水流控制',
+        title: '第2章 水利水电工程施工水流控制',
         subtitle: '施工导流与截流',
         chapter: '第2章',
         importance: 'high',
@@ -265,47 +241,11 @@ export default function ChapterList(props) {
         progress: 70,
         totalQuestions: 230,
         completedQuestions: 161,
-        description: '施工导流、截流、基坑排水、汛期施工'
-      }, {
-        id: 'water-tech-03',
-        title: '1F413000 地基处理工程',
-        subtitle: '地基处理技术',
-        chapter: '第3章',
-        importance: 'high',
-        knowledgePoints: 50,
-        studyHours: 11,
-        progress: 45,
-        totalQuestions: 220,
-        completedQuestions: 99,
-        description: '地基处理、灌浆技术、防渗墙施工'
-      }, {
-        id: 'water-manage-01',
-        title: '1F420000 水利水电工程项目施工管理',
-        subtitle: '水利水电工程施工管理',
-        chapter: '第4章',
-        importance: 'high',
-        knowledgePoints: 65,
-        studyHours: 14,
-        progress: 30,
-        totalQuestions: 260,
-        completedQuestions: 78,
-        description: '水利水电工程施工组织设计、进度管理、质量管理、安全管理、合同管理'
-      }, {
-        id: 'water-regulation-01',
-        title: '1F430000 水利水电工程项目施工相关法规与标准',
-        subtitle: '水利水电工程法规与标准',
-        chapter: '第5章',
-        importance: 'medium',
-        knowledgePoints: 42,
-        studyHours: 8,
-        progress: 15,
-        totalQuestions: 170,
-        completedQuestions: 26,
-        description: '水利水电工程建设法规、水利水电工程施工安全生产相关规定'
+        description: '施工导流、截流、基坑排水、汛期施工、围堰工程'
       }],
       'highway-2': [{
         id: 'highway2-tech-01',
-        title: '2B310000 公路工程施工技术',
+        title: '第1章 公路工程施工技术',
         subtitle: '路基与路面施工',
         chapter: '第1章',
         importance: 'high',
@@ -317,7 +257,7 @@ export default function ChapterList(props) {
         description: '路基施工技术、路面基层施工技术、沥青路面施工技术'
       }, {
         id: 'highway2-tech-02',
-        title: '2B310000 公路工程施工技术',
+        title: '第2章 公路工程施工技术',
         subtitle: '桥涵与隧道施工',
         chapter: '第2章',
         importance: 'high',
@@ -327,22 +267,10 @@ export default function ChapterList(props) {
         totalQuestions: 140,
         completedQuestions: 77,
         description: '桥梁工程施工技术、隧道工程施工技术、交通工程设施施工'
-      }, {
-        id: 'highway2-manage-01',
-        title: '2B320000 公路工程项目施工管理',
-        subtitle: '公路工程施工管理',
-        chapter: '第3章',
-        importance: 'high',
-        knowledgePoints: 48,
-        studyHours: 10,
-        progress: 40,
-        totalQuestions: 160,
-        completedQuestions: 64,
-        description: '公路工程施工组织设计、进度管理、质量管理、安全管理、合同管理'
       }],
       'architecture-2': [{
         id: 'architecture2-tech-01',
-        title: '2A310000 建筑工程施工技术',
+        title: '第1章 建筑工程施工技术',
         subtitle: '施工技术与测量',
         chapter: '第1章',
         importance: 'high',
@@ -354,7 +282,7 @@ export default function ChapterList(props) {
         description: '建筑工程技术要求、建筑工程专业施工技术、施工测量技术'
       }, {
         id: 'architecture2-tech-02',
-        title: '2A310000 建筑工程施工技术',
+        title: '第2章 建筑工程施工技术',
         subtitle: '地基与基础工程',
         chapter: '第2章',
         importance: 'high',
@@ -364,146 +292,74 @@ export default function ChapterList(props) {
         totalQuestions: 140,
         completedQuestions: 81,
         description: '土方工程施工技术、地基与基础工程施工技术、主体结构工程施工技术'
-      }, {
-        id: 'architecture2-manage-01',
-        title: '2A320000 建筑工程项目施工管理',
-        subtitle: '施工项目管理',
-        chapter: '第3章',
-        importance: 'high',
-        knowledgePoints: 45,
-        studyHours: 9,
-        progress: 65,
-        totalQuestions: 160,
-        completedQuestions: 104,
-        description: '单位工程施工组织设计、建筑工程施工进度管理、质量管理、安全管理'
-      }]
-    },
-    'cost-engineer': {
-      'civil-engineering': [{
-        id: 'cost-civil-2025-01',
-        title: '第一章 建设工程造价管理',
-        subtitle: '工程造价管理基本制度',
-        chapter: '第1节',
-        importance: 'high',
-        knowledgePoints: 35,
-        studyHours: 6,
-        progress: 80,
-        totalQuestions: 120,
-        completedQuestions: 96,
-        description: '工程造价管理组织系统、内容、原则'
-      }, {
-        id: 'cost-civil-2025-02',
-        title: '第二章 建设工程计价',
-        subtitle: '工程计价方法',
-        chapter: '第2节',
-        importance: 'high',
-        knowledgePoints: 48,
-        studyHours: 9,
-        progress: 75,
-        totalQuestions: 160,
-        completedQuestions: 120,
-        description: '定额计价方法、清单计价方法、计价程序'
-      }, {
-        id: 'cost-civil-2025-03',
-        title: '第三章 建设工程技术与计量(土木)',
-        subtitle: '土木工程技术',
-        chapter: '第3节',
-        importance: 'high',
-        knowledgePoints: 55,
-        studyHours: 11,
-        progress: 70,
-        totalQuestions: 190,
-        completedQuestions: 133,
-        description: '工程地质、工程构造、工程施工技术'
-      }, {
-        id: 'cost-civil-2025-04',
-        title: '第四章 建设工程造价案例分析(土木)',
-        subtitle: '土木工程造价案例分析',
-        chapter: '第4节',
-        importance: 'high',
-        knowledgePoints: 50,
-        studyHours: 12,
-        progress: 65,
-        totalQuestions: 200,
-        completedQuestions: 130,
-        description: '投资估算、财务分析、工程计量与计价、合同价款管理'
       }],
-      'transportation-engineering': [{
-        id: 'cost-transport-2025-01',
-        title: '第一章 建设工程造价管理',
-        subtitle: '工程造价管理基本制度',
-        chapter: '第1节',
-        importance: 'high',
-        knowledgePoints: 35,
-        studyHours: 6,
-        progress: 78,
-        totalQuestions: 120,
-        completedQuestions: 94,
-        description: '工程造价管理组织系统、内容、原则'
-      }, {
-        id: 'cost-transport-2025-02',
-        title: '第二章 建设工程计价',
-        subtitle: '工程计价方法',
-        chapter: '第2节',
-        importance: 'high',
-        knowledgePoints: 48,
-        studyHours: 9,
-        progress: 72,
-        totalQuestions: 160,
-        completedQuestions: 115,
-        description: '定额计价方法、清单计价方法、计价程序'
-      }]
-    },
-    'supervising-engineer': {
-      'civil-supervising': [{
-        id: 'supervising-civil-2025-01',
-        title: '第一章 建设工程监理基本理论与相关法规',
-        subtitle: '监理制度与法规',
-        chapter: '第1节',
-        importance: 'high',
-        knowledgePoints: 40,
-        studyHours: 8,
-        progress: 85,
-        totalQuestions: 110,
-        completedQuestions: 94,
-        description: '建设工程监理制度、相关法律法规、工程建设标准'
-      }, {
-        id: 'supervising-civil-2025-02',
-        title: '第二章 建设工程合同管理',
-        subtitle: '合同管理实务',
-        chapter: '第2节',
-        importance: 'high',
-        knowledgePoints: 45,
-        studyHours: 9,
-        progress: 80,
-        totalQuestions: 130,
-        completedQuestions: 104,
-        description: '建设工程合同管理、工程索赔管理、工程变更管理'
-      }, {
-        id: 'supervising-civil-2025-03',
-        title: '第三章 建设工程目标控制',
-        subtitle: '质量、投资、进度控制',
-        chapter: '第3节',
-        importance: 'high',
-        knowledgePoints: 50,
-        studyHours: 10,
-        progress: 75,
-        totalQuestions: 140,
-        completedQuestions: 105,
-        description: '建设工程质量控制、投资控制、进度控制'
-      }, {
-        id: 'supervising-civil-2025-04',
-        title: '第四章 建设工程监理案例分析',
-        subtitle: '监理案例分析',
-        chapter: '第4节',
-        importance: 'high',
-        knowledgePoints: 55,
-        studyHours: 12,
-        progress: 70,
-        totalQuestions: 180,
-        completedQuestions: 126,
-        description: '监理案例分析方法、典型案例分析、实务操作'
-      }]
+      'cost-engineer': {
+        'civil-engineering': [{
+          id: 'cost-civil-2025-01',
+          title: '第一章 建设工程造价管理',
+          subtitle: '工程造价管理基本制度',
+          chapter: '第1节',
+          importance: 'high',
+          knowledgePoints: 35,
+          studyHours: 6,
+          progress: 80,
+          totalQuestions: 120,
+          completedQuestions: 96,
+          description: '工程造价管理组织系统、内容、原则'
+        }, {
+          id: 'cost-civil-2025-02',
+          title: '第二章 建设工程计价',
+          subtitle: '工程计价方法',
+          chapter: '第2节',
+          importance: 'high',
+          knowledgePoints: 48,
+          studyHours: 9,
+          progress: 75,
+          totalQuestions: 160,
+          completedQuestions: 120,
+          description: '定额计价方法、清单计价方法、计价程序'
+        }],
+        'transportation-engineering': [{
+          id: 'cost-transport-2025-01',
+          title: '第一章 建设工程造价管理',
+          subtitle: '工程造价管理基本制度',
+          chapter: '第1节',
+          importance: 'high',
+          knowledgePoints: 35,
+          studyHours: 6,
+          progress: 78,
+          totalQuestions: 120,
+          completedQuestions: 94,
+          description: '工程造价管理组织系统、内容、原则'
+        }]
+      },
+      'supervising-engineer': {
+        'civil-supervising': [{
+          id: 'supervising-civil-2025-01',
+          title: '第一章 建设工程监理基本理论与相关法规',
+          subtitle: '监理制度与法规',
+          chapter: '第1节',
+          importance: 'high',
+          knowledgePoints: 40,
+          studyHours: 8,
+          progress: 85,
+          totalQuestions: 110,
+          completedQuestions: 94,
+          description: '建设工程监理制度、相关法律法规、工程建设标准'
+        }, {
+          id: 'supervising-civil-2025-02',
+          title: '第二章 建设工程合同管理',
+          subtitle: '合同管理实务',
+          chapter: '第2节',
+          importance: 'high',
+          knowledgePoints: 45,
+          studyHours: 9,
+          progress: 80,
+          totalQuestions: 130,
+          completedQuestions: 104,
+          description: '建设工程合同管理、工程索赔管理、工程变更管理'
+        }]
+      }
     }
   };
 
@@ -627,7 +483,7 @@ export default function ChapterList(props) {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-semibold text-gray-800">学习进度</h3>
-              <p className="text-sm text-gray-600">2025年最新教材</p>
+              <p className="text-sm text-gray-600">2025年最新教材 - 共13章</p>
             </div>
             <div className="text-right">
               <div className="text-2xl font-bold text-blue-600">
