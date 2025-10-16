@@ -3,6 +3,7 @@ import SUBJECT_SELECTION from '../pages/subject-selection.jsx';
 import PRACTICE_MODE from '../pages/practice-mode.jsx';
 import CHAPTER_LIST from '../pages/chapter-list.jsx';
 import QUESTION_PRACTICE from '../pages/question-practice.jsx';
+import PROFILE from '../pages/profile.jsx';
 export const routers = [{
   id: "home",
   component: HOME
@@ -18,4 +19,7 @@ export const routers = [{
 }, {
   id: "question-practice",
   component: QUESTION_PRACTICE
+}, {
+  id: "profile",
+  component: PROFILE
 }]
