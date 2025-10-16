@@ -19,9 +19,11 @@ export default function SubjectSelection(props) {
   const [loading, setLoading] = useState(true);
   const [examCategory, setExamCategory] = useState('');
 
-  // 修正后的课程数据（符合官方专业设置）
+  // 官方标准的课程数据
   const courseData = {
-    'first-grade-constructor': [{
+    'first-grade-constructor': [
+    // 公共课
+    {
       id: 'public-economy',
       name: '建设工程经济',
       icon: DollarSign,
@@ -36,7 +38,9 @@ export default function SubjectSelection(props) {
       name: '建设工程项目管理',
       icon: Settings,
       color: 'bg-green-600'
-    }, {
+    },
+    // 专业课（10个官方专业）
+    {
       id: 'architecture',
       name: '建筑工程',
       icon: Building,
@@ -87,7 +91,9 @@ export default function SubjectSelection(props) {
       icon: Wrench,
       color: 'bg-purple-500'
     }],
-    'second-grade-constructor': [{
+    'second-grade-constructor': [
+    // 公共课
+    {
       id: 'public-management-2',
       name: '建设工程施工管理',
       icon: Settings,
@@ -97,21 +103,13 @@ export default function SubjectSelection(props) {
       name: '建设工程法规',
       icon: Gavel,
       color: 'bg-purple-600'
-    }, {
+    },
+    // 专业课（6个官方专业）
+    {
       id: 'architecture-2',
       name: '建筑工程',
       icon: Building,
       color: 'bg-blue-500'
-    }, {
-      id: 'municipal-2',
-      name: '市政公用工程',
-      icon: Road,
-      color: 'bg-green-500'
-    }, {
-      id: 'mechanical-electrical-2',
-      name: '机电工程',
-      icon: Wrench,
-      color: 'bg-purple-500'
     }, {
       id: 'highway-2',
       name: '公路工程',
@@ -123,12 +121,24 @@ export default function SubjectSelection(props) {
       icon: Droplets,
       color: 'bg-teal-500'
     }, {
+      id: 'municipal-2',
+      name: '市政公用工程',
+      icon: Road,
+      color: 'bg-green-500'
+    }, {
       id: 'mining-2',
       name: '矿业工程',
       icon: Mountain,
       color: 'bg-gray-600'
+    }, {
+      id: 'mechanical-electrical-2',
+      name: '机电工程',
+      icon: Wrench,
+      color: 'bg-purple-500'
     }],
-    'cost-engineer': [{
+    'cost-engineer': [
+    // 4个官方科目
+    {
       id: 'cost-management',
       name: '建设工程造价管理',
       icon: Settings,
@@ -149,7 +159,9 @@ export default function SubjectSelection(props) {
       icon: FileText,
       color: 'bg-red-500'
     }],
-    'supervising-engineer': [{
+    'supervising-engineer': [
+    // 4个官方科目
+    {
       id: 'supervising-theory',
       name: '建设工程监理基本理论与相关法规',
       icon: Book,
