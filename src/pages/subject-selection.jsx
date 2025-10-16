@@ -160,22 +160,84 @@ export default function SubjectSelection(props) {
       color: 'bg-purple-500'
     }],
     'supervising-engineer': [{
-      id: 'supervising-theory',
+      id: 'civil-supervising',
+      name: '土木建筑工程',
+      icon: Building,
+      color: 'bg-blue-500'
+    }, {
+      id: 'transportation-supervising',
+      name: '交通运输工程',
+      icon: Truck,
+      color: 'bg-orange-500'
+    }, {
+      id: 'water-supervising',
+      name: '水利工程',
+      icon: Waves,
+      color: 'bg-teal-500'
+    }]
+  };
+
+  // 监理工程师各专业的考试科目
+  const supervisingEngineerSubjects = {
+    'civil-supervising': [{
+      id: 'supervising-theory-civil',
       name: '建设工程监理基本理论与相关法规',
       icon: BookOpen,
       color: 'bg-indigo-600'
     }, {
-      id: 'supervising-contract',
+      id: 'supervising-contract-civil',
       name: '建设工程合同管理',
       icon: FileCheck,
       color: 'bg-teal-600'
     }, {
-      id: 'supervising-control',
+      id: 'supervising-control-civil',
       name: '建设工程目标控制',
       icon: Target,
       color: 'bg-purple-500'
     }, {
-      id: 'supervising-case',
+      id: 'supervising-case-civil',
+      name: '建设工程监理案例分析',
+      icon: ClipboardCheck,
+      color: 'bg-indigo-500'
+    }],
+    'transportation-supervising': [{
+      id: 'supervising-theory-transport',
+      name: '建设工程监理基本理论与相关法规',
+      icon: BookOpen,
+      color: 'bg-indigo-600'
+    }, {
+      id: 'supervising-contract-transport',
+      name: '建设工程合同管理',
+      icon: FileCheck,
+      color: 'bg-teal-600'
+    }, {
+      id: 'supervising-control-transport',
+      name: '建设工程目标控制',
+      icon: Target,
+      color: 'bg-purple-500'
+    }, {
+      id: 'supervising-case-transport',
+      name: '建设工程监理案例分析',
+      icon: ClipboardCheck,
+      color: 'bg-indigo-500'
+    }],
+    'water-supervising': [{
+      id: 'supervising-theory-water',
+      name: '建设工程监理基本理论与相关法规',
+      icon: BookOpen,
+      color: 'bg-indigo-600'
+    }, {
+      id: 'supervising-contract-water',
+      name: '建设工程合同管理',
+      icon: FileCheck,
+      color: 'bg-teal-600'
+    }, {
+      id: 'supervising-control-water',
+      name: '建设工程目标控制',
+      icon: Target,
+      color: 'bg-purple-500'
+    }, {
+      id: 'supervising-case-water',
       name: '建设工程监理案例分析',
       icon: ClipboardCheck,
       color: 'bg-indigo-500'
@@ -186,7 +248,31 @@ export default function SubjectSelection(props) {
   const getCoursesByCategory = async categoryCode => {
     try {
       setLoading(true);
-      const courses = courseData[categoryCode] || [];
+      let courses = [];
+      const specialty = $w.page.dataset.params?.specialty;
+      const stage = $w.page.dataset.params?.stage;
+      if (categoryCode === 'supervising-engineer') {
+        if (stage === 'subjects' && specialty) {
+          // 显示监理工程师专业科目
+          courses = supervisingEngineerSubjects[specialty] || [];
+        } else {
+          // 显示监理工程师专业选择
+          courses = courseData[categoryCode] || [];
+        }
+      } else if (categoryCode === 'cost-engineer') {
+        if (stage === 'subjects' && specialty) {
+          // 显示造价工程师专业科目
+          const publicCourses = courseData[categoryCode].filter(c => ['cost-management', 'cost-pricing'].includes(c.id));
+          const specialtySubjects = costEngineerSubjects[specialty] || [];
+          courses = [...publicCourses, ...specialtySubjects];
+        } else {
+          // 显示造价工程师完整课程列表
+          courses = courseData[categoryCode] || [];
+        }
+      } else {
+        // 建造师类别
+        courses = courseData[categoryCode] || [];
+      }
       setCourses(courses);
     } catch (error) {
       toast({
@@ -237,26 +323,86 @@ export default function SubjectSelection(props) {
     }
   }, [$w.page.dataset.params]);
   const handleCourseClick = course => {
-    $w.utils.navigateTo({
-      pageId: 'chapter-list',
-      params: {
-        category: examCategory,
-        subject: course.id,
-        courseTitle: course.name
-      }
-    });
+    const specialty = $w.page.dataset.params?.specialty;
+    const stage = $w.page.dataset.params?.stage;
+    if (examCategory === 'supervising-engineer' && !stage) {
+      // 监理工程师专业选择，跳转到该专业的科目
+      $w.utils.navigateTo({
+        pageId: 'subject-selection',
+        params: {
+          category: examCategory,
+          specialty: course.id,
+          stage: 'subjects'
+        }
+      });
+    } else if (examCategory === 'cost-engineer' && !stage && ['civil-engineering', 'transportation-engineering', 'water-engineering', 'installation-engineering'].includes(course.id)) {
+      // 造价工程师专业选择，跳转到该专业的科目
+      $w.utils.navigateTo({
+        pageId: 'subject-selection',
+        params: {
+          category: examCategory,
+          specialty: course.id,
+          stage: 'subjects'
+        }
+      });
+    } else {
+      // 其他情况直接进入章节列表
+      $w.utils.navigateTo({
+        pageId: 'chapter-list',
+        params: {
+          category: examCategory,
+          subject: course.id,
+          courseTitle: course.name
+        }
+      });
+    }
   };
   const handleBack = () => {
-    $w.utils.navigateBack();
+    const stage = $w.page.dataset.params?.stage;
+    if (stage === 'subjects') {
+      // 如果是专业科目页面，返回专业选择
+      $w.utils.navigateTo({
+        pageId: 'subject-selection',
+        params: {
+          category: examCategory
+        }
+      });
+    } else {
+      $w.utils.navigateBack();
+    }
   };
   const handleTabChange = tabId => {
-    setActiveTab(tabId);
+    setActiveTab = tabId;
     if (tabId !== 'home') {
       $w.utils.navigateTo({
         pageId: tabId,
         params: {}
       });
     }
+  };
+
+  // 获取页面标题
+  const getPageTitle = () => {
+    const stage = $w.page.dataset.params?.stage;
+    const specialty = $w.page.dataset.params?.specialty;
+    if (examCategory === 'supervising-engineer' && stage === 'subjects' && specialty) {
+      const specialtyNames = {
+        'civil-supervising': '土木建筑工程',
+        'transportation-supervising': '交通运输工程',
+        'water-supervising': '水利工程'
+      };
+      return specialtyNames[specialty] || '注册监理工程师';
+    }
+    if (examCategory === 'cost-engineer' && stage === 'subjects' && specialty) {
+      const specialtyNames = {
+        'civil-engineering': '土木建筑工程',
+        'transportation-engineering': '交通运输工程',
+        'water-engineering': '水利工程',
+        'installation-engineering': '安装工程'
+      };
+      return specialtyNames[specialty] || '造价工程师';
+    }
+    return getCategoryName(examCategory);
   };
   if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -273,7 +419,7 @@ export default function SubjectSelection(props) {
             </button>
             <div className="ml-4">
               <h1 className="text-xl font-bold text-gray-800">
-                {getCategoryName(examCategory)}
+                {getPageTitle()}
               </h1>
               <p className="text-sm text-gray-600">选择课程</p>
             </div>
