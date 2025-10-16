@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, Building, Road, Wrench, Droplets, BookOpen, Ship, Train, Plane, Satellite, Mountain } from 'lucide-react';
+import { ArrowLeft, Building, Road, Wrench, Droplets, BookOpen, Ship, Train, Plane, Satellite, Mountain, DollarSign, ClipboardCheck } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubjectSelection(props) {
@@ -45,15 +45,24 @@ export default function SubjectSelection(props) {
         const exam = typeof result.records[0] === 'string' ? JSON.parse(result.records[0]) : result.records[0];
         const allSubjects = [];
 
-        // 提取所有专业
+        // 提取所有专业并去重
         if (exam.categories && Array.isArray(exam.categories)) {
           exam.categories.forEach(category => {
             if (category.subjects && Array.isArray(category.subjects)) {
               category.subjects.forEach(subject => {
+                // 简化专业名称，移除重复前缀
+                let simplifiedName = subject.name;
+                if (simplifiedName.includes('专业工程管理与实务（')) {
+                  simplifiedName = simplifiedName.replace('专业工程管理与实务（', '').replace('）', '');
+                } else if (simplifiedName.includes('建设工程')) {
+                  simplifiedName = simplifiedName.replace('建设工程', '');
+                } else if (simplifiedName.includes('工程')) {
+                  simplifiedName = simplifiedName.replace('工程', '');
+                }
                 allSubjects.push({
                   id: subject.id,
-                  name: subject.name,
-                  questionCount: subject.questionCount || 0,
+                  name: simplifiedName,
+                  originalName: subject.name,
                   categoryName: category.name
                 });
               });
@@ -67,42 +76,57 @@ export default function SubjectSelection(props) {
           let color = 'bg-gray-500';
 
           // 根据专业名称分配图标和颜色
-          if (subject.name.includes('建筑工程') || subject.name.includes('土木建筑')) {
+          if (subject.name.includes('建筑') || subject.name.includes('土木')) {
             icon = Building;
             color = 'bg-blue-500';
-          } else if (subject.name.includes('公路工程') || subject.name.includes('交通运输')) {
+          } else if (subject.name.includes('公路') || subject.name.includes('交通')) {
             icon = Road;
             color = 'bg-green-500';
-          } else if (subject.name.includes('机电工程')) {
+          } else if (subject.name.includes('机电')) {
             icon = Wrench;
             color = 'bg-purple-500';
-          } else if (subject.name.includes('水利水电') || subject.name.includes('水利工程')) {
+          } else if (subject.name.includes('水利') || subject.name.includes('水电')) {
             icon = Droplets;
             color = 'bg-teal-500';
-          } else if (subject.name.includes('市政公用')) {
+          } else if (subject.name.includes('市政')) {
             icon = Road;
             color = 'bg-orange-500';
-          } else if (subject.name.includes('港口与航道')) {
+          } else if (subject.name.includes('港口') || subject.name.includes('航道')) {
             icon = Ship;
             color = 'bg-indigo-500';
-          } else if (subject.name.includes('铁路工程')) {
+          } else if (subject.name.includes('铁路')) {
             icon = Train;
             color = 'bg-red-500';
-          } else if (subject.name.includes('民航机场')) {
+          } else if (subject.name.includes('民航') || subject.name.includes('机场')) {
             icon = Plane;
             color = 'bg-pink-500';
-          } else if (subject.name.includes('通信与广电')) {
+          } else if (subject.name.includes('通信') || subject.name.includes('广电')) {
             icon = Satellite;
             color = 'bg-yellow-500';
-          } else if (subject.name.includes('矿业工程')) {
+          } else if (subject.name.includes('矿业')) {
             icon = Mountain;
             color = 'bg-gray-600';
+          } else if (subject.name.includes('造价') || subject.name.includes('计价')) {
+            icon = DollarSign;
+            color = 'bg-green-600';
+          } else if (subject.name.includes('合同') || subject.name.includes('法规')) {
+            icon = ClipboardCheck;
+            color = 'bg-blue-600';
+          } else if (subject.name.includes('管理') || subject.name.includes('控制')) {
+            icon = ClipboardCheck;
+            color = 'bg-purple-600';
+          } else if (subject.name.includes('技术') || subject.name.includes('计量')) {
+            icon = Wrench;
+            color = 'bg-orange-600';
+          } else if (subject.name.includes('案例') || subject.name.includes('分析')) {
+            icon = BookOpen;
+            color = 'bg-red-600';
           }
           return {
             ...subject,
             icon,
             color,
-            description: `${subject.categoryName} · ${subject.questionCount}题`
+            description: `${subject.categoryName}`
           };
         });
         setSubjects(subjectsWithIcons);
@@ -130,130 +154,130 @@ export default function SubjectSelection(props) {
         name: '建筑工程',
         icon: Building,
         color: 'bg-blue-500',
-        description: '建筑工程 · 700题'
+        description: '建筑工程'
       }, {
         id: 'municipal',
-        name: '市政公用工程',
+        name: '市政公用',
         icon: Road,
         color: 'bg-green-500',
-        description: '市政公用工程 · 720题'
+        description: '市政公用工程'
       }, {
         id: 'mechanical-electrical',
         name: '机电工程',
         icon: Wrench,
         color: 'bg-purple-500',
-        description: '机电工程 · 690题'
+        description: '机电工程'
       }, {
         id: 'highway',
         name: '公路工程',
         icon: Road,
         color: 'bg-orange-500',
-        description: '公路工程 · 650题'
+        description: '公路工程'
       }, {
         id: 'water-conservancy',
-        name: '水利水电工程',
+        name: '水利水电',
         icon: Droplets,
         color: 'bg-teal-500',
-        description: '水利水电工程 · 680题'
+        description: '水利水电工程'
       }, {
         id: 'railway',
         name: '铁路工程',
         icon: Train,
         color: 'bg-red-500',
-        description: '铁路工程 · 620题'
+        description: '铁路工程'
       }, {
         id: 'port-waterway',
-        name: '港口与航道工程',
+        name: '港口航道',
         icon: Ship,
         color: 'bg-indigo-500',
-        description: '港口与航道工程 · 590题'
+        description: '港口与航道工程'
       }, {
         id: 'aviation',
-        name: '民航机场工程',
+        name: '民航机场',
         icon: Plane,
         color: 'bg-pink-500',
-        description: '民航机场工程 · 580题'
+        description: '民航机场工程'
       }, {
         id: 'communication',
-        name: '通信与广电工程',
+        name: '通信广电',
         icon: Satellite,
         color: 'bg-yellow-500',
-        description: '通信与广电工程 · 560题'
+        description: '通信与广电工程'
       }, {
         id: 'mining',
         name: '矿业工程',
         icon: Mountain,
         color: 'bg-gray-600',
-        description: '矿业工程 · 610题'
+        description: '矿业工程'
       }],
       'ejjzs': [{
         id: 'architecture-2',
         name: '建筑工程',
         icon: Building,
         color: 'bg-blue-500',
-        description: '建筑工程 · 500题'
+        description: '建筑工程'
       }, {
         id: 'municipal-2',
-        name: '市政公用工程',
+        name: '市政公用',
         icon: Road,
         color: 'bg-green-500',
-        description: '市政公用工程 · 520题'
+        description: '市政公用工程'
       }, {
         id: 'mechanical-electrical-2',
         name: '机电工程',
         icon: Wrench,
         color: 'bg-purple-500',
-        description: '机电工程 · 490题'
+        description: '机电工程'
       }, {
         id: 'highway-2',
         name: '公路工程',
         icon: Road,
         color: 'bg-orange-500',
-        description: '公路工程 · 480题'
+        description: '公路工程'
       }, {
         id: 'water-conservancy-2',
-        name: '水利水电工程',
+        name: '水利水电',
         icon: Droplets,
         color: 'bg-teal-500',
-        description: '水利水电工程 · 470题'
+        description: '水利水电工程'
       }, {
         id: 'mining-2',
         name: '矿业工程',
         icon: Mountain,
         color: 'bg-gray-600',
-        description: '矿业工程 · 460题'
+        description: '矿业工程'
       }],
       'zjgcs': [{
         id: 'cost-construction',
-        name: '土木建筑工程',
+        name: '土木建筑',
         icon: Building,
         color: 'bg-blue-500',
-        description: '土木建筑工程 · 550题'
+        description: '土木建筑工程'
       }, {
         id: 'cost-installation',
         name: '安装工程',
         icon: Wrench,
         color: 'bg-purple-500',
-        description: '安装工程 · 520题'
+        description: '安装工程'
       }],
       'jlgcs': [{
         id: 'supervising-civil',
-        name: '土木建筑工程',
+        name: '土木建筑',
         icon: Building,
         color: 'bg-blue-500',
-        description: '土木建筑工程 · 500题'
+        description: '土木建筑工程'
       }, {
         id: 'supervising-transport',
-        name: '交通运输工程',
+        name: '交通运输',
         icon: Road,
         color: 'bg-green-500',
-        description: '交通运输工程 · 480题'
+        description: '交通运输工程'
       }, {
         id: 'supervising-water',
         name: '水利工程',
         icon: Droplets,
         color: 'bg-teal-500',
-        description: '水利工程 · 470题'
+        description: '水利工程'
       }]
     };
     setSubjects(defaultData[categoryCode] || []);
