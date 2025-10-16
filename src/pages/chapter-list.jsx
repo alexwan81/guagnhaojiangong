@@ -21,7 +21,7 @@ export default function ChapterList(props) {
   const [specialty, setSpecialty] = useState('');
   const [courseTitle, setCourseTitle] = useState('');
 
-  // 2025年一级建造师《建筑工程管理与实务》13章完整结构
+  // 2025年一级建造师《建筑工程管理与实务》13章完整结构（精确版本）
   const chapterData2025 = {
     'first-grade-constructor': {
       'architecture': [{
@@ -36,7 +36,7 @@ export default function ChapterList(props) {
         totalQuestions: 240,
         completedQuestions: 156,
         description: '建筑物分类与构成体系、建筑设计要求、建筑构造、建筑结构体系与应用、建筑抗震设计构造要求',
-        subchapters: 5 // 新增：显示包含5个小节
+        subchapters: 5
       }, {
         id: 'architecture-2025-02',
         title: '第2章 主要建筑工程材料的性能',
@@ -181,8 +181,186 @@ export default function ChapterList(props) {
         totalQuestions: 180,
         completedQuestions: 0,
         description: '材料采购与现场管理、施工机械设备管理、劳动力配置与管理、技术管理、资金管理'
-      }]
-      // ... 保持其他专业代码不变
+      }],
+      'highway': [{
+        id: 'highway-tech-01',
+        title: '第1章 路基工程',
+        subtitle: '路基施工技术',
+        chapter: '第1章',
+        importance: 'high',
+        knowledgePoints: 58,
+        studyHours: 12,
+        progress: 60,
+        totalQuestions: 200,
+        completedQuestions: 120,
+        description: '路基施工技术准备、原地基处理、挖方路基、填方路基、路基排水'
+      }, {
+        id: 'highway-tech-02',
+        title: '第2章 路面工程',
+        subtitle: '路面施工技术',
+        chapter: '第2章',
+        importance: 'high',
+        knowledgePoints: 52,
+        studyHours: 11,
+        progress: 75,
+        totalQuestions: 220,
+        completedQuestions: 165,
+        description: '路面基层施工、沥青路面施工、水泥混凝土路面施工、路面排水'
+      }, {
+        id: 'highway-tech-03',
+        title: '第3章 桥梁工程',
+        subtitle: '桥梁施工技术',
+        chapter: '第3章',
+        importance: 'high',
+        knowledgePoints: 65,
+        studyHours: 14,
+        progress: 50,
+        totalQuestions: 250,
+        completedQuestions: 125,
+        description: '桥梁基础、下部结构、上部结构、桥面系施工技术'
+      }],
+      'water-conservancy': [{
+        id: 'water-tech-01',
+        title: '第1章 水利水电工程勘测与设计',
+        subtitle: '工程勘测与设计',
+        chapter: '第1章',
+        importance: 'high',
+        knowledgePoints: 55,
+        studyHours: 12,
+        progress: 55,
+        totalQuestions: 210,
+        completedQuestions: 116,
+        description: '水利水电工程勘测、水利水电工程设计、水工建筑物设计'
+      }, {
+        id: 'water-tech-02',
+        title: '第2章 水利水电工程施工水流控制',
+        subtitle: '施工导流与截流',
+        chapter: '第2章',
+        importance: 'high',
+        knowledgePoints: 48,
+        studyHours: 10,
+        progress: 70,
+        totalQuestions: 230,
+        completedQuestions: 161,
+        description: '施工导流、截流、基坑排水、汛期施工、围堰工程'
+      }],
+      'highway-2': [{
+        id: 'highway2-tech-01',
+        title: '第1章 公路工程施工技术',
+        subtitle: '路基与路面施工',
+        chapter: '第1章',
+        importance: 'high',
+        knowledgePoints: 45,
+        studyHours: 9,
+        progress: 68,
+        totalQuestions: 150,
+        completedQuestions: 102,
+        description: '路基施工技术、路面基层施工技术、沥青路面施工技术、水泥混凝土路面施工技术'
+      }, {
+        id: 'highway2-tech-02',
+        title: '第2章 公路工程项目施工管理',
+        subtitle: '施工项目管理实务',
+        chapter: '第2章',
+        importance: 'high',
+        knowledgePoints: 42,
+        studyHours: 8,
+        progress: 55,
+        totalQuestions: 140,
+        completedQuestions: 77,
+        description: '公路工程施工组织设计、施工进度管理、施工质量管理、施工安全管理、合同管理'
+      }],
+      'architecture-2': [{
+        id: 'architecture2-tech-01',
+        title: '第1章 建筑工程施工技术',
+        subtitle: '施工技术与工艺流程',
+        chapter: '第1章',
+        importance: 'high',
+        knowledgePoints: 42,
+        studyHours: 9,
+        progress: 72,
+        totalQuestions: 160,
+        completedQuestions: 115,
+        description: '建筑工程技术要求、施工测量技术、地基与基础工程施工技术、主体结构工程施工技术'
+      }, {
+        id: 'architecture2-tech-02',
+        title: '第2章 建筑工程项目施工管理',
+        subtitle: '施工项目管理实务',
+        chapter: '第2章',
+        importance: 'high',
+        knowledgePoints: 48,
+        studyHours: 10,
+        progress: 58,
+        totalQuestions: 180,
+        completedQuestions: 104,
+        description: '单位工程施工组织设计、施工进度管理、施工质量管理、施工安全管理、合同管理'
+      }],
+      'cost-engineer': {
+        'civil-engineering': [{
+          id: 'cost-civil-2025-01',
+          title: '第一章 建设工程造价管理',
+          subtitle: '工程造价管理基本制度',
+          chapter: '第1节',
+          importance: 'high',
+          knowledgePoints: 35,
+          studyHours: 6,
+          progress: 80,
+          totalQuestions: 120,
+          completedQuestions: 96,
+          description: '工程造价管理组织系统、内容、原则、工程造价管理制度'
+        }, {
+          id: 'cost-civil-2025-02',
+          title: '第二章 建设工程计价',
+          subtitle: '工程计价方法',
+          chapter: '第2节',
+          importance: 'high',
+          knowledgePoints: 48,
+          studyHours: 9,
+          progress: 75,
+          totalQuestions: 160,
+          completedQuestions: 120,
+          description: '定额计价方法、清单计价方法、计价程序、计价依据'
+        }],
+        'transportation-engineering': [{
+          id: 'cost-transport-2025-01',
+          title: '第一章 建设工程造价管理',
+          subtitle: '工程造价管理基本制度',
+          chapter: '第1节',
+          importance: 'high',
+          knowledgePoints: 35,
+          studyHours: 6,
+          progress: 78,
+          totalQuestions: 120,
+          completedQuestions: 94,
+          description: '工程造价管理组织系统、内容、原则、工程造价管理制度'
+        }]
+      },
+      'supervising-engineer': {
+        'civil-supervising': [{
+          id: 'supervising-civil-2025-01',
+          title: '第一章 建设工程监理基本理论与相关法规',
+          subtitle: '监理制度与法规',
+          chapter: '第1节',
+          importance: 'high',
+          knowledgePoints: 40,
+          studyHours: 8,
+          progress: 85,
+          totalQuestions: 110,
+          completedQuestions: 94,
+          description: '建设工程监理制度、相关法律法规、工程建设标准、监理工程师执业资格制度'
+        }, {
+          id: 'supervising-civil-2025-02',
+          title: '第二章 建设工程合同管理',
+          subtitle: '合同管理实务',
+          chapter: '第2节',
+          importance: 'high',
+          knowledgePoints: 45,
+          studyHours: 9,
+          progress: 80,
+          totalQuestions: 130,
+          completedQuestions: 104,
+          description: '建设工程合同管理、工程索赔管理、工程变更管理、合同争议处理'
+        }]
+      }
     }
   };
 
