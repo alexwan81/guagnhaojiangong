@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, DollarSign, Gavel, Settings, Building, Road, Wrench, Droplets, Calculator, Book, FileText, Target, Train, Mountain, Factory, Wifi, Ship, Plane } from 'lucide-react';
+import { ArrowLeft, DollarSign, Gavel, Settings, Building, Road, Wrench, Droplets, Calculator, Book, FileText, Target, Train, Mountain, Factory, Wifi, Ship, Plane, TrendingUp, BarChart3, ClipboardCheck, Scale, FileCheck, BookOpen, Award } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubjectSelection(props) {
@@ -19,7 +19,7 @@ export default function SubjectSelection(props) {
   const [loading, setLoading] = useState(true);
   const [examCategory, setExamCategory] = useState('');
 
-  // 官方标准的课程数据
+  // 官方标准的课程/科目数据
   const courseData = {
     'first-grade-constructor': [
     // 公共课
@@ -137,11 +137,11 @@ export default function SubjectSelection(props) {
       color: 'bg-purple-500'
     }],
     'cost-engineer': [
-    // 4个官方科目
+    // 造价工程师4个考试科目
     {
       id: 'cost-management',
       name: '建设工程造价管理',
-      icon: Settings,
+      icon: BarChart3,
       color: 'bg-blue-600'
     }, {
       id: 'cost-pricing',
@@ -152,7 +152,7 @@ export default function SubjectSelection(props) {
       id: 'cost-technology',
       name: '建设工程技术与计量',
       icon: Wrench,
-      color: 'bg-orange-500'
+      color: 'bg-green-600'
     }, {
       id: 'cost-case',
       name: '建设工程造价案例分析',
@@ -160,16 +160,16 @@ export default function SubjectSelection(props) {
       color: 'bg-red-500'
     }],
     'supervising-engineer': [
-    // 4个官方科目
+    // 监理工程师4个考试科目
     {
       id: 'supervising-theory',
       name: '建设工程监理基本理论与相关法规',
-      icon: Book,
+      icon: BookOpen,
       color: 'bg-indigo-600'
     }, {
       id: 'supervising-contract',
       name: '建设工程合同管理',
-      icon: FileText,
+      icon: FileCheck,
       color: 'bg-teal-600'
     }, {
       id: 'supervising-control',
@@ -179,7 +179,7 @@ export default function SubjectSelection(props) {
     }, {
       id: 'supervising-case',
       name: '建设工程监理案例分析',
-      icon: FileText,
+      icon: ClipboardCheck,
       color: 'bg-indigo-500'
     }]
   };
