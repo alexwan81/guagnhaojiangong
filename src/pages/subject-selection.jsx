@@ -19,7 +19,7 @@ export default function SubjectSelection(props) {
   const [loading, setLoading] = useState(true);
   const [examCategory, setExamCategory] = useState('');
 
-  // 完整的课程数据
+  // 修正后的课程数据（符合官方专业设置）
   const courseData = {
     'first-grade-constructor': [{
       id: 'public-economy',
@@ -42,60 +42,50 @@ export default function SubjectSelection(props) {
       icon: Building,
       color: 'bg-blue-500'
     }, {
-      id: 'municipal',
-      name: '市政公用工程',
-      icon: Road,
-      color: 'bg-green-500'
-    }, {
-      id: 'mechanical-electrical',
-      name: '机电工程',
-      icon: Wrench,
-      color: 'bg-purple-500'
-    }, {
       id: 'highway',
       name: '公路工程',
       icon: Road,
       color: 'bg-orange-500'
-    }, {
-      id: 'water-conservancy',
-      name: '水利水电工程',
-      icon: Droplets,
-      color: 'bg-teal-500'
     }, {
       id: 'railway',
       name: '铁路工程',
       icon: Train,
       color: 'bg-red-500'
     }, {
-      id: 'mining',
-      name: '矿业工程',
-      icon: Mountain,
-      color: 'bg-gray-600'
-    }, {
-      id: 'metallurgy',
-      name: '冶金工程',
-      icon: Factory,
-      color: 'bg-orange-600'
-    }, {
-      id: 'petrochemical',
-      name: '石油化工工程',
-      icon: Factory,
-      color: 'bg-indigo-600'
-    }, {
-      id: 'communication',
-      name: '通信与广电工程',
-      icon: Wifi,
-      color: 'bg-cyan-500'
+      id: 'aviation',
+      name: '民航机场工程',
+      icon: Plane,
+      color: 'bg-sky-500'
     }, {
       id: 'harbor-waterway',
       name: '港口与航道工程',
       icon: Ship,
       color: 'bg-blue-700'
     }, {
-      id: 'aviation',
-      name: '民航机场工程',
-      icon: Plane,
-      color: 'bg-sky-500'
+      id: 'water-conservancy',
+      name: '水利水电工程',
+      icon: Droplets,
+      color: 'bg-teal-500'
+    }, {
+      id: 'municipal',
+      name: '市政公用工程',
+      icon: Road,
+      color: 'bg-green-500'
+    }, {
+      id: 'communication',
+      name: '通信与广电工程',
+      icon: Wifi,
+      color: 'bg-cyan-500'
+    }, {
+      id: 'mining',
+      name: '矿业工程',
+      icon: Mountain,
+      color: 'bg-gray-600'
+    }, {
+      id: 'mechanical-electrical',
+      name: '机电工程',
+      icon: Wrench,
+      color: 'bg-purple-500'
     }],
     'second-grade-constructor': [{
       id: 'public-management-2',
@@ -137,21 +127,6 @@ export default function SubjectSelection(props) {
       name: '矿业工程',
       icon: Mountain,
       color: 'bg-gray-600'
-    }, {
-      id: 'metallurgy-2',
-      name: '冶金工程',
-      icon: Factory,
-      color: 'bg-orange-600'
-    }, {
-      id: 'petrochemical-2',
-      name: '石油化工工程',
-      icon: Factory,
-      color: 'bg-indigo-600'
-    }, {
-      id: 'communication-2',
-      name: '通信与广电工程',
-      icon: Wifi,
-      color: 'bg-cyan-500'
     }],
     'cost-engineer': [{
       id: 'cost-management',
@@ -173,21 +148,6 @@ export default function SubjectSelection(props) {
       name: '建设工程造价案例分析',
       icon: FileText,
       color: 'bg-red-500'
-    }, {
-      id: 'cost-installation',
-      name: '安装工程',
-      icon: Wrench,
-      color: 'bg-purple-500'
-    }, {
-      id: 'cost-transportation',
-      name: '交通运输工程',
-      icon: Road,
-      color: 'bg-green-500'
-    }, {
-      id: 'cost-water-conservancy',
-      name: '水利工程',
-      icon: Droplets,
-      color: 'bg-teal-500'
     }],
     'supervising-engineer': [{
       id: 'supervising-theory',
@@ -209,21 +169,6 @@ export default function SubjectSelection(props) {
       name: '建设工程监理案例分析',
       icon: FileText,
       color: 'bg-indigo-500'
-    }, {
-      id: 'supervising-architecture',
-      name: '土木建筑工程',
-      icon: Building,
-      color: 'bg-blue-500'
-    }, {
-      id: 'supervising-transportation',
-      name: '交通运输工程',
-      icon: Road,
-      color: 'bg-green-500'
-    }, {
-      id: 'supervising-water-conservancy',
-      name: '水利工程',
-      icon: Droplets,
-      color: 'bg-teal-500'
     }]
   };
 
