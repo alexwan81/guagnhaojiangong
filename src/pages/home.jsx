@@ -46,9 +46,9 @@ export default function Home(props) {
       description: `正在进入${category.name}题库页面`
     });
 
-    // 实际项目中这里应该跳转到对应的题库页面
+    // 修复：跳转到专业选择页面而不是exam-list页面
     $w.utils.navigateTo({
-      pageId: 'exam-list',
+      pageId: 'subject-selection',
       params: {
         category: category.id
       }
