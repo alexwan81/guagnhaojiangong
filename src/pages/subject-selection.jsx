@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, DollarSign, Gavel, Settings, Building, Road, Wrench, Droplets, Calculator, Book, FileText, Target, Train, Mountain, Factory, Wifi, Ship, Plane, TrendingUp, BarChart3, ClipboardCheck, Scale, FileCheck, BookOpen, Award, HardHat, Truck, Waves, Cog } from 'lucide-react';
+import { ArrowLeft, DollarSign, Gavel, Settings, Building, Road, Wrench, Droplets, Calculator, Book, FileText, Target, Train, Mountain, Factory, Wifi, Ship, Plane, TrendingUp, BarChart3, ClipboardCheck, Scale, FileCheck, BookOpen, Award, HardHat, Truck, Waves, Cog, Layers, Package, Construction } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubjectSelection(props) {
@@ -137,31 +137,51 @@ export default function SubjectSelection(props) {
       color: 'bg-purple-500'
     }],
     'cost-engineer': [
-    // 造价工程师4个专业方向
+    // 造价工程师公共课程
+    {
+      id: 'cost-management',
+      name: '建设工程造价管理',
+      icon: BarChart3,
+      color: 'bg-blue-600',
+      type: 'public',
+      description: '必考公共科目'
+    }, {
+      id: 'cost-pricing',
+      name: '建设工程计价',
+      icon: Calculator,
+      color: 'bg-orange-600',
+      type: 'public',
+      description: '必考公共科目'
+    },
+    // 造价工程师专业方向
     {
       id: 'civil-engineering',
       name: '土木建筑工程',
       icon: Building,
-      color: 'bg-blue-600',
-      description: '房屋建筑、市政基础设施等'
+      color: 'bg-blue-500',
+      type: 'specialty',
+      description: '房屋建筑、市政基础设施'
     }, {
       id: 'transportation-engineering',
       name: '交通运输工程',
       icon: Truck,
-      color: 'bg-orange-600',
-      description: '公路、铁路、水运等'
+      color: 'bg-orange-500',
+      type: 'specialty',
+      description: '公路、铁路、水运工程'
     }, {
       id: 'water-engineering',
       name: '水利工程',
       icon: Waves,
-      color: 'bg-teal-600',
-      description: '水利水电、水资源等'
+      color: 'bg-teal-500',
+      type: 'specialty',
+      description: '水利水电、水资源工程'
     }, {
       id: 'installation-engineering',
       name: '安装工程',
       icon: Cog,
-      color: 'bg-purple-600',
-      description: '机电设备、管道安装等'
+      color: 'bg-purple-500',
+      type: 'specialty',
+      description: '机电设备、管道安装'
     }],
     'supervising-engineer': [
     // 监理工程师4个考试科目
@@ -191,16 +211,6 @@ export default function SubjectSelection(props) {
   // 造价工程师各专业的考试科目
   const costEngineerSubjects = {
     'civil-engineering': [{
-      id: 'cost-management-civil',
-      name: '建设工程造价管理',
-      icon: BarChart3,
-      color: 'bg-blue-600'
-    }, {
-      id: 'cost-pricing-civil',
-      name: '建设工程计价',
-      icon: Calculator,
-      color: 'bg-orange-600'
-    }, {
       id: 'cost-technology-civil',
       name: '建设工程技术与计量(土木)',
       icon: Building,
@@ -212,16 +222,6 @@ export default function SubjectSelection(props) {
       color: 'bg-red-500'
     }],
     'transportation-engineering': [{
-      id: 'cost-management-transport',
-      name: '建设工程造价管理',
-      icon: BarChart3,
-      color: 'bg-blue-600'
-    }, {
-      id: 'cost-pricing-transport',
-      name: '建设工程计价',
-      icon: Calculator,
-      color: 'bg-orange-600'
-    }, {
       id: 'cost-technology-transport',
       name: '建设工程技术与计量(交通)',
       icon: Truck,
@@ -233,16 +233,6 @@ export default function SubjectSelection(props) {
       color: 'bg-red-500'
     }],
     'water-engineering': [{
-      id: 'cost-management-water',
-      name: '建设工程造价管理',
-      icon: BarChart3,
-      color: 'bg-blue-600'
-    }, {
-      id: 'cost-pricing-water',
-      name: '建设工程计价',
-      icon: Calculator,
-      color: 'bg-orange-600'
-    }, {
       id: 'cost-technology-water',
       name: '建设工程技术与计量(水利)',
       icon: Waves,
@@ -254,16 +244,6 @@ export default function SubjectSelection(props) {
       color: 'bg-red-500'
     }],
     'installation-engineering': [{
-      id: 'cost-management-install',
-      name: '建设工程造价管理',
-      icon: BarChart3,
-      color: 'bg-blue-600'
-    }, {
-      id: 'cost-pricing-install',
-      name: '建设工程计价',
-      icon: Calculator,
-      color: 'bg-orange-600'
-    }, {
       id: 'cost-technology-install',
       name: '建设工程技术与计量(安装)',
       icon: Cog,
@@ -281,14 +261,20 @@ export default function SubjectSelection(props) {
     try {
       setLoading(true);
       let courses = [];
+      const specialty = $w.page.dataset.params?.specialty;
+      const stage = $w.page.dataset.params?.stage;
       if (categoryCode === 'cost-engineer') {
-        // 造价工程师显示专业选择
-        courses = courseData[categoryCode] || [];
-      } else if (categoryCode === 'supervising-engineer') {
-        // 监理工程师显示考试科目
-        courses = courseData[categoryCode] || [];
+        if (stage === 'subjects' && specialty) {
+          // 显示造价工程师专业科目
+          const publicCourses = courseData[categoryCode].filter(c => c.type === 'public');
+          const specialtySubjects = costEngineerSubjects[specialty] || [];
+          courses = [...publicCourses, ...specialtySubjects];
+        } else {
+          // 显示造价工程师完整课程列表
+          courses = courseData[categoryCode] || [];
+        }
       } else {
-        // 建造师显示专业课程
+        // 其他考试类别
         courses = courseData[categoryCode] || [];
       }
       setCourses(courses);
@@ -327,18 +313,10 @@ export default function SubjectSelection(props) {
   };
   useEffect(() => {
     const category = $w.page.dataset.params?.category;
-    const specialty = $w.page.dataset.params?.specialty;
     if (category) {
       setExamCategory(category);
-      if (category === 'cost-engineer' && specialty) {
-        // 如果已选择造价工程师专业，显示该专业的科目
-        const subjects = costEngineerSubjects[specialty] || [];
-        setCourses(subjects);
-      } else {
-        // 否则显示专业/科目列表
-        const categoryCode = getCategoryCode(category);
-        getCoursesByCategory(categoryCode);
-      }
+      const categoryCode = getCategoryCode(category);
+      getCoursesByCategory(categoryCode);
     } else {
       toast({
         title: '参数错误',
@@ -349,13 +327,14 @@ export default function SubjectSelection(props) {
     }
   }, [$w.page.dataset.params]);
   const handleCourseClick = course => {
-    if (examCategory === 'cost-engineer' && course.description) {
+    if (examCategory === 'cost-engineer' && course.type === 'specialty') {
       // 造价工程师专业选择，跳转到该专业的科目
       $w.utils.navigateTo({
         pageId: 'subject-selection',
         params: {
           category: examCategory,
-          specialty: course.id
+          specialty: course.id,
+          stage: 'subjects'
         }
       });
     } else {
@@ -374,8 +353,9 @@ export default function SubjectSelection(props) {
     }
   };
   const handleBack = () => {
+    const stage = $w.page.dataset.params?.stage;
     const specialty = $w.page.dataset.params?.specialty;
-    if (specialty) {
+    if (stage === 'subjects' && specialty) {
       // 如果是造价工程师的科目页面，返回专业选择
       $w.utils.navigateTo({
         pageId: 'subject-selection',
@@ -397,25 +377,41 @@ export default function SubjectSelection(props) {
     }
   };
 
-  // 获取页面标题
-  const getPageTitle = () => {
+  // 获取页面标题和副标题
+  const getPageInfo = () => {
+    const stage = $w.page.dataset.params?.stage;
     const specialty = $w.page.dataset.params?.specialty;
-    if (examCategory === 'cost-engineer' && specialty) {
-      const specialtyNames = {
-        'civil-engineering': '土木建筑工程',
-        'transportation-engineering': '交通运输工程',
-        'water-engineering': '水利工程',
-        'installation-engineering': '安装工程'
-      };
-      return specialtyNames[specialty] || '造价工程师';
+    if (examCategory === 'cost-engineer') {
+      if (stage === 'subjects' && specialty) {
+        const specialtyNames = {
+          'civil-engineering': '土木建筑工程',
+          'transportation-engineering': '交通运输工程',
+          'water-engineering': '水利工程',
+          'installation-engineering': '安装工程'
+        };
+        return {
+          title: specialtyNames[specialty] || '造价工程师',
+          subtitle: '选择考试科目'
+        };
+      } else {
+        return {
+          title: '造价工程师',
+          subtitle: '选择公共课程和专业方向'
+        };
+      }
     }
-    return getCategoryName(examCategory);
+    return {
+      title: getCategoryName(examCategory),
+      subtitle: '选择课程'
+    };
   };
+  const pageInfo = getPageInfo();
   if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>;
   }
+  const stage = $w.page.dataset.params?.stage;
   const specialty = $w.page.dataset.params?.specialty;
   return <div style={style} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-16">
       {/* 头部 */}
@@ -427,11 +423,9 @@ export default function SubjectSelection(props) {
             </button>
             <div className="ml-4">
               <h1 className="text-xl font-bold text-gray-800">
-                {getPageTitle()}
+                {pageInfo.title}
               </h1>
-              <p className="text-sm text-gray-600">
-                {examCategory === 'cost-engineer' && !specialty ? '选择专业方向' : '选择课程'}
-              </p>
+              <p className="text-sm text-gray-600">{pageInfo.subtitle}</p>
             </div>
           </div>
         </div>
@@ -439,22 +433,65 @@ export default function SubjectSelection(props) {
 
       {/* 课程网格 - 紧凑双列布局 */}
       <div className="max-w-4xl mx-auto px-3 py-4">
-        <div className="grid grid-cols-2 gap-3">
-          {courses.map(course => {
+        {examCategory === 'cost-engineer' && !stage && <>
+            {/* 公共课程区域 */}
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3 px-1">公共课程（必考）</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {courses.filter(c => c.type === 'public').map(course => {
+              const Icon = course.icon;
+              return <div key={course.id} onClick={() => handleCourseClick(course)} className="bg-white rounded-lg shadow-md p-3 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105">
+                      <div className="flex flex-col items-center text-center">
+                        <div className={`w-10 h-10 rounded-full ${course.color} flex items-center justify-center mb-2`}>
+                          <Icon size={20} className="text-white" />
+                        </div>
+                        <h3 className="text-sm font-semibold text-gray-800 leading-tight">
+                          {course.name}
+                        </h3>
+                        <p className="text-xs text-gray-600 mt-1">{course.description}</p>
+                      </div>
+                    </div>;
+            })}
+              </div>
+            </div>
+
+            {/* 专业方向区域 */}
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800 mb-3 px-1">专业方向（4选1）</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {courses.filter(c => c.type === 'specialty').map(course => {
+              const Icon = course.icon;
+              return <div key={course.id} onClick={() => handleCourseClick(course)} className="bg-white rounded-lg shadow-md p-3 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-gray-200 hover:border-blue-300">
+                      <div className="flex flex-col items-center text-center">
+                        <div className={`w-10 h-10 rounded-full ${course.color} flex items-center justify-center mb-2`}>
+                          <Icon size={20} className="text-white" />
+                        </div>
+                        <h3 className="text-sm font-semibold text-gray-800 leading-tight">
+                          {course.name}
+                        </h3>
+                        <p className="text-xs text-gray-600 mt-1">{course.description}</p>
+                      </div>
+                    </div>;
+            })}
+              </div>
+            </div>
+          </>}
+
+        {!(examCategory === 'cost-engineer' && !stage) && <div className="grid grid-cols-2 gap-3">
+            {courses.map(course => {
           const Icon = course.icon;
           return <div key={course.id} onClick={() => handleCourseClick(course)} className="bg-white rounded-lg shadow-md p-3 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105">
-                <div className="flex flex-col items-center text-center">
-                  <div className={`w-10 h-10 rounded-full ${course.color} flex items-center justify-center mb-2`}>
-                    <Icon size={20} className="text-white" />
+                  <div className="flex flex-col items-center text-center">
+                    <div className={`w-10 h-10 rounded-full ${course.color} flex items-center justify-center mb-2`}>
+                      <Icon size={20} className="text-white" />
+                    </div>
+                    <h3 className="text-sm font-semibold text-gray-800 leading-tight">
+                      {course.name}
+                    </h3>
                   </div>
-                  <h3 className="text-sm font-semibold text-gray-800 leading-tight">
-                    {course.name}
-                  </h3>
-                  {course.description && <p className="text-xs text-gray-600 mt-1">{course.description}</p>}
-                </div>
-              </div>;
+                </div>;
         })}
-        </div>
+          </div>}
 
         {/* 提示信息 */}
         {courses.length === 0 && <div className="text-center py-12">
