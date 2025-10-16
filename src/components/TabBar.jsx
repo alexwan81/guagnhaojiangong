@@ -9,23 +9,24 @@ export function TabBar({
 }) {
   const tabs = [{
     id: 'home',
-    icon: Home,
-    label: '首页'
+    label: '首页',
+    icon: Home
   }, {
     id: 'profile',
-    icon: User,
-    label: '我的'
+    label: '我的',
+    icon: User
   }, {
     id: 'feedback',
-    icon: MessageSquare,
-    label: '反馈'
+    label: '反馈',
+    icon: MessageSquare
   }];
   return <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
       <div className="flex justify-around py-3">
         {tabs.map(tab => {
-        const IconComponent = tab.icon;
-        return <button key={tab.id} onClick={() => onTabChange(tab.id)} className={`flex flex-col items-center px-4 py-2 rounded-lg transition-colors ${activeTab === tab.id ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600'}`}>
-              <IconComponent size={20} />
+        const Icon = tab.icon;
+        const isActive = activeTab === tab.id;
+        return <button key={tab.id} onClick={() => onTabChange(tab.id)} className={`flex flex-col items-center px-4 py-2 rounded-lg transition-colors ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:text-gray-700'}`}>
+              <Icon size={20} />
               <span className="text-xs mt-1">{tab.label}</span>
             </button>;
       })}
