@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, DollarSign, Gavel, Settings, Building, Road, Wrench, Droplets, Calculator, Book, FileText, Target, Train, Mountain, Factory, Wifi, Ship, Plane, TrendingUp, BarChart3, ClipboardCheck, Scale, FileCheck, BookOpen, Award } from 'lucide-react';
+import { ArrowLeft, DollarSign, Gavel, Settings, Building, Road, Wrench, Droplets, Calculator, Book, FileText, Target, Train, Mountain, Factory, Wifi, Ship, Plane, TrendingUp, BarChart3, ClipboardCheck, Scale, FileCheck, BookOpen, Award, HardHat, Truck, Waves, Cog } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubjectSelection(props) {
@@ -137,27 +137,31 @@ export default function SubjectSelection(props) {
       color: 'bg-purple-500'
     }],
     'cost-engineer': [
-    // 造价工程师4个考试科目
+    // 造价工程师4个专业方向
     {
-      id: 'cost-management',
-      name: '建设工程造价管理',
-      icon: BarChart3,
-      color: 'bg-blue-600'
+      id: 'civil-engineering',
+      name: '土木建筑工程',
+      icon: Building,
+      color: 'bg-blue-600',
+      description: '房屋建筑、市政基础设施等'
     }, {
-      id: 'cost-pricing',
-      name: '建设工程计价',
-      icon: Calculator,
-      color: 'bg-orange-600'
+      id: 'transportation-engineering',
+      name: '交通运输工程',
+      icon: Truck,
+      color: 'bg-orange-600',
+      description: '公路、铁路、水运等'
     }, {
-      id: 'cost-technology',
-      name: '建设工程技术与计量',
-      icon: Wrench,
-      color: 'bg-green-600'
+      id: 'water-engineering',
+      name: '水利工程',
+      icon: Waves,
+      color: 'bg-teal-600',
+      description: '水利水电、水资源等'
     }, {
-      id: 'cost-case',
-      name: '建设工程造价案例分析',
-      icon: FileText,
-      color: 'bg-red-500'
+      id: 'installation-engineering',
+      name: '安装工程',
+      icon: Cog,
+      color: 'bg-purple-600',
+      description: '机电设备、管道安装等'
     }],
     'supervising-engineer': [
     // 监理工程师4个考试科目
@@ -184,11 +188,109 @@ export default function SubjectSelection(props) {
     }]
   };
 
+  // 造价工程师各专业的考试科目
+  const costEngineerSubjects = {
+    'civil-engineering': [{
+      id: 'cost-management-civil',
+      name: '建设工程造价管理',
+      icon: BarChart3,
+      color: 'bg-blue-600'
+    }, {
+      id: 'cost-pricing-civil',
+      name: '建设工程计价',
+      icon: Calculator,
+      color: 'bg-orange-600'
+    }, {
+      id: 'cost-technology-civil',
+      name: '建设工程技术与计量(土木)',
+      icon: Building,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-civil',
+      name: '建设工程造价案例分析(土木)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }],
+    'transportation-engineering': [{
+      id: 'cost-management-transport',
+      name: '建设工程造价管理',
+      icon: BarChart3,
+      color: 'bg-blue-600'
+    }, {
+      id: 'cost-pricing-transport',
+      name: '建设工程计价',
+      icon: Calculator,
+      color: 'bg-orange-600'
+    }, {
+      id: 'cost-technology-transport',
+      name: '建设工程技术与计量(交通)',
+      icon: Truck,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-transport',
+      name: '建设工程造价案例分析(交通)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }],
+    'water-engineering': [{
+      id: 'cost-management-water',
+      name: '建设工程造价管理',
+      icon: BarChart3,
+      color: 'bg-blue-600'
+    }, {
+      id: 'cost-pricing-water',
+      name: '建设工程计价',
+      icon: Calculator,
+      color: 'bg-orange-600'
+    }, {
+      id: 'cost-technology-water',
+      name: '建设工程技术与计量(水利)',
+      icon: Waves,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-water',
+      name: '建设工程造价案例分析(水利)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }],
+    'installation-engineering': [{
+      id: 'cost-management-install',
+      name: '建设工程造价管理',
+      icon: BarChart3,
+      color: 'bg-blue-600'
+    }, {
+      id: 'cost-pricing-install',
+      name: '建设工程计价',
+      icon: Calculator,
+      color: 'bg-orange-600'
+    }, {
+      id: 'cost-technology-install',
+      name: '建设工程技术与计量(安装)',
+      icon: Cog,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-install',
+      name: '建设工程造价案例分析(安装)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }]
+  };
+
   // 获取课程数据
   const getCoursesByCategory = async categoryCode => {
     try {
       setLoading(true);
-      const courses = courseData[categoryCode] || [];
+      let courses = [];
+      if (categoryCode === 'cost-engineer') {
+        // 造价工程师显示专业选择
+        courses = courseData[categoryCode] || [];
+      } else if (categoryCode === 'supervising-engineer') {
+        // 监理工程师显示考试科目
+        courses = courseData[categoryCode] || [];
+      } else {
+        // 建造师显示专业课程
+        courses = courseData[categoryCode] || [];
+      }
       setCourses(courses);
     } catch (error) {
       toast({
@@ -196,7 +298,7 @@ export default function SubjectSelection(props) {
         description: '无法获取课程数据',
         variant: 'destructive'
       });
-      setCourses(courseData[categoryCode] || []);
+      setCourses([]);
     } finally {
       setLoading(false);
     }
@@ -225,10 +327,18 @@ export default function SubjectSelection(props) {
   };
   useEffect(() => {
     const category = $w.page.dataset.params?.category;
+    const specialty = $w.page.dataset.params?.specialty;
     if (category) {
       setExamCategory(category);
-      const categoryCode = getCategoryCode(category);
-      getCoursesByCategory(categoryCode);
+      if (category === 'cost-engineer' && specialty) {
+        // 如果已选择造价工程师专业，显示该专业的科目
+        const subjects = costEngineerSubjects[specialty] || [];
+        setCourses(subjects);
+      } else {
+        // 否则显示专业/科目列表
+        const categoryCode = getCategoryCode(category);
+        getCoursesByCategory(categoryCode);
+      }
     } else {
       toast({
         title: '参数错误',
@@ -239,17 +349,43 @@ export default function SubjectSelection(props) {
     }
   }, [$w.page.dataset.params]);
   const handleCourseClick = course => {
-    $w.utils.navigateTo({
-      pageId: 'chapter-list',
-      params: {
-        category: examCategory,
-        subject: course.id,
-        courseTitle: course.name
-      }
-    });
+    if (examCategory === 'cost-engineer' && course.description) {
+      // 造价工程师专业选择，跳转到该专业的科目
+      $w.utils.navigateTo({
+        pageId: 'subject-selection',
+        params: {
+          category: examCategory,
+          specialty: course.id
+        }
+      });
+    } else {
+      // 其他情况直接进入章节列表
+      $w.utils.navigateTo({
+        pageId: 'chapter-list',
+        params: {
+          category: examCategory,
+          subject: course.id,
+          courseTitle: course.name,
+          ...(course.specialty && {
+            specialty: course.specialty
+          })
+        }
+      });
+    }
   };
   const handleBack = () => {
-    $w.utils.navigateBack();
+    const specialty = $w.page.dataset.params?.specialty;
+    if (specialty) {
+      // 如果是造价工程师的科目页面，返回专业选择
+      $w.utils.navigateTo({
+        pageId: 'subject-selection',
+        params: {
+          category: examCategory
+        }
+      });
+    } else {
+      $w.utils.navigateBack();
+    }
   };
   const handleTabChange = tabId => {
     setActiveTab(tabId);
@@ -260,11 +396,27 @@ export default function SubjectSelection(props) {
       });
     }
   };
+
+  // 获取页面标题
+  const getPageTitle = () => {
+    const specialty = $w.page.dataset.params?.specialty;
+    if (examCategory === 'cost-engineer' && specialty) {
+      const specialtyNames = {
+        'civil-engineering': '土木建筑工程',
+        'transportation-engineering': '交通运输工程',
+        'water-engineering': '水利工程',
+        'installation-engineering': '安装工程'
+      };
+      return specialtyNames[specialty] || '造价工程师';
+    }
+    return getCategoryName(examCategory);
+  };
   if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>;
   }
+  const specialty = $w.page.dataset.params?.specialty;
   return <div style={style} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-16">
       {/* 头部 */}
       <div className="bg-white shadow-lg">
@@ -275,9 +427,11 @@ export default function SubjectSelection(props) {
             </button>
             <div className="ml-4">
               <h1 className="text-xl font-bold text-gray-800">
-                {getCategoryName(examCategory)}
+                {getPageTitle()}
               </h1>
-              <p className="text-sm text-gray-600">选择课程</p>
+              <p className="text-sm text-gray-600">
+                {examCategory === 'cost-engineer' && !specialty ? '选择专业方向' : '选择课程'}
+              </p>
             </div>
           </div>
         </div>
@@ -296,6 +450,7 @@ export default function SubjectSelection(props) {
                   <h3 className="text-sm font-semibold text-gray-800 leading-tight">
                     {course.name}
                   </h3>
+                  {course.description && <p className="text-xs text-gray-600 mt-1">{course.description}</p>}
                 </div>
               </div>;
         })}
