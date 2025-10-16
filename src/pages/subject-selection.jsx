@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, Building, Road, Wrench, Droplets, BookOpen, Ship, Train, Plane, Satellite, Mountain, DollarSign, ClipboardCheck } from 'lucide-react';
+import { ArrowLeft, Building, Road, Wrench, Droplets, BookOpen, Ship, Train, Plane, Satellite, Mountain, DollarSign, ClipboardCheck, Book, Calculator, Gavel, Settings, Target, FileText } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubjectSelection(props) {
@@ -15,281 +15,228 @@ export default function SubjectSelection(props) {
     toast
   } = useToast();
   const [activeTab, setActiveTab] = useState('home');
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [examCategory, setExamCategory] = useState('');
-  const [subjects, setSubjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  // 从 exams 集合获取专业数据
-  const getSubjectsByCategory = async categoryCode => {
+  // 课程数据（包含公共课程和专业课程）
+  const courseData = {
+    'first-grade-constructor': [{
+      id: 'public-economy',
+      name: '建设工程经济',
+      icon: DollarSign,
+      color: 'bg-blue-600',
+      description: '公共课程 · 120题',
+      type: 'public',
+      subtitle: '工程经济、工程财务、建设工程估价'
+    }, {
+      id: 'public-law',
+      name: '建设工程法规',
+      icon: Gavel,
+      color: 'bg-purple-600',
+      description: '公共课程 · 110题',
+      type: 'public',
+      subtitle: '法律法规、合同管理、施工许可'
+    }, {
+      id: 'public-management',
+      name: '建设工程项目管理',
+      icon: Settings,
+      color: 'bg-green-600',
+      description: '公共课程 · 115题',
+      type: 'public',
+      subtitle: '组织管理、成本管理、进度管理'
+    }, {
+      id: 'architecture',
+      name: '建筑工程',
+      icon: Building,
+      color: 'bg-blue-500',
+      description: '专业课程 · 160题',
+      type: 'professional',
+      subtitle: '建筑结构、施工技术、项目管理'
+    }, {
+      id: 'municipal',
+      name: '市政公用工程',
+      icon: Road,
+      color: 'bg-green-500',
+      description: '专业课程 · 150题',
+      type: 'professional',
+      subtitle: '道路、桥梁、给排水、燃气工程'
+    }, {
+      id: 'mechanical-electrical',
+      name: '机电工程',
+      icon: Wrench,
+      color: 'bg-purple-500',
+      description: '专业课程 · 145题',
+      type: 'professional',
+      subtitle: '机械设备、电气工程、自动化控制'
+    }, {
+      id: 'highway',
+      name: '公路工程',
+      icon: Road,
+      color: 'bg-orange-500',
+      description: '专业课程 · 140题',
+      type: 'professional',
+      subtitle: '路基、路面、桥梁、隧道工程'
+    }, {
+      id: 'water-conservancy',
+      name: '水利水电工程',
+      icon: Droplets,
+      color: 'bg-teal-500',
+      description: '专业课程 · 135题',
+      type: 'professional',
+      subtitle: '水工建筑物、水利工程施工'
+    }],
+    'second-grade-constructor': [{
+      id: 'public-management-2',
+      name: '建设工程施工管理',
+      icon: Settings,
+      color: 'bg-green-600',
+      description: '公共课程 · 95题',
+      type: 'public',
+      subtitle: '施工管理、成本管理、进度管理'
+    }, {
+      id: 'public-law-2',
+      name: '建设工程法规',
+      icon: Gavel,
+      color: 'bg-purple-600',
+      description: '公共课程 · 90题',
+      type: 'public',
+      subtitle: '法律法规、合同管理、施工许可'
+    }, {
+      id: 'architecture-2',
+      name: '建筑工程',
+      icon: Building,
+      color: 'bg-blue-500',
+      description: '专业课程 · 120题',
+      type: 'professional',
+      subtitle: '建筑结构、施工技术、项目管理'
+    }, {
+      id: 'municipal-2',
+      name: '市政公用工程',
+      icon: Road,
+      color: 'bg-green-500',
+      description: '专业课程 · 115题',
+      type: 'professional',
+      subtitle: '道路、桥梁、给排水、燃气工程'
+    }, {
+      id: 'mechanical-electrical-2',
+      name: '机电工程',
+      icon: Wrench,
+      color: 'bg-purple-500',
+      description: '专业课程 · 110题',
+      type: 'professional',
+      subtitle: '机械设备、电气工程、自动化控制'
+    }, {
+      id: 'highway-2',
+      name: '公路工程',
+      icon: Road,
+      color: 'bg-orange-500',
+      description: '专业课程 · 105题',
+      type: 'professional',
+      subtitle: '路基、路面、桥梁、隧道工程'
+    }, {
+      id: 'water-conservancy-2',
+      name: '水利水电工程',
+      icon: Droplets,
+      color: 'bg-teal-500',
+      description: '专业课程 · 100题',
+      type: 'professional',
+      subtitle: '水工建筑物、水利工程施工'
+    }],
+    'cost-engineer': [{
+      id: 'cost-management',
+      name: '建设工程造价管理',
+      icon: Settings,
+      color: 'bg-blue-600',
+      description: '公共课程 · 100题',
+      type: 'public',
+      subtitle: '造价管理、法律法规、项目管理'
+    }, {
+      id: 'cost-pricing',
+      name: '建设工程计价',
+      icon: Calculator,
+      color: 'bg-orange-600',
+      description: '公共课程 · 110题',
+      type: 'public',
+      subtitle: '造价构成、计价依据、计价方法'
+    }, {
+      id: 'cost-technology',
+      name: '建设工程技术与计量',
+      icon: Tool,
+      color: 'bg-orange-500',
+      description: '专业课程 · 100题',
+      type: 'professional',
+      subtitle: '土木建筑工程技术、工程计量'
+    }, {
+      id: 'cost-case',
+      name: '建设工程造价案例分析',
+      icon: FileText,
+      color: 'bg-red-500',
+      description: '专业课程 · 80题',
+      type: 'professional',
+      subtitle: '投资估算、财务分析、工程结算'
+    }],
+    'supervising-engineer': [{
+      id: 'supervising-theory',
+      name: '建设工程监理基本理论与相关法规',
+      icon: Book,
+      color: 'bg-indigo-600',
+      description: '公共课程 · 95题',
+      type: 'public',
+      subtitle: '监理制度、法律法规、标准规范'
+    }, {
+      id: 'supervising-contract',
+      name: '建设工程合同管理',
+      icon: FileText,
+      color: 'bg-teal-600',
+      description: '公共课程 · 90题',
+      type: 'public',
+      subtitle: '合同管理、法律制度、示范文本'
+    }, {
+      id: 'supervising-control',
+      name: '建设工程目标控制',
+      icon: Target,
+      color: 'bg-purple-500',
+      description: '专业课程 · 110题',
+      type: 'professional',
+      subtitle: '质量控制、投资控制、进度控制'
+    }, {
+      id: 'supervising-case',
+      name: '建设工程监理案例分析',
+      icon: FileText,
+      color: 'bg-indigo-500',
+      description: '专业课程 · 70题',
+      type: 'professional',
+      subtitle: '监理实务、案例分析、问题解决'
+    }]
+  };
+
+  // 获取课程数据
+  const getCoursesByCategory = async categoryCode => {
     try {
-      setIsLoading(true);
-      const result = await $w.cloud.callDataSource({
-        dataSourceName: 'exams',
-        methodName: 'wedaGetRecordsV2',
-        params: {
-          filter: {
-            where: {
-              $and: [{
-                code: {
-                  $eq: categoryCode
-                }
-              }]
-            }
-          },
-          select: {
-            $master: true
-          }
-        }
-      });
-      if (result.records && result.records.length > 0) {
-        const exam = typeof result.records[0] === 'string' ? JSON.parse(result.records[0]) : result.records[0];
-        const allSubjects = [];
-
-        // 提取所有专业并去重
-        if (exam.categories && Array.isArray(exam.categories)) {
-          exam.categories.forEach(category => {
-            if (category.subjects && Array.isArray(category.subjects)) {
-              category.subjects.forEach(subject => {
-                // 简化专业名称，移除重复前缀
-                let simplifiedName = subject.name;
-                if (simplifiedName.includes('专业工程管理与实务（')) {
-                  simplifiedName = simplifiedName.replace('专业工程管理与实务（', '').replace('）', '');
-                } else if (simplifiedName.includes('建设工程')) {
-                  simplifiedName = simplifiedName.replace('建设工程', '');
-                } else if (simplifiedName.includes('工程')) {
-                  simplifiedName = simplifiedName.replace('工程', '');
-                }
-                allSubjects.push({
-                  id: subject.id,
-                  name: simplifiedName,
-                  originalName: subject.name,
-                  categoryName: category.name
-                });
-              });
-            }
-          });
-        }
-
-        // 为专业分配图标
-        const subjectsWithIcons = allSubjects.map(subject => {
-          let icon = BookOpen;
-          let color = 'bg-gray-500';
-
-          // 根据专业名称分配图标和颜色
-          if (subject.name.includes('建筑') || subject.name.includes('土木')) {
-            icon = Building;
-            color = 'bg-blue-500';
-          } else if (subject.name.includes('公路') || subject.name.includes('交通')) {
-            icon = Road;
-            color = 'bg-green-500';
-          } else if (subject.name.includes('机电')) {
-            icon = Wrench;
-            color = 'bg-purple-500';
-          } else if (subject.name.includes('水利') || subject.name.includes('水电')) {
-            icon = Droplets;
-            color = 'bg-teal-500';
-          } else if (subject.name.includes('市政')) {
-            icon = Road;
-            color = 'bg-orange-500';
-          } else if (subject.name.includes('港口') || subject.name.includes('航道')) {
-            icon = Ship;
-            color = 'bg-indigo-500';
-          } else if (subject.name.includes('铁路')) {
-            icon = Train;
-            color = 'bg-red-500';
-          } else if (subject.name.includes('民航') || subject.name.includes('机场')) {
-            icon = Plane;
-            color = 'bg-pink-500';
-          } else if (subject.name.includes('通信') || subject.name.includes('广电')) {
-            icon = Satellite;
-            color = 'bg-yellow-500';
-          } else if (subject.name.includes('矿业')) {
-            icon = Mountain;
-            color = 'bg-gray-600';
-          } else if (subject.name.includes('造价') || subject.name.includes('计价')) {
-            icon = DollarSign;
-            color = 'bg-green-600';
-          } else if (subject.name.includes('合同') || subject.name.includes('法规')) {
-            icon = ClipboardCheck;
-            color = 'bg-blue-600';
-          } else if (subject.name.includes('管理') || subject.name.includes('控制')) {
-            icon = ClipboardCheck;
-            color = 'bg-purple-600';
-          } else if (subject.name.includes('技术') || subject.name.includes('计量')) {
-            icon = Wrench;
-            color = 'bg-orange-600';
-          } else if (subject.name.includes('案例') || subject.name.includes('分析')) {
-            icon = BookOpen;
-            color = 'bg-red-600';
-          }
-          return {
-            ...subject,
-            icon,
-            color,
-            description: `${subject.categoryName}`
-          };
-        });
-        setSubjects(subjectsWithIcons);
-      } else {
-        // 使用默认数据作为备选
-        setDefaultSubjects(categoryCode);
-      }
+      setLoading(true);
+      const courses = courseData[categoryCode] || [];
+      setCourses(courses);
     } catch (error) {
       toast({
         title: '数据加载失败',
-        description: '无法获取专业数据',
+        description: '无法获取课程数据',
         variant: 'destructive'
       });
-      setDefaultSubjects(categoryCode);
+      // 使用默认数据
+      setCourses(courseData[categoryCode] || []);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  };
-
-  // 默认专业数据
-  const setDefaultSubjects = categoryCode => {
-    const defaultData = {
-      'yjjzs': [{
-        id: 'architecture',
-        name: '建筑工程',
-        icon: Building,
-        color: 'bg-blue-500',
-        description: '建筑工程'
-      }, {
-        id: 'municipal',
-        name: '市政公用',
-        icon: Road,
-        color: 'bg-green-500',
-        description: '市政公用工程'
-      }, {
-        id: 'mechanical-electrical',
-        name: '机电工程',
-        icon: Wrench,
-        color: 'bg-purple-500',
-        description: '机电工程'
-      }, {
-        id: 'highway',
-        name: '公路工程',
-        icon: Road,
-        color: 'bg-orange-500',
-        description: '公路工程'
-      }, {
-        id: 'water-conservancy',
-        name: '水利水电',
-        icon: Droplets,
-        color: 'bg-teal-500',
-        description: '水利水电工程'
-      }, {
-        id: 'railway',
-        name: '铁路工程',
-        icon: Train,
-        color: 'bg-red-500',
-        description: '铁路工程'
-      }, {
-        id: 'port-waterway',
-        name: '港口航道',
-        icon: Ship,
-        color: 'bg-indigo-500',
-        description: '港口与航道工程'
-      }, {
-        id: 'aviation',
-        name: '民航机场',
-        icon: Plane,
-        color: 'bg-pink-500',
-        description: '民航机场工程'
-      }, {
-        id: 'communication',
-        name: '通信广电',
-        icon: Satellite,
-        color: 'bg-yellow-500',
-        description: '通信与广电工程'
-      }, {
-        id: 'mining',
-        name: '矿业工程',
-        icon: Mountain,
-        color: 'bg-gray-600',
-        description: '矿业工程'
-      }],
-      'ejjzs': [{
-        id: 'architecture-2',
-        name: '建筑工程',
-        icon: Building,
-        color: 'bg-blue-500',
-        description: '建筑工程'
-      }, {
-        id: 'municipal-2',
-        name: '市政公用',
-        icon: Road,
-        color: 'bg-green-500',
-        description: '市政公用工程'
-      }, {
-        id: 'mechanical-electrical-2',
-        name: '机电工程',
-        icon: Wrench,
-        color: 'bg-purple-500',
-        description: '机电工程'
-      }, {
-        id: 'highway-2',
-        name: '公路工程',
-        icon: Road,
-        color: 'bg-orange-500',
-        description: '公路工程'
-      }, {
-        id: 'water-conservancy-2',
-        name: '水利水电',
-        icon: Droplets,
-        color: 'bg-teal-500',
-        description: '水利水电工程'
-      }, {
-        id: 'mining-2',
-        name: '矿业工程',
-        icon: Mountain,
-        color: 'bg-gray-600',
-        description: '矿业工程'
-      }],
-      'zjgcs': [{
-        id: 'cost-construction',
-        name: '土木建筑',
-        icon: Building,
-        color: 'bg-blue-500',
-        description: '土木建筑工程'
-      }, {
-        id: 'cost-installation',
-        name: '安装工程',
-        icon: Wrench,
-        color: 'bg-purple-500',
-        description: '安装工程'
-      }],
-      'jlgcs': [{
-        id: 'supervising-civil',
-        name: '土木建筑',
-        icon: Building,
-        color: 'bg-blue-500',
-        description: '土木建筑工程'
-      }, {
-        id: 'supervising-transport',
-        name: '交通运输',
-        icon: Road,
-        color: 'bg-green-500',
-        description: '交通运输工程'
-      }, {
-        id: 'supervising-water',
-        name: '水利工程',
-        icon: Droplets,
-        color: 'bg-teal-500',
-        description: '水利工程'
-      }]
-    };
-    setSubjects(defaultData[categoryCode] || []);
   };
 
   // 获取考试类别代码映射
   const getCategoryCode = category => {
     const categoryCodes = {
-      'first-grade-constructor': 'yjjzs',
-      'second-grade-constructor': 'ejjzs',
-      'cost-engineer': 'zjgcs',
-      'supervising-engineer': 'jlgcs'
+      'first-grade-constructor': 'first-grade-constructor',
+      'second-grade-constructor': 'second-grade-constructor',
+      'cost-engineer': 'cost-engineer',
+      'supervising-engineer': 'supervising-engineer'
     };
     return categoryCodes[category] || '';
   };
@@ -310,7 +257,7 @@ export default function SubjectSelection(props) {
     if (category) {
       setExamCategory(category);
       const categoryCode = getCategoryCode(category);
-      getSubjectsByCategory(categoryCode);
+      getCoursesByCategory(categoryCode);
     } else {
       toast({
         title: '参数错误',
@@ -320,13 +267,15 @@ export default function SubjectSelection(props) {
       $w.utils.navigateBack();
     }
   }, [$w.page.dataset.params]);
-  const handleSubjectClick = subject => {
-    // 直接跳转到练习模式选择页面，不再显示选择提示
+  const handleCourseClick = course => {
+    // 直接跳转到章节练习页面
     $w.utils.navigateTo({
-      pageId: 'practice-mode',
+      pageId: 'chapter-list',
       params: {
         category: examCategory,
-        subject: subject.id
+        subject: course.id,
+        courseTitle: course.name,
+        courseType: course.type
       }
     });
   };
@@ -342,14 +291,14 @@ export default function SubjectSelection(props) {
       });
     }
   };
-  if (isLoading) {
+  if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>;
   }
-  return <div style={style} className="min-h-screen bg-gray-50 pb-16">
+  return <div style={style} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-16">
       {/* 头部 */}
-      <div className="bg-white shadow-sm">
+      <div className="bg-white shadow-lg">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center">
             <button onClick={handleBack} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
@@ -359,36 +308,42 @@ export default function SubjectSelection(props) {
               <h1 className="text-xl font-bold text-gray-800">
                 {getCategoryName(examCategory)}
               </h1>
-              <p className="text-sm text-gray-600">选择专业方向</p>
+              <p className="text-sm text-gray-600">选择课程</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 专业方向网格 */}
+      {/* 课程网格 */}
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <div className="grid grid-cols-2 gap-4">
-          {subjects.map(subject => {
-          const Icon = subject.icon;
-          return <div key={subject.id} onClick={() => handleSubjectClick(subject)} className="bg-white rounded-xl shadow-md p-6 cursor-pointer transition-transform hover:scale-105 hover:shadow-lg">
-                <div className="flex flex-col items-center">
-                  <div className={`w-14 h-14 rounded-full ${subject.color} flex items-center justify-center mb-3`}>
-                    <Icon size={22} className="text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {courses.map(course => {
+          const Icon = course.icon;
+          return <div key={course.id} onClick={() => handleCourseClick(course)} className="bg-white rounded-xl shadow-lg p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105">
+                <div className="flex items-start">
+                  <div className={`w-14 h-14 rounded-full ${course.color} flex items-center justify-center mr-4 flex-shrink-0`}>
+                    <Icon size={24} className="text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">
-                    {subject.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 text-center">
-                    {subject.description}
-                  </p>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-lg font-semibold text-gray-800">
+                        {course.name}
+                      </h3>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${course.type === 'public' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}>
+                        {course.type === 'public' ? '公共课' : '专业课'}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">{course.subtitle}</p>
+                    <p className="text-sm text-gray-500">{course.description}</p>
+                  </div>
                 </div>
               </div>;
         })}
         </div>
 
         {/* 提示信息 */}
-        {subjects.length === 0 && <div className="text-center py-12">
-            <p className="text-gray-500">暂无专业数据</p>
+        {courses.length === 0 && <div className="text-center py-12">
+            <p className="text-gray-500">暂无课程数据</p>
           </div>}
       </div>
 
