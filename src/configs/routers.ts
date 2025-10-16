@@ -5,6 +5,7 @@ import CHAPTER_LIST from '../pages/chapter-list.jsx';
 import QUESTION_PRACTICE from '../pages/question-practice.jsx';
 import PROFILE from '../pages/profile.jsx';
 import FEEDBACK from '../pages/feedback.jsx';
+import SUBCHAPTER_LIST from '../pages/subchapter-list.jsx';
 export const routers = [{
   id: "home",
   component: HOME
@@ -26,4 +27,7 @@ export const routers = [{
 }, {
   id: "feedback",
   component: FEEDBACK
+}, {
+  id: "subchapter-list",
+  component: SUBCHAPTER_LIST
 }]
