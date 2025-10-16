@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, Building, Road, Wrench, Droplets, BookOpen, Ship, Train, Plane, Satellite, Mountain, DollarSign, ClipboardCheck, Book, Calculator, Gavel, Settings, Target, FileText } from 'lucide-react';
+import { ArrowLeft, BookOpen, Building, Road, Wrench, Droplets, DollarSign, ClipboardCheck, Gavel, Settings, Target, FileText, Calculator, Book } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubjectSelection(props) {
@@ -162,7 +162,7 @@ export default function SubjectSelection(props) {
     }, {
       id: 'cost-technology',
       name: '建设工程技术与计量',
-      icon: Tool,
+      icon: Wrench,
       color: 'bg-orange-500',
       description: '专业课程 · 100题',
       type: 'professional',
