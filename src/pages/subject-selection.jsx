@@ -160,6 +160,16 @@ export default function SubjectSelection(props) {
       color: 'bg-purple-500'
     }],
     'supervising-engineer': [{
+      id: 'supervising-theory',
+      name: '建设工程监理基本理论与相关法规',
+      icon: BookOpen,
+      color: 'bg-indigo-600'
+    }, {
+      id: 'supervising-contract',
+      name: '建设工程合同管理',
+      icon: FileCheck,
+      color: 'bg-teal-600'
+    }, {
       id: 'civil-supervising',
       name: '土木建筑工程',
       icon: Building,
@@ -177,19 +187,57 @@ export default function SubjectSelection(props) {
     }]
   };
 
+  // 造价工程师各专业的考试科目
+  const costEngineerSubjects = {
+    'civil-engineering': [{
+      id: 'cost-technology-civil',
+      name: '建设工程技术与计量(土木)',
+      icon: Building,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-civil',
+      name: '建设工程造价案例分析(土木)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }],
+    'transportation-engineering': [{
+      id: 'cost-technology-transport',
+      name: '建设工程技术与计量(交通)',
+      icon: Truck,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-transport',
+      name: '建设工程造价案例分析(交通)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }],
+    'water-engineering': [{
+      id: 'cost-technology-water',
+      name: '建设工程技术与计量(水利)',
+      icon: Waves,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-water',
+      name: '建设工程造价案例分析(水利)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }],
+    'installation-engineering': [{
+      id: 'cost-technology-install',
+      name: '建设工程技术与计量(安装)',
+      icon: Cog,
+      color: 'bg-green-600'
+    }, {
+      id: 'cost-case-install',
+      name: '建设工程造价案例分析(安装)',
+      icon: FileText,
+      color: 'bg-red-500'
+    }]
+  };
+
   // 监理工程师各专业的考试科目
   const supervisingEngineerSubjects = {
     'civil-supervising': [{
-      id: 'supervising-theory-civil',
-      name: '建设工程监理基本理论与相关法规',
-      icon: BookOpen,
-      color: 'bg-indigo-600'
-    }, {
-      id: 'supervising-contract-civil',
-      name: '建设工程合同管理',
-      icon: FileCheck,
-      color: 'bg-teal-600'
-    }, {
       id: 'supervising-control-civil',
       name: '建设工程目标控制',
       icon: Target,
@@ -201,16 +249,6 @@ export default function SubjectSelection(props) {
       color: 'bg-indigo-500'
     }],
     'transportation-supervising': [{
-      id: 'supervising-theory-transport',
-      name: '建设工程监理基本理论与相关法规',
-      icon: BookOpen,
-      color: 'bg-indigo-600'
-    }, {
-      id: 'supervising-contract-transport',
-      name: '建设工程合同管理',
-      icon: FileCheck,
-      color: 'bg-teal-600'
-    }, {
       id: 'supervising-control-transport',
       name: '建设工程目标控制',
       icon: Target,
@@ -222,16 +260,6 @@ export default function SubjectSelection(props) {
       color: 'bg-indigo-500'
     }],
     'water-supervising': [{
-      id: 'supervising-theory-water',
-      name: '建设工程监理基本理论与相关法规',
-      icon: BookOpen,
-      color: 'bg-indigo-600'
-    }, {
-      id: 'supervising-contract-water',
-      name: '建设工程合同管理',
-      icon: FileCheck,
-      color: 'bg-teal-600'
-    }, {
       id: 'supervising-control-water',
       name: '建设工程目标控制',
       icon: Target,
@@ -254,9 +282,11 @@ export default function SubjectSelection(props) {
       if (categoryCode === 'supervising-engineer') {
         if (stage === 'subjects' && specialty) {
           // 显示监理工程师专业科目
-          courses = supervisingEngineerSubjects[specialty] || [];
+          const publicCourses = courseData[categoryCode].filter(c => ['supervising-theory', 'supervising-contract'].includes(c.id));
+          const specialtySubjects = supervisingEngineerSubjects[specialty] || [];
+          courses = [...publicCourses, ...specialtySubjects];
         } else {
-          // 显示监理工程师专业选择
+          // 显示监理工程师完整课程列表
           courses = courseData[categoryCode] || [];
         }
       } else if (categoryCode === 'cost-engineer') {
@@ -325,7 +355,7 @@ export default function SubjectSelection(props) {
   const handleCourseClick = course => {
     const specialty = $w.page.dataset.params?.specialty;
     const stage = $w.page.dataset.params?.stage;
-    if (examCategory === 'supervising-engineer' && !stage) {
+    if (examCategory === 'supervising-engineer' && !stage && ['civil-supervising', 'transportation-supervising', 'water-supervising'].includes(course.id)) {
       // 监理工程师专业选择，跳转到该专业的科目
       $w.utils.navigateTo({
         pageId: 'subject-selection',
@@ -372,7 +402,7 @@ export default function SubjectSelection(props) {
     }
   };
   const handleTabChange = tabId => {
-    setActiveTab = tabId;
+    setActiveTab(tabId);
     if (tabId !== 'home') {
       $w.utils.navigateTo({
         pageId: tabId,
