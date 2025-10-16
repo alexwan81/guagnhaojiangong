@@ -94,7 +94,7 @@ export default function Home(props) {
                     <Icon size={20} className="text-white" />
                   </div>
                   <h3 className="text-sm font-bold text-gray-800 leading-tight">{category.name}</h3>
-                  <ChevronRight size={14} className="mt-1 text-gray-500 transition-transform duration-300 group-hover:translate-x-1" />
+                  {category.id !== 'first-grade-constructor' && <ChevronRight size={14} className="mt-1 text-gray-500 transition-transform duration-300 group-hover:translate-x-1" />}
                 </div>
               </div>;
         })}
