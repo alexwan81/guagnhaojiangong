@@ -297,12 +297,7 @@ export default function SubjectSelection(props) {
     }
   }, [$w.page.dataset.params]);
   const handleSubjectClick = subject => {
-    toast({
-      title: '选择专业',
-      description: `已选择${subject.name}专业`
-    });
-
-    // 跳转到练习模式选择页面
+    // 直接跳转到练习模式选择页面，不再显示选择提示
     $w.utils.navigateTo({
       pageId: 'practice-mode',
       params: {
