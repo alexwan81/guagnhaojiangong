@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, BookOpen, PlayCircle, CheckCircle, Clock, Target, FileText, Building, Ruler, Zap, Layers, Puzzle } from 'lucide-react';
+import { ArrowLeft, BookOpen, PlayCircle, CheckCircle, Clock, Target, FileText, Building, Ruler, Zap, Layers, Puzzle, Home, Shield, Anchor } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function SubchapterList(props) {
@@ -20,20 +20,20 @@ export default function SubchapterList(props) {
   const [chapterTitle, setChapterTitle] = useState('');
   const [chapterId, setChapterId] = useState('');
 
-  // 第1章 建筑工程设计技术 的4个小节
+  // 第1章 建筑工程设计技术 的5个小节（2025年教材精确版本）
   const subchapterData = {
     'architecture-2025-01': [{
       id: 'architecture-1-1',
       title: '1.1 建筑物的构成与设计要求',
-      subtitle: '建筑物分类与构成体系',
+      subtitle: '建筑物分类与设计要求',
       section: '1.1',
       importance: 'high',
-      knowledgePoints: 15,
-      studyHours: 3,
+      knowledgePoints: 16,
+      studyHours: 3.5,
       progress: 75,
-      totalQuestions: 65,
-      completedQuestions: 49,
-      description: '建筑物分类（按用途、层数、高度、规模等）、建筑物构成体系（结构体系、围护体系、设备体系）、建筑设计要求（功能、技术、经济、美观、环保）',
+      totalQuestions: 70,
+      completedQuestions: 53,
+      description: '建筑物分类（民用建筑、工业建筑、农业建筑）、建筑物构成体系（结构体系、围护体系、设备体系）、建筑设计要求（功能、技术、经济、美观、环保）',
       icon: Building
     }, {
       id: 'architecture-1-2',
@@ -41,52 +41,52 @@ export default function SubchapterList(props) {
       subtitle: '建筑构造设计原理',
       section: '1.2',
       importance: 'high',
-      knowledgePoints: 14,
+      knowledgePoints: 15,
       studyHours: 3,
       progress: 68,
-      totalQuestions: 58,
-      completedQuestions: 39,
-      description: '建筑构造设计原则、建筑构件连接与构造、建筑防水构造、建筑保温隔热构造、建筑隔声构造、建筑防火构造',
+      totalQuestions: 65,
+      completedQuestions: 44,
+      description: '建筑构造设计原则、建筑构件连接构造、建筑防水构造、建筑保温隔热构造、建筑隔声构造、建筑防火构造要求',
       icon: Layers
     }, {
       id: 'architecture-1-3',
       title: '1.3 建筑结构体系和设计作用(荷载)',
-      subtitle: '结构体系与荷载计算',
+      subtitle: '结构体系与荷载设计',
       section: '1.3',
       importance: 'high',
-      knowledgePoints: 13,
-      studyHours: 2.5,
+      knowledgePoints: 18,
+      studyHours: 4,
       progress: 60,
-      totalQuestions: 62,
-      completedQuestions: 37,
-      description: '建筑结构体系类型（框架结构、剪力墙结构、框架-剪力墙结构等）、设计作用（荷载）分类、荷载组合与计算、结构体系选择原则',
+      totalQuestions: 80,
+      completedQuestions: 48,
+      description: '建筑结构体系类型（框架结构、剪力墙结构、框架-剪力墙结构、筒体结构等）、设计作用（荷载）分类、荷载组合与计算、结构体系选择原则',
       icon: Ruler
     }, {
       id: 'architecture-1-4',
       title: '1.4 建筑结构设计构造基本要求',
-      subtitle: '结构设计构造要点',
+      subtitle: '结构设计构造规范',
       section: '1.4',
       importance: 'high',
-      knowledgePoints: 12,
-      studyHours: 2.5,
+      knowledgePoints: 14,
+      studyHours: 3,
       progress: 55,
-      totalQuestions: 55,
-      completedQuestions: 30,
-      description: '混凝土结构构造要求、钢结构构造要求、砌体结构构造要求、结构构件连接构造、结构抗震构造措施',
-      icon: Puzzle
+      totalQuestions: 60,
+      completedQuestions: 33,
+      description: '混凝土结构构造要求、钢结构构造要求、砌体结构构造要求、结构构件连接构造、结构抗震构造措施、结构耐久性构造要求',
+      icon: Shield
     }, {
       id: 'architecture-1-5',
       title: '1.5 装配式建筑设计基本要求',
-      subtitle: '装配式建筑技术',
+      subtitle: '装配式建筑技术规范',
       section: '1.5',
       importance: 'medium',
-      knowledgePoints: 10,
-      studyHours: 2,
+      knowledgePoints: 12,
+      studyHours: 2.5,
       progress: 45,
-      totalQuestions: 45,
-      completedQuestions: 20,
-      description: '装配式建筑概念与分类、装配式建筑设计原则、预制构件设计、连接节点设计、装配式建筑评价标准',
-      icon: Zap
+      totalQuestions: 50,
+      completedQuestions: 23,
+      description: '装配式建筑概念与分类、装配式建筑设计原则、预制构件设计、连接节点设计、装配式建筑评价标准、装配式建筑质量控制要求',
+      icon: Puzzle
     }]
   };
   const getSubchapters = chapterId => {
