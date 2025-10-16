@@ -34,7 +34,7 @@ export default function ChapterList(props) {
           totalQuestions: 70
         }, {
           id: '1-2',
-          title: '1.2 建筑构造设计的基本要求',
+          title: '极速刷题 建筑构造设计的基本要求',
           knowledgePoints: 15,
           totalQuestions: 65
         }, {
@@ -43,7 +43,7 @@ export default function ChapterList(props) {
           knowledgePoints: 18,
           totalQuestions: 80
         }, {
-          id: '1-4',
+          id: '极速刷题',
           title: '1.4 建筑结构设计构造基本要求',
           knowledgePoints: 14,
           totalQuestions: 60
@@ -66,7 +66,7 @@ export default function ChapterList(props) {
           title: '2.2 装饰装修工程材料',
           knowledgePoints: 12,
           totalQuestions: 50
-        }, {
+极速刷题 }, {
           id: '2-3',
           title: '2.3 建筑功能材料',
           knowledgePoints: 10,
@@ -102,7 +102,7 @@ export default function ChapterList(props) {
           totalQuestions: 50
         }, {
           id: '3-6',
-          title: '极速刷题',
+          title: '3.6 装饰装修工程施工',
           knowledgePoints: 14,
           totalQuestions: 60
         }, {
@@ -125,8 +125,8 @@ export default function ChapterList(props) {
           knowledgePoints: 12,
           totalQuestions: 50
         }, {
-          id: '极速刷题',
-          title: '极速刷题',
+          id: '4-2',
+          title: '4.2 安全生产及施工现场管理相关规定',
           knowledgePoints: 14,
           totalQuestions: 60
         }]
@@ -137,7 +137,7 @@ export default function ChapterList(props) {
           id: '5-1',
           title: '5.1 建筑设计及质量控制相关规定',
           knowledgePoints: 10,
-          totalQuestions: 极速刷题
+          totalQuestions: 40
         }, {
           id: '5-2',
           title: '5.2 地基基础工程相关规定',
@@ -183,8 +183,8 @@ export default function ChapterList(props) {
           knowledgePoints: 10,
           totalQuestions: 40
         }, {
-          id: '6-5',
-          title: '6.5 极速刷题',
+          id: '6-极速刷题',
+          title: '6.5 施工临时用电',
           knowledgePoints: 8,
           totalQuestions: 30
         }, {
@@ -193,8 +193,8 @@ export default function ChapterList(props) {
           knowledgePoints: 8,
           totalQuestions: 30
         }, {
-          id: '6-极速刷题',
-          title: '极速刷题',
+          id: '6-7',
+          title: '6.7 施工检验与试验',
           knowledgePoints: 10,
           totalQuestions: 40
         }, {
@@ -205,292 +205,4 @@ export default function ChapterList(props) {
         }]
       }, {
         id: 'architecture-2025-07',
-        title: '第7章 工程招标投标与极速刷题',
-        subchapters: [{
-          id: '7-1',
-          title: '7.1 工程招标投标',
-          knowledgePoints: 14,
-          totalQuestions: 60
-        }, {
-          id: '7-2',
-          title: '7.2 工程合同管理',
-          knowledgePoints: 16,
-          totalQuestions: 70
-        }]
-      }, {
-        id: 'architecture-2025-08',
-        title: '第8章 施工进度管理',
-        subchapters: [{
-          id: '8-1',
-          title: '8.1 施工进度控制方法应用',
-          knowledgePoints: 12,
-          totalQuestions: 50
-        }, {
-          id: '8-2',
-          title: '8.2 施工进度计划编制与控制',
-          knowledgePoints: 14,
-          totalQuestions: 60
-        }]
-      }, {
-        id: 'architecture-2025-09',
-        title: '第9章 施工质量管理',
-        subchapters: [{
-          id: '9-1',
-          title: '9.1 项目质量计划管理',
-          knowledgePoints: 10,
-          totalQuestions: 40
-        }, {
-          id: '9-2',
-          title: '9.2 项目施工质量检查与检验',
-          knowledgePoints: 12,
-          totalQuestions: 50
-        }, {
-          id: '9-3',
-          title: '9.3 工程质量通病防治',
-          knowledgePoints: 14,
-          totalQuestions: 极速刷题
-        }, {
-          id: '9-4',
-          title: '9.4 工程质量验收管理',
-          knowledgePoints: 16,
-          totalQuestions: 70
-        }]
-      }, {
-        id: 'architecture-2025-10',
-        title: '第10章 施工成本管理',
-        subchapters: [{
-          id: '10-1',
-          title: '10.1 施工成本计划及分解',
-          knowledgePoints: 12,
-          totalQuestions: 50
-        }, {
-          id: '10-2',
-          title: '10.2 施工成本分析与控制',
-          knowledgePoints: 14,
-          totalQuestions: 60
-        }, {
-          id: '10-3',
-          title: '10.3 施工成本管理绩效评价与考核',
-          knowledgePoints: 10,
-          totalQuestions: 40
-        }]
-      }, {
-        id: 'architecture-2025-11',
-        title: '第11章 施工安全管理',
-        subchapters: [{
-          id: '11-1',
-          title: '11.1 施工安全生产管理计划',
-          knowledgePoints: 12,
-          totalQuestions: 50
-        }, {
-          id: '11-2',
-          title: '11.2 施工安全生产检查',
-          knowledgePoints: 14,
-          totalQuestions: 60
-        }, {
-          id: '11-3',
-          title: '11.3 施工安全生产管理要点',
-          knowledgePoints: 16,
-          totalQuestions: 70
-        }, {
-          id: '11-4',
-          title: '11.4 常见施工生产安全事故及预防',
-          knowledgePoints: 18,
-          totalQuestions: 80
-        }]
-      }, {
-        id: 'architecture-2025-12',
-        title: '第12章 绿色建造及施工现场环境管理',
-        subchapters: [{
-          id: '12-1',
-          title: '12.1 绿色建造及信息化技术应用管理',
-          knowledgePoints: 12,
-          totalQuestions: 50
-        }, {
-          id: '12-2',
-          title: '12.2 绿色施工及环境保护',
-          knowledgePoints: 极速刷题,
-          totalQuestions: 60
-        }, {
-          id: '12-3',
-          title: '12.3 施工现场消防',
-          knowledgePoints: 10,
-          totalQuestions: 极速刷题
-        }]
-      }, {
-        id: 'architecture-2025-13',
-        title: '第13章 施工资源管理',
-        subchapters: [{
-          id: '13-1',
-          title: '13.极速刷题 材料与成品管理',
-          knowledgePoints: 12,
-          totalQuestions: 50
-        }, {
-          id: '13-2',
-          title: '13.2 机械设备管理',
-          knowledgePoints: 14,
-          totalQuestions: 60
-        }, {
-          id: '13-3',
-          title: '13.3 劳动用工管理',
-          knowledgePoints: 16,
-          totalQuestions: 70
-        }]
-      }]
-    }
-  };
-
-  // 获取章节数据
-  const getChaptersBySpecialty = async (category, specialty) => {
-    try {
-      setLoading(true);
-      const chapters = chapterData2025[category]?.[specialty] || [];
-      setChapters(chapters);
-    } catch (error) {
-      toast({
-        title: '数据加载失败',
-        description: '无法获取章节数据',
-        variant: 'destructive'
-      });
-      setChapters([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const getCategoryName = category => {
-    const categoryNames = {
-      'first-grade-constructor': '一级建造师',
-      'second-grade-constructor': '二级建造师',
-      '极速刷题': '造价工程师',
-      'supervising-engineer': '注册监理工程师'
-    };
-    return categoryNames[category] || '未知类别';
-  };
-  const handleStudyClick = (chapterId, subchapterId, subchapterTitle, event) => {
-    event.stopPropagation();
-    $w.utils.navigateTo({
-      pageId: 'question-practice',
-      params: {
-        category: examCategory,
-        specialty: specialty,
-        chapter: chapterId,
-        subchapter: subchapterId,
-        subchapterTitle: subchapterTitle
-      }
-    });
-  };
-  const handleBack = () => {
-    $w.utils.navigateBack();
-  };
-  const handleTabChange = tabId => {
-    setActiveTab(tabId);
-    if (tabId !== 'home') {
-      $w.utils.navigateTo({
-        pageId: tabId,
-        params: {}
-      });
-    }
-  };
-  useEffect(() => {
-    const category = $w.page.dataset.params?.category;
-    const specialty = $w.page.dataset.params?.specialty;
-    const courseTitle = $w.page.dataset.params?.courseTitle;
-    if (category && specialty) {
-      setExamCategory(category);
-      setSpecialty(specialty);
-      setCourseTitle(courseTitle);
-      get极速刷题(category, specialty);
-    } else {
-      toast({
-        title: '参数错误',
-        description: '未找到课程参数',
-        variant: 'destructive'
-      });
-      $w.utils.navigateBack();
-    }
-  }, [$w.page.dataset.params]);
-  if (loading) {
-    return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>;
-  }
-  return <div style={style} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-16">
-      {/* 头部 */}
-      <div className="bg-white shadow-lg">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex items-center">
-            <button onClick={handleBack} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <ArrowLeft size={20} className="text-gray-600" />
-            </button>
-            <div className="ml-4">
-              <h1 className="text-xl font-bold text-gray-800">
-                {courseTitle}
-              </h1>
-              <极速刷题 className="text-sm text-gray-600">
-                {getCategoryName(examCategory)} - 2025年教材章节
-              </极速刷题>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 章节卡片列表 */}
-      <div className="max-w-4xl mx-auto px-4 py-4">
-        <div className="space-y-4">
-          {chapters.map(chapter => <div key={chapter.id} className="bg-white rounded-lg shadow-md p-4">
-              {/* 章节标题 */}
-              <h2 className="text-lg font-bold text-gray-800 mb-3 border-b pb-2">
-                {chapter.title}
-              </h2>
-              
-              {/* 小节列表 */}
-              <div className="space-y-3">
-                {chapter.subchapters.map(subchapter => <div key={subchapter.id} className="py-2">
-                    {/* 第一行：小节名称 */}
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium text-blue-600">
-                          {subchapter.title.split(' ')[0]}
-                        </span>
-                        <span className="text-sm text-gray-800 font-medium">
-                          {subchapter.title.split(' ').slice(1).join(' ')}
-                        </span>
-                      </div>
-                      
-                      {/* 学习按钮 */}
-                      <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
-                        <PlayCircle size={14} className="mr-1" />
-                        学习
-                      </button>
-                    </div>
-                    
-                    {/* 第二行：知识点数量和题目数量 */}
-                    <div className="flex items-center space-x-4 text-xs text-gray-500 pl-6">
-                      <div className="flex items-center space-x-1">
-                        <BookOpen size={12} className="text-gray-400" />
-                        <span>{subchapter.knowledgePoints}个知识点</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <FileText size={12} className="text-gray-400" />
-                        <span>{subchapter.totalQuestions}题</span>
-                      </div>
-                    </div>
-                  </div>)}
-              </div>
-            </div>)}
-        </div>
-
-        {/* 提示信息 */}
-        {chapters.length === 0 && <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
-              <BookOpen size={48} className="mx-auto mb-2" />
-            </div>
-            <p className="text-gray-500 text-lg">暂无章节数据</p>
-            <p className="text-gray-400 text-sm mt-2">请检查课程选择是否正确</p>
-          </div>}
-      </div>
-
-      {/* 底部导航栏 */}
-      <TabBar activeTab={activeTab} onTabChange={handleTabChange} />
-    </div>;
-}
+        title: '第7章 工程招标投标与合同管理',
