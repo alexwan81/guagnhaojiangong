@@ -33,7 +33,7 @@ export default function ChapterList(props) {
           knowledgePoints: 16,
           totalQuestions: 70
         }, {
-          id: '极速刷题',
+          id: '1-2',
           title: '1.2 建筑构造设计的基本要求',
           knowledgePoints: 15,
           totalQuestions: 65
@@ -74,7 +74,7 @@ export default function ChapterList(props) {
         }]
       }, {
         id: 'architecture-2025-03',
-        title: '第3章 建筑工程极速刷题技术',
+        title: '第3章 建筑工程施工技术',
         subchapters: [{
           id: '3-1',
           title: '3.1 施工测量',
@@ -85,7 +85,7 @@ export default function ChapterList(props) {
           title: '3.2 土石方工程施工',
           knowledgePoints: 12,
           totalQuestions: 50
-极速刷题 }, {
+        }, {
           id: '3-3',
           title: '3.3 地基与基础工程施工',
           knowledgePoints: 14,
@@ -128,7 +128,7 @@ export default function ChapterList(props) {
           id: '4-2',
           title: '4.2 安全生产及施工现场管理相关规定',
           knowledgePoints: 14,
-          totalQuestions: 50
+          totalQuestions: 60
         }]
       }, {
         id: 'architecture-2025-05',
@@ -175,11 +175,11 @@ export default function ChapterList(props) {
         }, {
           id: '6-3',
           title: '6.3 施工组织设计',
-          knowledgePoints: 极速刷题,
+          knowledgePoints: 12,
           totalQuestions: 50
         }, {
           id: '6-4',
-          title: '6.4 施工资源管理',
+          title: '6.4 施工平面布置',
           knowledgePoints: 10,
           totalQuestions: 40
         }, {
@@ -279,7 +279,7 @@ export default function ChapterList(props) {
         title: '第11章 施工安全管理',
         subchapters: [{
           id: '11-1',
-          title: '11.1 施工安全管理计划',
+          title: '11.1 施工安全生产管理计划',
           knowledgePoints: 12,
           totalQuestions: 50
         }, {
@@ -332,7 +332,7 @@ export default function ChapterList(props) {
           totalQuestions: 60
         }, {
           id: '13-3',
-          title: '13.极速刷题 劳动用工管理',
+          title: '13.3 劳动用工管理',
           knowledgePoints: 16,
           totalQuestions: 70
         }]
@@ -382,4 +382,115 @@ export default function ChapterList(props) {
   const handleBack = () => {
     $w.utils.navigateBack();
   };
-  const handleTabChange = tabId =>
+  const handleTabChange = tabId => {
+    setActiveTab(tabId);
+    if (tabId !== 'home') {
+      $w.utils.navigateTo({
+        pageId: tabId,
+        params: {}
+      });
+    }
+  };
+  useEffect(() => {
+    const category = $w.page.dataset.params?.category;
+    const specialty = $w.page.dataset.params?.specialty;
+    const courseTitle = $w.page.dataset.params?.courseTitle;
+    if (category && specialty) {
+      setExamCategory(category);
+      setSpecialty(specialty);
+      setCourseTitle(courseTitle);
+      getChaptersBySpecialty(category, specialty);
+    } else {
+      toast({
+        title: '参数错误',
+        description: '未找到课程参数',
+        variant: 'destructive'
+      });
+      $w.utils.navigateBack();
+    }
+  }, [$w.page.dataset.params]);
+  if (loading) {
+    return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>;
+  }
+  return <div style={style} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-16">
+      {/* 头部 */}
+      <div className="bg-white shadow-lg">
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <div className="flex items-center">
+            <button onClick={handleBack} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+              <ArrowLeft size={20} className="text-gray-600" />
+            </button>
+            <div className="ml-4">
+              <h1 className="text-xl font-bold text-gray-800">
+                {courseTitle}
+              </h1>
+              <p className="text-sm text-gray-600">
+                {getCategoryName(examCategory)} - 2025年教材章节
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 章节卡片列表 */}
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="space-y-4">
+          {chapters.map(chapter => <div key={chapter.id} className="bg-white rounded-lg shadow-md p-4">
+              {/* 章节标题 */}
+              <h2 className="text-lg font-bold text-gray-800 mb-3 border-b pb-2">
+                {chapter.title}
+              </h2>
+              
+              {/* 小节列表 */}
+              <div className="space-y-3">
+                {chapter.subchapters.map(subchapter => <div key={subchapter.id} className="py-2">
+                    {/* 第一行：小节名称 */}
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm font-medium text-blue-600">
+                          {subchapter.title.split(' ')[0]}
+                        </span>
+                        <span className="text-sm text-gray-800 font-medium">
+                          {subchapter.title.split(' ').slice(1).join(' ')}
+                        </span>
+                      </div>
+                      
+                      {/* 学习按钮 */}
+                      <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
+                        <PlayCircle size={14} className="mr-1" />
+                        学习
+                      </button>
+                    </div>
+                    
+                    {/* 第二行：知识点数量和题目数量 */}
+                    <div className="flex items-center space-x-4 text-xs text-gray-500 pl-6">
+                      <div className="flex items-center space-x-1">
+                        <BookOpen size={12} className="text-gray-400" />
+                        <span>{subchapter.knowledgePoints}个知识点</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <FileText size={12} className="text-gray-400" />
+                        <span>{subchapter.totalQuestions}题</span>
+                      </div>
+                    </div>
+                  </div>)}
+              </div>
+            </div>)}
+        </div>
+
+        {/* 提示信息 */}
+        {chapters.length === 0 && <div className="text-center py-12">
+            <div className="text-gray-400 mb-4">
+              <BookOpen size={48} className="mx-auto mb-2" />
+            </div>
+            <p className="text-gray-500 text-lg">暂无章节数据</p>
+            <p className="text-gray-400 text-sm mt-2">请检查课程选择是否正确</p>
+          </div>}
+      </div>
+
+      {/* 底部导航栏 */}
+      <TabBar activeTab={activeTab} onTabChange={handleTabChange} />
+    </div>;
+}
