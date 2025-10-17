@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, PlayCircle, BookOpen, FileText, CheckCircle } from 'lucide-react';
+import { ArrowLeft, PlayCircle, BookOpen, FileText, CheckCircle2, Clock } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function ChapterList(props) {
@@ -20,7 +20,7 @@ export default function ChapterList(props) {
   const [examCategory, setExamCategory] = useState('');
   const [specialty, setSpecialty] = useState('');
   const [courseTitle, setCourseTitle] = useState('');
-  const [completedSubchapters, setCompletedSubchapters] = useState({});
+  const [chapterProgress, setChapterProgress] = useState({});
 
   // 2025年一级建造师《建筑工程管理与实务》13章完整结构
   const chapterData2025 = {
@@ -368,42 +368,79 @@ export default function ChapterList(props) {
     return categoryNames[category] || '未知类别';
   };
 
-  // 加载完成状态
-  const loadCompletedStatus = () => {
+  // 获取学习进度
+  const loadProgress = () => {
     try {
-      const key = `completed_${examCategory}_${specialty}`;
+      const key = `progress_${examCategory}_${specialty}`;
       const saved = localStorage.getItem(key);
-      if (saved) {
-        setCompletedSubchapters(JSON.parse(saved));
-      }
+      return saved ? JSON.parse(saved) : {};
     } catch (error) {
-      console.error('加载完成状态失败:', error);
+      return {};
     }
   };
 
-  // 保存完成状态
-  const saveCompletedStatus = subchapterId => {
+  // 保存学习进度
+  const saveProgress = progress => {
     try {
-      const newCompleted = {
-        ...completedSubchapters,
-        [subchapterId]: true
-      };
-      setCompletedSubchapters(newCompleted);
-      const key = `completed_${examCategory}_${specialty}`;
-      localStorage.setItem(key, JSON.stringify(newCompleted));
+      const key = `progress_${examCategory}_${specialty}`;
+      localStorage.setItem(key, JSON.stringify(progress));
     } catch (error) {
-      console.error('保存完成状态失败:', error);
+      console.error('保存进度失败:', error);
     }
   };
 
-  // 处理学习完成
-  const handleStudyComplete = subchapterId => {
-    saveCompletedStatus(subchapterId);
+  // 更新章节进度
+  const updateChapterProgress = (chapterId, progress) => {
+    const newProgress = {
+      ...chapterProgress,
+      [chapterId]: progress
+    };
+    setChapterProgress(newProgress);
+    saveProgress(newProgress);
+  };
+
+  // 检查章节是否完成
+  const isChapterCompleted = chapter => {
+    const progress = chapterProgress[chapter.id];
+    return progress && progress.completed && progress.accuracy >= 80;
+  };
+
+  // 获取章节状态
+  const getChapterStatus = chapter => {
+    const progress = chapterProgress[chapter.id];
+    if (!progress) return 'not-started';
+    if (progress.completed && progress.accuracy >= 80) return 'completed';
+    if (progress.started) return 'in-progress';
+    return 'not-started';
+  };
+
+  // 排序章节
+  const sortChapters = chapters => {
+    return [...chapters].sort((a, b) => {
+      const statusA = getChapterStatus(a);
+      const statusB = getChapterStatus(b);
+
+      // 排序优先级：进行中 > 未开始 > 已完成
+      const priority = {
+        'in-progress': 0,
+        'not-started': 1,
+        'completed': 2
+      };
+      return priority[statusA] - priority[statusB];
+    });
   };
   const handleStudyClick = (chapterId, subchapterId, subchapterTitle, event) => {
     event.stopPropagation();
 
-    // 导航到练习页面，并传递完成回调
+    // 标记章节为已开始
+    if (!chapterProgress[chapterId]) {
+      updateChapterProgress(chapterId, {
+        started: true,
+        completed: false,
+        accuracy: 0,
+        lastStudyTime: new Date().toISOString()
+      });
+    }
     $w.utils.navigateTo({
       pageId: 'question-practice',
       params: {
@@ -411,8 +448,7 @@ export default function ChapterList(props) {
         specialty: specialty,
         chapter: chapterId,
         subchapter: subchapterId,
-        subchapterTitle: subchapterTitle,
-        onComplete: subchapterId
+        subchapterTitle: subchapterTitle
       }
     });
   };
@@ -429,16 +465,12 @@ export default function ChapterList(props) {
     }
   };
 
-  // 监听从练习页面返回的事件
-  useEffect(() => {
-    const handlePageShow = () => {
-      loadCompletedStatus();
-    };
-    window.addEventListener('pageshow', handlePageShow);
-    return () => {
-      window.removeEventListener('pageshow', handlePageShow);
-    };
-  }, [examCategory, specialty]);
+  // 计算总体进度
+  const calculateOverallProgress = () => {
+    const totalChapters = chapters.length;
+    const completedChapters = chapters.filter(chapter => isChapterCompleted(chapter)).length;
+    return totalChapters > 0 ? Math.round(completedChapters / totalChapters * 100) : 0;
+  };
   useEffect(() => {
     const category = $w.page.dataset.params?.category;
     const specialty = $w.page.dataset.params?.specialty;
@@ -448,7 +480,10 @@ export default function ChapterList(props) {
       setSpecialty(specialty);
       setCourseTitle(courseTitle);
       getChaptersBySpecialty(category, specialty);
-      loadCompletedStatus();
+
+      // 加载学习进度
+      const progress = loadProgress();
+      setChapterProgress(progress);
     } else {
       toast({
         title: '参数错误',
@@ -459,18 +494,25 @@ export default function ChapterList(props) {
     }
   }, [$w.page.dataset.params]);
 
-  // 监听完成事件
+  // 模拟从练习页面返回时更新进度
   useEffect(() => {
-    const completedSubchapter = $w.page.dataset.params?.onComplete;
-    if (completedSubchapter) {
-      handleStudyComplete(completedSubchapter);
-    }
-  }, [$w.page.dataset.params?.onComplete]);
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        // 页面重新可见时刷新进度
+        const progress = loadProgress();
+        setChapterProgress(progress);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
   if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>;
   }
+  const sortedChapters = sortChapters(chapters);
+  const overallProgress = calculateOverallProgress();
   return <div style={style} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-16">
       {/* 头部 */}
       <div className="bg-white shadow-lg">
@@ -479,13 +521,26 @@ export default function ChapterList(props) {
             <button onClick={handleBack} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
               <ArrowLeft size={20} className="text-gray-600" />
             </button>
-            <div className="ml-4">
+            <div className="ml-4 flex-1">
               <h1 className="text-xl font-bold text-gray-800">
                 {courseTitle}
               </h1>
               <p className="text-sm text-gray-600">
                 {getCategoryName(examCategory)} - 2025年教材章节
               </p>
+              
+              {/* 总体进度条 */}
+              {overallProgress > 0 && <div className="mt-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-600">学习进度</span>
+                    <span className="text-blue-600 font-medium">{overallProgress}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                    <div className="bg-blue-600 h-2 rounded-full transition-all duration-300" style={{
+                  width: `${overallProgress}%`
+                }}></div>
+                  </div>
+                </div>}
             </div>
           </div>
         </div>
@@ -494,59 +549,66 @@ export default function ChapterList(props) {
       {/* 章节卡片列表 */}
       <div className="max-w-4xl mx-auto px-4 py-4">
         <div className="space-y-4">
-          {chapters.map(chapter => <div key={chapter.id} className="bg-white rounded-lg shadow-md p-4">
-              {/* 章节标题 */}
-              <h2 className="text-lg font-bold text-gray-800 mb-3 border-b pb-2">
-                {chapter.title}
-              </h2>
+          {sortedChapters.map((chapter, index) => {
+          const status = getChapterStatus(chapter);
+          const progress = chapterProgress[chapter.id];
+          const isCompleted = status === 'completed';
+          const isInProgress = status === 'in-progress';
+          return <div key={chapter.id} className={`rounded-lg shadow-md p-4 transition-all duration-300 ${isCompleted ? 'bg-green-50 border-green-200' : isInProgress ? 'bg-blue-50 border-blue-200' : 'bg-white'}`}>
+              {/* 章节标题和状态 */}
+              <div className="flex items-center justify-between mb-3 border-b pb-2">
+                <h2 className={`text-lg font-bold ${isCompleted ? 'text-green-800' : 'text-gray-800'}`}>
+                  {chapter.title}
+                </h2>
+                <div className="flex items-center space-x-2">
+                  {isCompleted && <CheckCircle2 size={20} className="text-green-600" />}
+                  {isInProgress && <Clock size={20} className="text-blue-600" />}
+                  {progress && progress.accuracy > 0 && <span className={`text-sm font-medium ${isCompleted ? 'text-green-600' : 'text-blue-600'}`}>
+                      {progress.accuracy}%正确率
+                    </span>}
+                </div>
+              </div>
               
               {/* 小节列表 */}
               <div className="space-y-3">
-                {chapter.subchapters.map(subchapter => {
-              const isCompleted = completedSubchapters[subchapter.id];
-              return <div key={subchapter.id} className="py-2">
-                      {/* 第一行：小节名称 */}
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm font-medium text-blue-600">
-                            {subchapter.title.split(' ')[0]}
-                          </span>
-                          <span className="text-sm text-gray-800 font-medium">
-                            {subchapter.title.split(' ').slice(1).join(' ')}
-                          </span>
-                        </div>
-                        
-                        {/* 学习按钮 - 根据完成状态变色 */}
-                        <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className={`px-3 py-1 rounded text-sm transition-colors flex items-center whitespace-nowrap $ ${isCompleted ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
-                          {isCompleted ? <>
-                              <CheckCircle size={14} className="mr-1" />
-                              已完成
-                            </> : <>
-                              <PlayCircle size={14} className="mr-1" />
-                              学习
-                            </>}
-                        </button>
+                {chapter.subchapters.map(subchapter => <div key={subchapter.id} className="py-2">
+                    {/* 第一行：小节名称 */}
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center space-x-2">
+                        <span className={`text-sm font-medium ${isCompleted ? 'text-green-600' : 'text-blue-600'}`}>
+                          {subchapter.title.split(' ')[0]}
+                        </span>
+                        <span className={`text-sm font-medium ${isCompleted ? 'text-green-800' : 'text-gray-800'}`}>
+                          {subchapter.title.split(' ').slice(1).join(' ')}
+                        </span>
                       </div>
                       
-                      {/* 第二行：知识点数量和题目数量 */}
-                      <div className="flex items-center space-x-4 text-xs text-gray-500 pl-6">
-                        <div className="flex items-center space-x-1">
-                          <BookOpen size={12} className="text-gray-400" />
-                          <span>{subchapter.knowledgePoints}个知识点</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <FileText size={12} className="text-gray-400" />
-                          <span>{subchapter.totalQuestions}题</span>
-                        </div>
+                      {/* 学习按钮 */}
+                      <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className={`px-3 py-1 rounded text-sm transition-colors flex items-center whitespace-nowrap ${isCompleted ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+                        <PlayCircle size={14} className="mr-1" />
+                        {isCompleted ? '复习' : '学习'}
+                      </button>
+                    </div>
+                    
+                    {/* 第二行：知识点数量和题目数量 */}
+                    <div className="flex items-center space-x-4 text-xs text-gray-500 pl-6">
+                      <div className="flex items-center space-x-1">
+                        <BookOpen size={12} className="text-gray-400" />
+                        <span>{subchapter.knowledgePoints}个知识点</span>
                       </div>
-                    </div>;
-            })}
+                      <div className="flex items-center space-x-1">
+                        <FileText size={12} className="text-gray-400" />
+                        <span>{subchapter.totalQuestions}题</span>
+                      </div>
+                    </div>
+                  </div>)}
               </div>
-            </div>)}
+            </div>;
+        })}
         </div>
 
         {/* 提示信息 */}
-        {chapters.length === 0 && <div className="text-center py-12">
+        {sortedChapters.length === 0 && <div className="text-center py-12">
             <div className="text-gray-400 mb-4">
               <BookOpen size={48} className="mx-auto mb-2" />
             </div>
