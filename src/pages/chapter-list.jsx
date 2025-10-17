@@ -372,15 +372,15 @@ export default function ChapterList(props) {
       } else {
         // 使用默认数据
         setCourseInfo({
-          courseId: 'JZ-01',
+          courseId: 'course-architecture-2025',
           courseName: '一级建造师建筑工程',
           courseCode: 'JZ-01',
-          description: '2025年一级建造师《建筑工程管理与实务》考试课程，包含13章完整内容',
+          description: '一级建造师建筑工程专业考试课程，涵盖建筑工程设计技术、施工技术、项目管理等核心内容',
           coverImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=200&fit=crop',
           category: 'first-grade-constructor',
           specialty: 'architecture',
           total_chapters: 13,
-          total_questions: 850,
+          total_questions: 2500,
           study_hours: 120,
           year: '2025',
           status: 'active'
@@ -390,15 +390,15 @@ export default function ChapterList(props) {
       console.error('加载课程信息失败:', error);
       // 使用默认数据
       setCourseInfo({
-        courseId: 'JZ-01',
+        courseId: 'course-architecture-2025',
         courseName: '一级建造师建筑工程',
         courseCode: 'JZ-01',
-        description: '2025年一级建造师《建筑工程管理与实务》考试课程，包含13章完整内容',
+        description: '一级建造师建筑工程专业考试课程，涵盖建筑工程设计技术、施工技术、项目管理等核心内容',
         coverImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=200&fit=crop',
         category: 'first-grade-constructor',
         specialty: 'architecture',
         total_chapters: 13,
-        total_questions: 850,
+        total_questions: 2500,
         study_hours: 120,
         year: '2025',
         status: 'active'
@@ -533,7 +533,7 @@ export default function ChapterList(props) {
     }
   }, [$w.page.dataset.params?.onComplete]);
   if (loading) {
-    return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
+    return <div style={style} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>;
   }
@@ -555,7 +555,7 @@ export default function ChapterList(props) {
                     <span className="text-xs bg-white/20 px-2 py-1 rounded">{courseInfo.year}年教材</span>
                   </div>
                   <h2 className="text-lg font-bold">{courseInfo.courseName}</h2>
-                  <p className="text-white/80 text-xs mt-1">{courseInfo.description}</p>
+                  <p className="text-white/80 text-xs mt-1 line-clamp-2">{courseInfo.description}</p>
                 </div>
                 
                 {/* 返回按钮 */}
