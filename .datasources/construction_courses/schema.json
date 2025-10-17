@@ -1,0 +1,68 @@
+
+{
+  "name": "construction_courses",
+  "title": "一级建造师课程信息",
+  "schemas": [
+    {
+      "name": "courseId",
+      "title": "课程唯一标识",
+      "type": "String"
+    },
+    {
+      "name": "courseName",
+      "title": "课程名称",
+      "type": "String"
+    },
+    {
+      "name": "courseCode",
+      "title": "课程代码",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "课程简介",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "coverImage",
+      "title": "封面图URL",
+      "type": "Url"
+    },
+    {
+      "name": "category",
+      "title": "考试类别",
+      "type": "String"
+    },
+    {
+      "name": "specialty",
+      "title": "专业方向",
+      "type": "String"
+    },
+    {
+      "name": "total_chapters",
+      "title": "总章节数",
+      "type": "Number"
+    },
+    {
+      "name": "total_questions",
+      "title": "总题数",
+      "type": "Number"
+    },
+    {
+      "name": "study_hours",
+      "title": "建议学习时长(小时)",
+      "type": "Number"
+    },
+    {
+      "name": "year",
+      "title": "教材年份",
+      "type": "String"
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    }
+  ]
+}
+  

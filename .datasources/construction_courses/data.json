@@ -1,0 +1,55 @@
+
+[
+  {
+    "_id": "course-architecture-2025",
+    "courseId": "course-architecture-2025",
+    "courseName": "一级建造师建筑工程",
+    "courseCode": "JZ-01",
+    "description": "一级建造师建筑工程专业考试课程，涵盖建筑工程设计技术、施工技术、项目管理等核心内容。本课程严格按照最新考试大纲编制，包含完整的章节练习、历年真题和模拟试题，帮助考生系统掌握建筑工程专业知识，顺利通过考试。",
+    "coverImage": "https://example.com/images/architecture-course-cover.jpg",
+    "category": "first-grade-constructor",
+    "specialty": "architecture",
+    "total_chapters": 10,
+    "total_questions": 2500,
+    "study_hours": 120,
+    "year": "2025",
+    "status": "active",
+    "createdAt": 1729123200000,
+    "updatedAt": 1729123200000
+  },
+  {
+    "_id": "course-municipal-2025",
+    "courseId": "course-municipal-2025",
+    "courseName": "一级建造师市政公用工程",
+    "courseCode": "SZ-02",
+    "description": "一级建造师市政公用工程专业考试课程，包含道路、桥梁、隧道、给排水、燃气热力等市政工程技术与管理知识。课程结合工程实例，深入浅出讲解专业知识点，配套大量练习题和案例分析。",
+    "coverImage": "https://example.com/images/municipal-course-cover.jpg",
+    "category": "first-grade-constructor",
+    "specialty": "municipal",
+    "total_chapters": 12,
+    "total_questions": 2800,
+    "study_hours": 140,
+    "year": "2025",
+    "status": "active",
+    "createdAt": 1729123200000,
+    "updatedAt": 1729123200000
+  },
+  {
+    "_id": "course-mechanical-2025",
+    "courseId": "course-mechanical-2025",
+    "courseName": "一级建造师机电工程",
+    "courseCode": "JD-03",
+    "description": "一级建造师机电工程专业考试课程，涵盖机械设备安装、电气工程、自动化仪表、管道工程、动力设备等机电安装工程技术与管理。课程注重实践应用，提供丰富的工程案例和实操指导。",
+    "coverImage": "https://example.com/images/mechanical-course-cover.jpg",
+    "category": "first-grade-constructor",
+    "specialty": "mechanical",
+    "total_chapters": 11,
+    "total_questions": 2600,
+    "study_hours": 130,
+    "year": "2025",
+    "status": "active",
+    "createdAt": 1729123200000,
+    "updatedAt": 1729123200000
+  }
+]
+  
