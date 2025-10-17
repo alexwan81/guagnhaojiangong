@@ -33,8 +33,8 @@ export default function ChapterList(props) {
           knowledgePoints: 16,
           totalQuestions: 70
         }, {
-          id: '1-2',
-          title: '极速刷题 建筑构造设计的基本要求',
+          id: '极速刷题',
+          title: '1.2 建筑构造设计的基本要求',
           knowledgePoints: 15,
           totalQuestions: 65
         }, {
@@ -43,7 +43,7 @@ export default function ChapterList(props) {
           knowledgePoints: 18,
           totalQuestions: 80
         }, {
-          id: '极速刷题',
+          id: '1-4',
           title: '1.4 建筑结构设计构造基本要求',
           knowledgePoints: 14,
           totalQuestions: 60
@@ -66,7 +66,7 @@ export default function ChapterList(props) {
           title: '2.2 装饰装修工程材料',
           knowledgePoints: 12,
           totalQuestions: 50
-极速刷题 }, {
+        }, {
           id: '2-3',
           title: '2.3 建筑功能材料',
           knowledgePoints: 10,
@@ -74,7 +74,7 @@ export default function ChapterList(props) {
         }]
       }, {
         id: 'architecture-2025-03',
-        title: '第3章 建筑工程施工技术',
+        title: '第3章 建筑工程极速刷题技术',
         subchapters: [{
           id: '3-1',
           title: '3.1 施工测量',
@@ -85,7 +85,7 @@ export default function ChapterList(props) {
           title: '3.2 土石方工程施工',
           knowledgePoints: 12,
           totalQuestions: 50
-        }, {
+极速刷题 }, {
           id: '3-3',
           title: '3.3 地基与基础工程施工',
           knowledgePoints: 14,
@@ -128,7 +128,7 @@ export default function ChapterList(props) {
           id: '4-2',
           title: '4.2 安全生产及施工现场管理相关规定',
           knowledgePoints: 14,
-          totalQuestions: 60
+          totalQuestions: 50
         }]
       }, {
         id: 'architecture-2025-05',
@@ -175,15 +175,15 @@ export default function ChapterList(props) {
         }, {
           id: '6-3',
           title: '6.3 施工组织设计',
-          knowledgePoints: 12,
+          knowledgePoints: 极速刷题,
           totalQuestions: 50
         }, {
           id: '6-4',
-          title: '6.4 施工平面布置',
+          title: '6.4 施工资源管理',
           knowledgePoints: 10,
           totalQuestions: 40
         }, {
-          id: '6-极速刷题',
+          id: '6-5',
           title: '6.5 施工临时用电',
           knowledgePoints: 8,
           totalQuestions: 30
@@ -206,3 +206,180 @@ export default function ChapterList(props) {
       }, {
         id: 'architecture-2025-07',
         title: '第7章 工程招标投标与合同管理',
+        subchapters: [{
+          id: '7-1',
+          title: '7.1 工程招标投标',
+          knowledgePoints: 14,
+          totalQuestions: 60
+        }, {
+          id: '7-2',
+          title: '7.2 工程合同管理',
+          knowledgePoints: 16,
+          totalQuestions: 70
+        }]
+      }, {
+        id: 'architecture-2025-08',
+        title: '第8章 施工进度管理',
+        subchapters: [{
+          id: '8-1',
+          title: '8.1 施工进度控制方法应用',
+          knowledgePoints: 12,
+          totalQuestions: 50
+        }, {
+          id: '8-2',
+          title: '8.2 施工进度计划编制与控制',
+          knowledgePoints: 14,
+          totalQuestions: 60
+        }]
+      }, {
+        id: 'architecture-2025-09',
+        title: '第9章 施工质量管理',
+        subchapters: [{
+          id: '9-1',
+          title: '9.1 项目质量计划管理',
+          knowledgePoints: 10,
+          totalQuestions: 40
+        }, {
+          id: '9-2',
+          title: '9.2 项目施工质量检查与检验',
+          knowledgePoints: 12,
+          totalQuestions: 50
+        }, {
+          id: '9-3',
+          title: '9.3 工程质量通病防治',
+          knowledgePoints: 14,
+          totalQuestions: 60
+        }, {
+          id: '9-4',
+          title: '9.4 工程质量验收管理',
+          knowledgePoints: 16,
+          totalQuestions: 70
+        }]
+      }, {
+        id: 'architecture-2025-10',
+        title: '第10章 施工成本管理',
+        subchapters: [{
+          id: '10-1',
+          title: '10.1 施工成本计划及分解',
+          knowledgePoints: 12,
+          totalQuestions: 50
+        }, {
+          id: '10-2',
+          title: '10.2 施工成本分析与控制',
+          knowledgePoints: 14,
+          totalQuestions: 60
+        }, {
+          id: '10-3',
+          title: '10.3 施工成本管理绩效评价与考核',
+          knowledgePoints: 10,
+          totalQuestions: 40
+        }]
+      }, {
+        id: 'architecture-2025-11',
+        title: '第11章 施工安全管理',
+        subchapters: [{
+          id: '11-1',
+          title: '11.1 施工安全管理计划',
+          knowledgePoints: 12,
+          totalQuestions: 50
+        }, {
+          id: '11-2',
+          title: '11.2 施工安全生产检查',
+          knowledgePoints: 14,
+          totalQuestions: 60
+        }, {
+          id: '11-3',
+          title: '11.3 施工安全生产管理要点',
+          knowledgePoints: 16,
+          totalQuestions: 70
+        }, {
+          id: '11-4',
+          title: '11.4 常见施工生产安全事故及预防',
+          knowledgePoints: 18,
+          totalQuestions: 80
+        }]
+      }, {
+        id: 'architecture-2025-12',
+        title: '第12章 绿色建造及施工现场环境管理',
+        subchapters: [{
+          id: '12-1',
+          title: '12.1 绿色建造及信息化技术应用管理',
+          knowledgePoints: 12,
+          totalQuestions: 50
+        }, {
+          id: '12-2',
+          title: '12.2 绿色施工及环境保护',
+          knowledgePoints: 14,
+          totalQuestions: 60
+        }, {
+          id: '12-3',
+          title: '12.3 施工现场消防',
+          knowledgePoints: 10,
+          totalQuestions: 40
+        }]
+      }, {
+        id: 'architecture-2025-13',
+        title: '第13章 施工资源管理',
+        subchapters: [{
+          id: '13-1',
+          title: '13.1 材料与成品管理',
+          knowledgePoints: 12,
+          totalQuestions: 50
+        }, {
+          id: '13-2',
+          title: '13.2 机械设备管理',
+          knowledgePoints: 14,
+          totalQuestions: 60
+        }, {
+          id: '13-3',
+          title: '13.极速刷题 劳动用工管理',
+          knowledgePoints: 16,
+          totalQuestions: 70
+        }]
+      }]
+    }
+  };
+
+  // 获取章节数据
+  const getChaptersBySpecialty = async (category, specialty) => {
+    try {
+      setLoading(true);
+      const chapters = chapterData2025[category]?.[specialty] || [];
+      setChapters(chapters);
+    } catch (error) {
+      toast({
+        title: '数据加载失败',
+        description: '无法获取章节数据',
+        variant: 'destructive'
+      });
+      setChapters([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const getCategoryName = category => {
+    const categoryNames = {
+      'first-grade-constructor': '一级建造师',
+      'second-grade-constructor': '二级建造师',
+      'cost-engineer': '造价工程师',
+      'supervising-engineer': '注册监理工程师'
+    };
+    return categoryNames[category] || '未知类别';
+  };
+  const handleStudyClick = (chapterId, subchapterId, subchapterTitle, event) => {
+    event.stopPropagation();
+    $w.utils.navigateTo({
+      pageId: 'question-practice',
+      params: {
+        category: examCategory,
+        specialty: specialty,
+        chapter: chapterId,
+        subchapter: subchapterId,
+        subchapterTitle: subchapterTitle
+      }
+    });
+  };
+  const handleBack = () => {
+    $w.utils.navigateBack();
+  };
+  const handleTabChange = tabId =>
