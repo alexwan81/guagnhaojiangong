@@ -1,0 +1,69 @@
+
+{
+  "name": "construction_user_progress",
+  "title": "用户学习进度",
+  "schemas": [
+    {
+      "name": "user_id",
+      "title": "用户ID",
+      "type": "String"
+    },
+    {
+      "name": "category",
+      "title": "考试类别",
+      "type": "String"
+    },
+    {
+      "name": "specialty",
+      "title": "专业方向",
+      "type": "String"
+    },
+    {
+      "name": "chapter_id",
+      "title": "章节ID",
+      "type": "String"
+    },
+    {
+      "name": "subchapter_id",
+      "title": "小节ID",
+      "type": "String"
+    },
+    {
+      "name": "total_questions",
+      "title": "总题数",
+      "type": "Number"
+    },
+    {
+      "name": "answered_questions",
+      "title": "已答题数",
+      "type": "Number"
+    },
+    {
+      "name": "correct_answers",
+      "title": "正确题数",
+      "type": "Number"
+    },
+    {
+      "name": "accuracy",
+      "title": "正确率",
+      "type": "Number"
+    },
+    {
+      "name": "is_completed",
+      "title": "是否完成",
+      "type": "Boolean"
+    },
+    {
+      "name": "last_study_time",
+      "title": "最后学习时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "study_duration",
+      "title": "学习时长(分钟)",
+      "type": "Number"
+    }
+  ]
+}
+  

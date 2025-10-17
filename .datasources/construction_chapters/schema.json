@@ -1,0 +1,58 @@
+
+{
+  "name": "construction_chapters",
+  "title": "一级建造师章节信息",
+  "schemas": [
+    {
+      "name": "category",
+      "title": "考试类别",
+      "type": "String"
+    },
+    {
+      "name": "specialty",
+      "title": "专业方向",
+      "type": "String"
+    },
+    {
+      "name": "chapter_id",
+      "title": "章节ID",
+      "type": "String"
+    },
+    {
+      "name": "chapter_number",
+      "title": "章节编号",
+      "type": "String"
+    },
+    {
+      "name": "chapter_title",
+      "title": "章节标题",
+      "type": "String"
+    },
+    {
+      "name": "total_subchapters",
+      "title": "小节总数",
+      "type": "Number"
+    },
+    {
+      "name": "total_questions",
+      "title": "题目总数",
+      "type": "Number"
+    },
+    {
+      "name": "study_hours",
+      "title": "建议学习时长(小时)",
+      "type": "Number"
+    },
+    {
+      "name": "year",
+      "title": "教材年份",
+      "type": "String"
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    }
+  ]
+}
+  

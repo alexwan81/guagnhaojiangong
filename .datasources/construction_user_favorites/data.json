@@ -1,0 +1,17 @@
+
+[
+  {
+    "_id": "favorite_demo_001",
+    "user_id": "demo_user",
+    "question_id": "q1-1-004",
+    "category": "first-grade-constructor",
+    "specialty": "architecture",
+    "chapter": "architecture-2025-01",
+    "subchapter": "architecture-1-1",
+    "note": "钢筋混凝土结构重点题目，需要重点复习",
+    "created_time": 1729123200000,
+    "createdAt": 1729123200000,
+    "updatedAt": 1729123200000
+  }
+]
+  

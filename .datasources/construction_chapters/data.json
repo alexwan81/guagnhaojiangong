@@ -1,0 +1,19 @@
+
+[
+  {
+    "_id": "architecture-2025-01",
+    "category": "first-grade-constructor",
+    "specialty": "architecture",
+    "chapter_id": "architecture-2025-01",
+    "chapter_number": "第1章",
+    "chapter_title": "建筑工程设计技术",
+    "total_subchapters": 5,
+    "total_questions": 325,
+    "study_hours": 16,
+    "year": "2025",
+    "status": "active",
+    "createdAt": 1729123200000,
+    "updatedAt": 1729123200000
+  }
+]
+  

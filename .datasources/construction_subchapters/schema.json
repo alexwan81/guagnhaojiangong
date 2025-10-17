@@ -1,0 +1,63 @@
+
+{
+  "name": "construction_subchapters",
+  "title": "一级建造师小节信息",
+  "schemas": [
+    {
+      "name": "chapter_id",
+      "title": "所属章节ID",
+      "type": "String"
+    },
+    {
+      "name": "subchapter_id",
+      "title": "小节ID",
+      "type": "String"
+    },
+    {
+      "name": "section_number",
+      "title": "小节编号",
+      "type": "String"
+    },
+    {
+      "name": "title",
+      "title": "小节标题",
+      "type": "String"
+    },
+    {
+      "name": "subtitle",
+      "title": "副标题",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "详细描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "importance",
+      "title": "重要程度",
+      "type": "String"
+    },
+    {
+      "name": "knowledge_points",
+      "title": "知识点数量",
+      "type": "Number"
+    },
+    {
+      "name": "total_questions",
+      "title": "题目总数",
+      "type": "Number"
+    },
+    {
+      "name": "study_hours",
+      "title": "建议学习时长(小时)",
+      "type": "Number"
+    },
+    {
+      "name": "order",
+      "title": "排序",
+      "type": "Number"
+    }
+  ]
+}
+  

@@ -1,0 +1,49 @@
+
+{
+  "name": "construction_user_favorites",
+  "title": "用户收藏题目",
+  "schemas": [
+    {
+      "name": "user_id",
+      "title": "用户ID",
+      "type": "String"
+    },
+    {
+      "name": "question_id",
+      "title": "题目ID",
+      "type": "String"
+    },
+    {
+      "name": "category",
+      "title": "考试类别",
+      "type": "String"
+    },
+    {
+      "name": "specialty",
+      "title": "专业方向",
+      "type": "String"
+    },
+    {
+      "name": "chapter",
+      "title": "所属章节",
+      "type": "String"
+    },
+    {
+      "name": "subchapter",
+      "title": "所属小节",
+      "type": "String"
+    },
+    {
+      "name": "note",
+      "title": "备注",
+      "type": "String"
+    },
+    {
+      "name": "created_time",
+      "title": "收藏时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    }
+  ]
+}
+  

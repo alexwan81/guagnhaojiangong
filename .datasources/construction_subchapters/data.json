@@ -1,0 +1,20 @@
+
+[
+  {
+    "_id": "architecture-1-1",
+    "chapter_id": "architecture-2025-01",
+    "subchapter_id": "architecture-1-1",
+    "section_number": "1.1",
+    "title": "建筑物的构成与设计要求",
+    "subtitle": "建筑物分类与设计要求",
+    "description": "建筑物分类（民用建筑、工业建筑、农业建筑）、建筑物构成体系（结构体系、围护体系、设备体系）、建筑设计要求（功能、技术、经济、美观、环保）",
+    "importance": "high",
+    "knowledge_points": 16,
+    "total_questions": 70,
+    "study_hours": 3.5,
+    "order": 1,
+    "createdAt": 1729123200000,
+    "updatedAt": 1729123200000
+  }
+]
+  

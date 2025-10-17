@@ -1,0 +1,21 @@
+
+[
+  {
+    "_id": "progress_demo_001",
+    "user_id": "demo_user",
+    "category": "first-grade-constructor",
+    "specialty": "architecture",
+    "chapter_id": "architecture-2025-01",
+    "subchapter_id": "architecture-1-1",
+    "total_questions": 10,
+    "answered_questions": 8,
+    "correct_answers": 7,
+    "accuracy": 87.5,
+    "is_completed": false,
+    "last_study_time": 1729123200000,
+    "study_duration": 45,
+    "createdAt": 1729123200000,
+    "updatedAt": 1729123200000
+  }
+]
+  
