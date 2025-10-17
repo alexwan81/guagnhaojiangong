@@ -20,7 +20,7 @@ export default function ChapterList(props) {
   const [examCategory, setExamCategory] = useState('');
   const [specialty, setSpecialty] = useState('');
   const [courseTitle, setCourseTitle] = useState('');
-  const [completedSubchapters, setCompletedSubchapters] = useState(new Set());
+  const [completedSubchapters, setCompletedSubchapters] = useState({});
 
   // 2025年一级建造师《建筑工程管理与实务》13章完整结构
   const chapterData2025 = {
@@ -368,24 +368,42 @@ export default function ChapterList(props) {
     return categoryNames[category] || '未知类别';
   };
 
-  // 检查小节是否已完成
-  const isSubchapterCompleted = subchapterId => {
-    return completedSubchapters.has(subchapterId);
+  // 加载完成状态
+  const loadCompletedStatus = () => {
+    try {
+      const key = `completed_${examCategory}_${specialty}`;
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        setCompletedSubchapters(JSON.parse(saved));
+      }
+    } catch (error) {
+      console.error('加载完成状态失败:', error);
+    }
   };
 
-  // 标记小节为已完成
-  const markSubchapterCompleted = subchapterId => {
-    setCompletedSubchapters(prev => new Set(prev).add(subchapterId));
-    // 保存到本地存储
-    const key = `completed_${examCategory}_${specialty}`;
-    const existing = JSON.parse(localStorage.getItem(key) || '[]');
-    if (!existing.includes(subchapterId)) {
-      existing.push(subchapterId);
-      localStorage.setItem(key, JSON.stringify(existing));
+  // 保存完成状态
+  const saveCompletedStatus = subchapterId => {
+    try {
+      const newCompleted = {
+        ...completedSubchapters,
+        [subchapterId]: true
+      };
+      setCompletedSubchapters(newCompleted);
+      const key = `completed_${examCategory}_${specialty}`;
+      localStorage.setItem(key, JSON.stringify(newCompleted));
+    } catch (error) {
+      console.error('保存完成状态失败:', error);
     }
+  };
+
+  // 处理学习完成
+  const handleStudyComplete = subchapterId => {
+    saveCompletedStatus(subchapterId);
   };
   const handleStudyClick = (chapterId, subchapterId, subchapterTitle, event) => {
     event.stopPropagation();
+
+    // 导航到练习页面，并传递完成回调
     $w.utils.navigateTo({
       pageId: 'question-practice',
       params: {
@@ -394,7 +412,7 @@ export default function ChapterList(props) {
         chapter: chapterId,
         subchapter: subchapterId,
         subchapterTitle: subchapterTitle,
-        onComplete: 'markSubchapterCompleted'
+        onComplete: subchapterId
       }
     });
   };
@@ -414,13 +432,8 @@ export default function ChapterList(props) {
   // 监听从练习页面返回的事件
   useEffect(() => {
     const handlePageShow = () => {
-      // 从本地存储加载完成状态
-      const key = `completed_${examCategory}_${specialty}`;
-      const completed = JSON.parse(localStorage.getItem(key) || '[]');
-      setCompletedSubchapters(new Set(completed));
+      loadCompletedStatus();
     };
-
-    // 监听页面显示事件
     window.addEventListener('pageshow', handlePageShow);
     return () => {
       window.removeEventListener('pageshow', handlePageShow);
@@ -435,11 +448,7 @@ export default function ChapterList(props) {
       setSpecialty(specialty);
       setCourseTitle(courseTitle);
       getChaptersBySpecialty(category, specialty);
-
-      // 加载完成状态
-      const key = `completed_${category}_${specialty}`;
-      const completed = JSON.parse(localStorage.getItem(key) || '[]');
-      setCompletedSubchapters(new Set(completed));
+      loadCompletedStatus();
     } else {
       toast({
         title: '参数错误',
@@ -450,18 +459,13 @@ export default function ChapterList(props) {
     }
   }, [$w.page.dataset.params]);
 
-  // 监听来自练习页面的完成消息
+  // 监听完成事件
   useEffect(() => {
-    const handleMessage = event => {
-      if (event.data?.type === 'subchapterCompleted' && event.data?.subchapterId) {
-        markSubchapterCompleted(event.data.subchapterId);
-      }
-    };
-    window.addEventListener('message', handleMessage);
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
-  }, [examCategory, specialty]);
+    const completedSubchapter = $w.page.dataset.params?.onComplete;
+    if (completedSubchapter) {
+      handleStudyComplete(completedSubchapter);
+    }
+  }, [$w.page.dataset.params?.onComplete]);
   if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -499,7 +503,7 @@ export default function ChapterList(props) {
               {/* 小节列表 */}
               <div className="space-y-3">
                 {chapter.subchapters.map(subchapter => {
-              const isCompleted = isSubchapterCompleted(subchapter.id);
+              const isCompleted = completedSubchapters[subchapter.id];
               return <div key={subchapter.id} className="py-2">
                       {/* 第一行：小节名称 */}
                       <div className="flex items-center justify-between mb-1">
