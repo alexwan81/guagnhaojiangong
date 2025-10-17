@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowLeft, PlayCircle, BookOpen, FileText } from 'lucide-react';
+import { ArrowLeft, PlayCircle, BookOpen, FileText, CheckCircle } from 'lucide-react';
 
 import { TabBar } from '@/components/TabBar';
 export default function ChapterList(props) {
@@ -20,6 +20,7 @@ export default function ChapterList(props) {
   const [examCategory, setExamCategory] = useState('');
   const [specialty, setSpecialty] = useState('');
   const [courseTitle, setCourseTitle] = useState('');
+  const [completedSubchapters, setCompletedSubchapters] = useState(new Set());
 
   // 2025年一级建造师《建筑工程管理与实务》13章完整结构
   const chapterData2025 = {
@@ -366,6 +367,23 @@ export default function ChapterList(props) {
     };
     return categoryNames[category] || '未知类别';
   };
+
+  // 检查小节是否已完成
+  const isSubchapterCompleted = subchapterId => {
+    return completedSubchapters.has(subchapterId);
+  };
+
+  // 标记小节为已完成
+  const markSubchapterCompleted = subchapterId => {
+    setCompletedSubchapters(prev => new Set(prev).add(subchapterId));
+    // 保存到本地存储
+    const key = `completed_${examCategory}_${specialty}`;
+    const existing = JSON.parse(localStorage.getItem(key) || '[]');
+    if (!existing.includes(subchapterId)) {
+      existing.push(subchapterId);
+      localStorage.setItem(key, JSON.stringify(existing));
+    }
+  };
   const handleStudyClick = (chapterId, subchapterId, subchapterTitle, event) => {
     event.stopPropagation();
     $w.utils.navigateTo({
@@ -375,7 +393,8 @@ export default function ChapterList(props) {
         specialty: specialty,
         chapter: chapterId,
         subchapter: subchapterId,
-        subchapterTitle: subchapterTitle
+        subchapterTitle: subchapterTitle,
+        onComplete: 'markSubchapterCompleted'
       }
     });
   };
@@ -391,6 +410,22 @@ export default function ChapterList(props) {
       });
     }
   };
+
+  // 监听从练习页面返回的事件
+  useEffect(() => {
+    const handlePageShow = () => {
+      // 从本地存储加载完成状态
+      const key = `completed_${examCategory}_${specialty}`;
+      const completed = JSON.parse(localStorage.getItem(key) || '[]');
+      setCompletedSubchapters(new Set(completed));
+    };
+
+    // 监听页面显示事件
+    window.addEventListener('pageshow', handlePageShow);
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+    };
+  }, [examCategory, specialty]);
   useEffect(() => {
     const category = $w.page.dataset.params?.category;
     const specialty = $w.page.dataset.params?.specialty;
@@ -400,6 +435,11 @@ export default function ChapterList(props) {
       setSpecialty(specialty);
       setCourseTitle(courseTitle);
       getChaptersBySpecialty(category, specialty);
+
+      // 加载完成状态
+      const key = `completed_${category}_${specialty}`;
+      const completed = JSON.parse(localStorage.getItem(key) || '[]');
+      setCompletedSubchapters(new Set(completed));
     } else {
       toast({
         title: '参数错误',
@@ -409,6 +449,19 @@ export default function ChapterList(props) {
       $w.utils.navigateBack();
     }
   }, [$w.page.dataset.params]);
+
+  // 监听来自练习页面的完成消息
+  useEffect(() => {
+    const handleMessage = event => {
+      if (event.data?.type === 'subchapterCompleted' && event.data?.subchapterId) {
+        markSubchapterCompleted(event.data.subchapterId);
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [examCategory, specialty]);
   if (loading) {
     return <div style={style} className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -445,37 +498,45 @@ export default function ChapterList(props) {
               
               {/* 小节列表 */}
               <div className="space-y-3">
-                {chapter.subchapters.map(subchapter => <div key={subchapter.id} className="py-2">
-                    {/* 第一行：小节名称 */}
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium text-blue-600">
-                          {subchapter.title.split(' ')[0]}
-                        </span>
-                        <span className="text-sm text-gray-800 font-medium">
-                          {subchapter.title.split(' ').slice(1).join(' ')}
-                        </span>
+                {chapter.subchapters.map(subchapter => {
+              const isCompleted = isSubchapterCompleted(subchapter.id);
+              return <div key={subchapter.id} className="py-2">
+                      {/* 第一行：小节名称 */}
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm font-medium text-blue-600">
+                            {subchapter.title.split(' ')[0]}
+                          </span>
+                          <span className="text-sm text-gray-800 font-medium">
+                            {subchapter.title.split(' ').slice(1).join(' ')}
+                          </span>
+                        </div>
+                        
+                        {/* 学习按钮 - 根据完成状态变色 */}
+                        <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className={`px-3 py-1 rounded text-sm transition-colors flex items-center whitespace-nowrap $ ${isCompleted ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+                          {isCompleted ? <>
+                              <CheckCircle size={14} className="mr-1" />
+                              已完成
+                            </> : <>
+                              <PlayCircle size={14} className="mr-1" />
+                              学习
+                            </>}
+                        </button>
                       </div>
                       
-                      {/* 学习按钮 */}
-                      <button onClick={e => handleStudyClick(chapter.id, subchapter.id, subchapter.title, e)} className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
-                        <PlayCircle size={14} className="mr-1" />
-                        学习
-                      </button>
-                    </div>
-                    
-                    {/* 第二行：知识点数量和题目数量 */}
-                    <div className="flex items-center space-x-4 text-xs text-gray-500 pl-6">
-                      <div className="flex items-center space-x-1">
-                        <BookOpen size={12} className="text-gray-400" />
-                        <span>{subchapter.knowledgePoints}个知识点</span>
+                      {/* 第二行：知识点数量和题目数量 */}
+                      <div className="flex items-center space-x-4 text-xs text-gray-500 pl-6">
+                        <div className="flex items-center space-x-1">
+                          <BookOpen size={12} className="text-gray-400" />
+                          <span>{subchapter.knowledgePoints}个知识点</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <FileText size={12} className="text-gray-400" />
+                          <span>{subchapter.totalQuestions}题</span>
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-1">
-                        <FileText size={12} className="text-gray-400" />
-                        <span>{subchapter.totalQuestions}题</span>
-                      </div>
-                    </div>
-                  </div>)}
+                    </div>;
+            })}
               </div>
             </div>)}
         </div>
